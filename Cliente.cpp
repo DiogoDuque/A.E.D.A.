@@ -1,5 +1,7 @@
 #include "Cliente.h"
 
+using namespace std;
+
 int Cliente::numRegisto = 0;
 
 Cliente::Cliente(string myNome)

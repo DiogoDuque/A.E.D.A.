@@ -4,7 +4,9 @@
 #include "Veiculo.h"
 #include "Funcionario.h"
 #include "Cliente.h"
+#include <iostream>
 
+using namespace std;
 /*
 - podemos tentar adaptar a oficina para ela ter um numero maximo de veiculos de cada tipo
 - nao sei de que fazer o operator

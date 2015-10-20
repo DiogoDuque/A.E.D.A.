@@ -22,16 +22,16 @@ void Veiculo::getInfo() const
 	cout << "Ano: " << ano << "\nMes: " << mes << "\nCombustivel: " << combustivel << endl;
 }
 
-int Veiculo::ofereceDesconto()
+float Veiculo::ofereceDesconto()
 {
 	float desconto = 0;
 
 	if (servicos.size() == 9)		//só ao 10º serviço é que se oferecem descontos. O desconto é 25% da média do preço de todos os serviços que o veiculo ja efectuou
 	{
-		for (int i = 0; i < servicos.size(); i++)
+		for (unsigned int i = 0; i < servicos.size(); i++)
 			desconto += servicos[i].preco;
 
-		desconto = (desconto / 9) * 0.25;
+		desconto = ((double) desconto / 9) * 0.25;
 	}
 
 	return desconto;

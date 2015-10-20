@@ -63,7 +63,7 @@ bool Oficina::removeCliente(Cliente cl)
 {
 	for (int i = 0; i < clientes.size(); i++)
 	{
-		if (clientes[i].getNumRegisto() == c1.getNumRegisto())
+		if (clientes[i].getNumRegisto() == cl.getNumRegisto())
 		{
 			clientes.erase(clientes.begin() + i);
 			return true;

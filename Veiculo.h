@@ -1,8 +1,10 @@
 #ifndef Veiculo_h
 #define Veiculo_h
 
+#include "Funcionario.h"
 #include <string>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -18,7 +20,7 @@ public:
 	Veiculo(int year, int month, string comb, Funcionario *f1); //especificar o tipo de servico. caso nao conheca o servico, pede preco
 	virtual void getInfo() const;
 	bool estaPronto();
-	int ofereceDesconto();
+	float ofereceDesconto();
 protected:
 	int ano;
 	int mes;
