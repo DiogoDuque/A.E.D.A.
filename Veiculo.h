@@ -18,7 +18,7 @@ class Veiculo
 {
 public:
 	Veiculo(int year, int month, string comb, Funcionario *f1); //especificar o tipo de servico. caso nao conheca o servico, pede preco
-	virtual void getInfo() const;
+	void getInfo() const;
 	bool estaPronto();
 	float ofereceDesconto();
 protected:

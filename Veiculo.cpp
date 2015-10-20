@@ -31,7 +31,7 @@ float Veiculo::ofereceDesconto()
 		for (unsigned int i = 0; i < servicos.size(); i++)
 			desconto += servicos[i].preco;
 
-		desconto = ((double) desconto / 9) * 0.25;
+		desconto = (desconto / (float) 9.0) * (float) 0.25;
 	}
 
 	return desconto;

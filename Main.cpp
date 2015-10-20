@@ -55,16 +55,17 @@ IDEIAS
 void intro()
 {
 	vector <string> oficina, carro;
-	//0-5
+	//0-6
 	oficina.push_back("                                                            _______________________________\n");
 	oficina.push_back("                                                           /                               \\\n");
 	oficina.push_back("                                                          /                                 \\\n");
 	oficina.push_back("                                                         /                                   \\\n");
 	oficina.push_back("                                                        /_____________________________________\\\n");
 	oficina.push_back("                                                        \\        |                 |          |\n");
-	//6-9
 	oficina.push_back("                                                         \\__     |  O F I C I N A  |          |\n");
-	oficina.push_back("                                                            |    |_________________|     __   |\n");
+	//7-10
+	oficina.push_back("                                                            |    |_________________|          |\n");
+	oficina.push_back("                                                            |                            __   |\n");
 	oficina.push_back("                                                            |                           | .|  |\n");
 	oficina.push_back("____________________________________________________________|___________________________|__|__|\n");
 
@@ -74,21 +75,34 @@ void intro()
 	carro.push_back(" |o  _   |-  | _ o)");
 	carro.push_back("_`--(_)-------(_)'");
 
+	gotoxy(10, 20);
+	cout << "Projeto realizado por: *****";
+
 	//disp oficina
-	gotoxy(0, 4);
-	for (int h = 0; h < oficina.size(); h++)
+	gotoxy(0, 5);
+	for (unsigned int h = 0; h < oficina.size(); h++)
 		cout << oficina[h];
 
-	//a parte da frente do carro comeca a aparecer
-	for (int i = 0; i < 10; i++) //18 - indice do mais à frente do carro
+	//viagem do carro
+	for (int i = 0; i < 60; i++)
 	{
+		time_t t;
+
 		for (int j = 0; j < 4; j++)
 		{
-			gotoxy(0 + i, 10 + j);
+			if (i >= 42) //quando o carro comecar a entrar na garagem, comeca a desaparecer a parte da frente
+				if (carro[j].size() > 60 - i) //se esta string for comprida demais, é cortada para nao se sobrepor à oficina
+					carro[j].pop_back();
+
+			gotoxy(0 + i, 12 + j);
 			cout << carro[j];
+			t = clock();
 		}
-		//pausa por x tempo
+
+		while (clock() - t < 90) //pausa entre frames
+		{}
 	}
+	gotoxy(0, 0);
 }
 
 int main()

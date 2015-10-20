@@ -3,6 +3,8 @@
 
 #include "Veiculo.h"
 
+using namespace std;
+
 class Cliente
 {
 public:

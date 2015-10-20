@@ -14,9 +14,9 @@ void Oficina::adicionaVeiculo(Veiculo *v)
 	veiculos.push_back(v);
 }
 
-void adicionaCliente(Cliente cl)
+void Oficina::adicionaCliente(Cliente cl)
 {
-	clientes.push_back(c1);
+	clientes.push_back(cl);
 }
 
 /*
@@ -24,7 +24,7 @@ Retorna true caso o veículo exista e seja possível de ser removido, caso contrár
 */
 bool Oficina::removeVeiculo(Veiculo *v)
 {
-	for (int i = 0; i < veiculos.size(); i++)
+	for (unsigned int i = 0; i < veiculos.size(); i++)
 	{
 		if (veiculos[i] == v)
 		{
@@ -47,7 +47,7 @@ int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
 	int indice = -1;
 	int quantidade = 0;
 
-	for (int i = 0; i < funcionarios.size(); i++)
+	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
 		if (funcionarios[i].getVeiculos().size() > quantidade)
 		{
@@ -61,7 +61,7 @@ int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
 
 bool Oficina::removeCliente(Cliente cl)
 {
-	for (int i = 0; i < clientes.size(); i++)
+	for (unsigned int i = 0; i < clientes.size(); i++)
 	{
 		if (clientes[i].getNumRegisto() == cl.getNumRegisto())
 		{
@@ -76,7 +76,7 @@ bool Oficina::removeCliente(Cliente cl)
 //Função que remove funcionarios, e se tiverem veiculos associados, passa esse veiculos para o funcionario com menos veiculos
 bool Oficina::removeFuncionario(Funcionario f)
 {
-	for (int i = 0; i < funcionarios.size(); i++)
+	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
 		if (funcionarios[i].getID() == f.getID())
 		{
@@ -99,15 +99,16 @@ void Oficina::showInfo() const
 {
 	cout << "Funcionarios existentes na empresa:" << endl << endl;
 
-	for (int i = 0; i < funcionarios.size(); i++)
+	for (unsigned int i = 0; i < funcionarios.size(); i++) //percorre a lista de funcionarios
 	{
 		cout << "- " << funcionarios[i].getNome() << endl;
 		cout << "Veiculos a seu cargo: " << endl;
 
 		for (int j = 0; j < funcionarios[i].getVeiculos().size(); j++)
 		{
-			cout << "Veiculo Nº1" << endl << endl;
+			cout << "Veiculo " << j + 1 << ": ";
 			funcionarios[i].getVeiculos()[j]->getInfo();
+			cout << endl;
 		}
 	}
 }
