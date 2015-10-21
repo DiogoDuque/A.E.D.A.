@@ -45,7 +45,7 @@ void Oficina::adicionaFuncionario(Funcionario f)
 int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
 {
 	int indice = -1;
-	int quantidade = 0;
+	unsigned int quantidade = 0;
 
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
@@ -82,8 +82,8 @@ bool Oficina::removeFuncionario(Funcionario f)
 		{
 			if (funcionarios[i].getVeiculos().size() != 0)		//se o funcionario tiver veiculos a seu cargo, passa-los para outros funcionarios
 			{
-				for (int j = 0; j < funcionarios[i].getVeiculos().size(); j++)
-					funcionarios[funcionarioComMenosVeiculos(i)].acrescentaVeiculos(funcionarios[i].getVeiculos[j]);
+				for (unsigned int j = 0; j < funcionarios[i].getVeiculos().size(); j++)
+					funcionarios[funcionarioComMenosVeiculos(i)].acrescentaVeiculos(funcionarios[i].getVeiculos()[j]);
 			}
 
 			funcionarios.erase(funcionarios.begin() + i);
@@ -104,7 +104,7 @@ void Oficina::showInfo() const
 		cout << "- " << funcionarios[i].getNome() << endl;
 		cout << "Veiculos a seu cargo: " << endl;
 
-		for (int j = 0; j < funcionarios[i].getVeiculos().size(); j++)
+		for (unsigned int j = 0; j < funcionarios[i].getVeiculos().size(); j++)
 		{
 			cout << "Veiculo " << j + 1 << ": ";
 			funcionarios[i].getVeiculos()[j]->getInfo();

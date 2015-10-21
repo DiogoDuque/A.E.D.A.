@@ -2,6 +2,7 @@
 #include <string>
 
 using namespace std;
+unsigned int Funcionario::maxVeiculos = 10;
 
 Funcionario::Funcionario(string name)
 {
@@ -10,7 +11,10 @@ Funcionario::Funcionario(string name)
 
 bool Funcionario::acrescentaVeiculos(Veiculo *v)
 {
+	if (veiculos.size() >= maxVeiculos)
+		return false;
 	veiculos.push_back(v);
+	return true;
 }
 
 vector <Veiculo *> Funcionario::getVeiculos() const

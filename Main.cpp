@@ -88,7 +88,7 @@ void intro()
 	{
 		time_t t;
 
-		for (int j = 0; j < 4; j++)
+		for (unsigned int j = 0; j < 4; j++)
 		{
 			if (i >= 42) //quando o carro comecar a entrar na garagem, comeca a desaparecer a parte da frente
 				if (carro[j].size() > 60 - i) //se esta string for comprida demais, é cortada para nao se sobrepor à oficina

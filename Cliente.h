@@ -18,6 +18,6 @@ private:
 	vector<Veiculo *> veiculos;
 
 
-}
+};
 
 #endif
