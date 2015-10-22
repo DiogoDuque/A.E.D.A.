@@ -47,7 +47,7 @@ void setcolor(unsigned int color, unsigned int background_color)
 int makeMenu(string titulo, vector <string> opcoes)
 {
 	//mostrar opcoes
-	cout << titulo << endl << endl;
+	cout << "   " << titulo << endl << endl;
 	for (unsigned int i = 0; i < opcoes.size(); i++)
 	{
 		cout << endl << "   " << opcoes[i] << endl;

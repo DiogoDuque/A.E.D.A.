@@ -1,9 +1,11 @@
 #include "Others.h"
+#include "Oficina.h"
 #include <iostream>
 #include <vector>
 #include <string>
 #include <conio.h>
 #include <ctime>
+#include <fstream>
 
 using namespace std;
 
@@ -91,7 +93,7 @@ void intro()
 		for (unsigned int j = 0; j < 4; j++)
 		{
 			if (i >= 42) //quando o carro comecar a entrar na garagem, comeca a desaparecer a parte da frente
-				if (carro[j].size() > 60 - i) //se esta string for comprida demais, é cortada para nao se sobrepor à oficina
+				if (carro[j].size() > (unsigned)60 - i) //se esta string for comprida demais, é cortada para nao se sobrepor à oficina
 					carro[j].pop_back();
 
 			gotoxy(0 + i, 12 + j);
@@ -99,7 +101,7 @@ void intro()
 			t = clock();
 		}
 
-		while (clock() - t < 90) //pausa entre frames
+		while (clock() - t < 80) //pausa entre frames
 		{}
 	}
 	gotoxy(0, 0);
@@ -108,5 +110,13 @@ void intro()
 int main()
 {
 	intro();
+	clrscr();
+	string nomeOficina;
+	cout << "Nome da Oficina: ";
+	getline(cin, nomeOficina);
+	Oficina oficina1(nomeOficina);
+
+
+
 	return 0;
 }
