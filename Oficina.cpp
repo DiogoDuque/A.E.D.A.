@@ -74,11 +74,11 @@ bool Oficina::removeCliente(Cliente cl)
 }
 
 //Função que remove funcionarios, e se tiverem veiculos associados, passa esse veiculos para o funcionario com menos veiculos
-bool Oficina::removeFuncionario(Funcionario f)
+bool Oficina::removeFuncionario(int id)
 {
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
-		if (funcionarios[i].getID() == f.getID())
+		if (funcionarios[i].getID() == id)
 		{
 			if (funcionarios[i].getVeiculos().size() != 0)		//se o funcionario tiver veiculos a seu cargo, passa-los para outros funcionarios
 			{

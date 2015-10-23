@@ -18,10 +18,10 @@ public:
 	Oficina(string nomeOficina);
 	void adicionaVeiculo(Veiculo *v);
 	void adicionaCliente(Cliente cl);
-	void adicionaFuncionario(Funcionario f);
+	void adicionaFuncionario(Funcionario f1);
 	bool removeVeiculo(Veiculo *v);
 	bool removeCliente(Cliente cl);
-	bool removeFuncionario(Funcionario f);
+	bool removeFuncionario(int id);
 	int funcionarioComMenosVeiculos(int indiceNaoUsar) const;
 	void guardaEmFicheiro(); //por implementar
 	

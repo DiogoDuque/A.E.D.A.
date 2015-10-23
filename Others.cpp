@@ -103,7 +103,7 @@ int makeMenu(string titulo, vector <string> opcoes)
 
 void pause()
 {
-	cout << "Prima qualquer tecla para continuar...";
+	cout << "\nPrima qualquer tecla para continuar...";
 	cin.clear();
 	cin.sync();
 	cin.get();

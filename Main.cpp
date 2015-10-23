@@ -112,6 +112,7 @@ void menuManager(Oficina oficina1)
 {
 	vector <int> options = { 0 }; //sera usado para se poder retroceder nos menus
 	int temp;
+	string temp2;
 	while (options.size() > 0)
 	{
 		switch (options.back())
@@ -138,15 +139,15 @@ void menuManager(Oficina oficina1)
 					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo" });
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(7 + temp);
+					//else options.push_back(7 + temp);
 					break;
 		}
-		case 3: //GESTAO DE CLIENTES 9-10
+		case 3: //GESTAO DE CLIENTES ?-?
 		{
-					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" });
+					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "MENU EM CONSTRUCAO", "AINDA EM CONSTRUCAO", "USAR O ESC PARA SAIR SENAO DA BREAK" });
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(9 + temp);
+					//else options.push_back(9 + temp);
 					break;
 		}
 		case 4: //MOSTRAR INFO
@@ -159,8 +160,40 @@ void menuManager(Oficina oficina1)
 		}
 		case 5: //FUNC - ADD
 		{
-					Funcionario f1("Diogo Duque"); //TESTE
-					oficina1.adicionaFuncionario(f1);
+					clrscr();
+					cout << "Nome do funcionario: ";
+					getline(cin, temp2);
+					if (temp2.size() > 0)
+					{
+						Funcionario f1(temp2);
+						oficina1.adicionaFuncionario(f1);
+						cout << "\n\nFuncionario adicionado!\n";
+					}
+					else cout << "\n\nERRO: Nome impossivel\n";
+					pause();
+					options.pop_back();
+					break;
+		}
+		case 6: //FUNC - DEL
+		{
+					clrscr();
+					cout << "ID do funcionario: ";
+					getline(cin, temp2);
+					if (oficina1.removeFuncionario(stoi(temp2)))
+						cout << "\n\nFuncionario removido!\n";
+					else cout << "\n Funcionario nao encontrado!\n";
+					pause();
+					options.pop_back();
+					break;
+		}
+		case 7: //VEIC - ADD
+		{
+					//ZE CARLOS: como vamos mandar um apontador para o construtor do Veiculo? vamos ter de fazer mais funcoes, nao?
+					options.pop_back();
+					break;
+		}
+		case 8: //VEIC - DEL
+		{
 					options.pop_back();
 					break;
 		}
@@ -174,6 +207,9 @@ int main()
 {
 	intro();
 	clrscr();
+	
+	//aqui era fixe ter algo para limpar o buffer caso se tentasse escrever algo durante a intro
+
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
 	getline(cin, nomeOficina);
