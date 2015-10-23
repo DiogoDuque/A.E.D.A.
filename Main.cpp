@@ -184,3 +184,8 @@ int main()
 	clrscr();
 	return 0;
 }
+
+/*
+void pause() --> avanca apos ENTER
+void clrscr() --> meter so uma linha para apagar consola
+*/
