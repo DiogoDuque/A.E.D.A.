@@ -15,4 +15,6 @@ void setcolor(unsigned int color, unsigned int background_color);
 
 int makeMenu (string titulo, vector <string> opcoes);
 
+void pause();
+
 #endif

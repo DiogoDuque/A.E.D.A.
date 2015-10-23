@@ -23,19 +23,19 @@ return -1;
 
 int main()
 {
-	Oficina oficina("Duque do Zé");
-	//Registar novo cliente
-	string nome;
-	unsigned int n_cliente;
+Oficina oficina("Duque do Zé");
+//Registar novo cliente
+string nome;
+unsigned int n_cliente;
 
-	cout << "Introduza o seu nome: ";
-	getline(cin, nome);
-	cout << "Introduza o seu numero de cliente: ";
-	cin >> n_cliente;
+cout << "Introduza o seu nome: ";
+getline(cin, nome);
+cout << "Introduza o seu numero de cliente: ";
+cin >> n_cliente;
 
-	clienteJaExiste(nome, n_cliente, oficina);
+clienteJaExiste(nome, n_cliente, oficina);
 
-	oficina.clientes.push_back(cl);
+oficina.clientes.push_back(cl);
 }
 
 IDEIAS
@@ -93,8 +93,8 @@ void intro()
 		for (unsigned int j = 0; j < 4; j++)
 		{
 			if (i >= 42) //quando o carro comecar a entrar na garagem, comeca a desaparecer a parte da frente
-				if (carro[j].size() > (unsigned)60 - i) //se esta string for comprida demais, é cortada para nao se sobrepor à oficina
-					carro[j].pop_back();
+			if (carro[j].size() >(unsigned)60 - i) //se esta string for comprida demais, é cortada para nao se sobrepor à oficina
+				carro[j].pop_back();
 
 			gotoxy(0 + i, 12 + j);
 			cout << carro[j];
@@ -102,21 +102,85 @@ void intro()
 		}
 
 		while (clock() - t < 80) //pausa entre frames
-		{}
+		{
+		}
 	}
 	gotoxy(0, 0);
 }
 
+void menuManager(Oficina oficina1)
+{
+	vector <int> options = { 0 }; //sera usado para se poder retroceder nos menus
+	int temp;
+	while (options.size() > 0)
+	{
+		switch (options.back())
+		{
+		case 0: //MENU PRINCIPAL 1-4
+		{
+					temp = makeMenu("OFICINA", { "Gestao de funcionarios", "Gestao de veiculos",
+						"Gestao de clientes", "Mostrar informacao acerca da oficina" });
+					if (temp == -1)
+						options.pop_back();
+					else options.push_back(1 + temp);
+					break;
+		}
+		case 1: //GESTAO DE FUNCIONARIOS 5-6
+		{
+					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" });
+					if (temp == -1)
+						options.pop_back();
+					else options.push_back(5 + temp);
+					break;
+		}
+		case 2: //GESTAO DE VEICULOS 7-8
+		{
+					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo" });
+					if (temp == -1)
+						options.pop_back();
+					else options.push_back(7 + temp);
+					break;
+		}
+		case 3: //GESTAO DE CLIENTES 9-10
+		{
+					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" });
+					if (temp == -1)
+						options.pop_back();
+					else options.push_back(9 + temp);
+					break;
+		}
+		case 4: //MOSTRAR INFO
+		{
+					clrscr();
+					oficina1.showInfo();
+					pause();
+					options.pop_back();
+					break;
+		}
+		case 5: //FUNC - ADD
+		{
+					Funcionario f1("Diogo Duque"); //TESTE
+					oficina1.adicionaFuncionario(f1);
+					options.pop_back();
+					break;
+		}
+		default:
+			break;
+		}
+	}
+}
+
 int main()
 {
-	intro();
+	//intro();
 	clrscr();
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
 	getline(cin, nomeOficina);
 	Oficina oficina1(nomeOficina);
 
-
-
+	menuManager(oficina1);
+	
+	clrscr();
 	return 0;
 }

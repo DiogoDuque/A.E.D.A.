@@ -3,6 +3,10 @@
 #include <string>
 #include <conio.h>
 #include <Windows.h>
+#define UP 72
+#define DOWN 80
+#define ENTER '\r'
+#define ESC 27
 
 using namespace std;
 
@@ -47,6 +51,7 @@ void setcolor(unsigned int color, unsigned int background_color)
 int makeMenu(string titulo, vector <string> opcoes)
 {
 	//mostrar opcoes
+	clrscr();
 	cout << "   " << titulo << endl << endl;
 	for (unsigned int i = 0; i < opcoes.size(); i++)
 	{
@@ -60,12 +65,17 @@ int makeMenu(string titulo, vector <string> opcoes)
 		cout << "->";
 		switch (input = _getch())
 		{
-		case '\r': //ENTER
+		case ESC:
+		{
+					clrscr();
+					return -1;
+		}
+		case ENTER: //ENTER
 		{
 					   clrscr();
 					   return option;
 		}
-		case 72: //up arrow
+		case UP: //up arrow
 		{
 					 if (option > 0)
 					 {
@@ -75,7 +85,7 @@ int makeMenu(string titulo, vector <string> opcoes)
 					 }
 					 break;
 		}
-		case 80: //down arrow
+		case DOWN: //down arrow
 		{
 					 if (option < opcoes.size() - 1)
 					 {
@@ -89,4 +99,14 @@ int makeMenu(string titulo, vector <string> opcoes)
 			break;
 		}
 	}
+}
+
+void pause()
+{
+	cout << "Prima ENTER para continuar...";
+	cin.clear();
+	cin.sync();
+	cin.get();
+	clrscr();
+	clrscr();
 }
