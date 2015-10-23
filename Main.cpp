@@ -172,7 +172,7 @@ void menuManager(Oficina oficina1)
 
 int main()
 {
-	//intro();
+	intro();
 	clrscr();
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
