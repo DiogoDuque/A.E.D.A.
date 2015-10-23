@@ -103,10 +103,9 @@ int makeMenu(string titulo, vector <string> opcoes)
 
 void pause()
 {
-	cout << "Prima ENTER para continuar...";
+	cout << "Prima qualquer tecla para continuar...";
 	cin.clear();
 	cin.sync();
 	cin.get();
-	clrscr();
 	clrscr();
 }
