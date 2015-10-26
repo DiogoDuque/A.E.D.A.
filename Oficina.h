@@ -23,7 +23,6 @@ public:
 	bool removeCliente(Cliente cl);
 	bool removeFuncionario(int id);
 	int funcionarioComMenosVeiculos(int indiceNaoUsar) const;
-	void guardaEmFicheiro(); //por implementar
 	
 	void showInfo() const;
 private:

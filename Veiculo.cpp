@@ -9,7 +9,7 @@
 using namespace std;
 
 //VEICULO [ABSTRATA]
-Veiculo::Veiculo(int year, int month, string comb, Funcionario *f1)
+Veiculo::Veiculo(int year, int month, string comb)
 {
 	ano = year;
 	mes = month;
@@ -39,8 +39,8 @@ float Veiculo::ofereceDesconto()
 
 
 //AUTOMOVEL (VEICULO)
-Automovel::Automovel(int year, int month, string comb, Funcionario *f1, int seats) :
-Veiculo(year, month, comb, f1)
+Automovel::Automovel(int year, int month, string comb, int seats) :
+Veiculo(year, month, comb)
 {
 	lugares = seats;
 }
@@ -51,18 +51,23 @@ void Automovel::getInfo() const
 	cout << "Numero de lugares: " << lugares << endl << endl;
 }
 
+
+// MOTORIZADA (VEICULO)
 void Motorizada::getInfo() const
 {
 	Veiculo::getInfo();
 	cout << endl;
 }
 
+
+//CAMIAO (VEICULO)
 void Camiao::getInfo() const
 {
 	Veiculo::getInfo();
 	cout << "Tara: " << tara << endl << endl;
 }
 
+//AUTOCARRO (VEICULO)
 void Autocarro::getInfo() const
 {
 	Veiculo::getInfo();
