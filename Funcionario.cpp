@@ -9,12 +9,14 @@ Funcionario::Funcionario(string name)
 	nome = name;
 }
 
-bool Funcionario::acrescentaVeiculos(Veiculo *v)
+void Funcionario::acrescentaVeiculos(Veiculo *v)
 {
 	if (veiculos.size() >= maxVeiculos)
-		return false;
+    {
+        throw(FuncionarioNaoPodeTerMaisVeiculos(veiculos.size()));
+    }
+
 	veiculos.push_back(v);
-	return true;
 }
 
 vector <Veiculo *> Funcionario::getVeiculos() const
@@ -27,4 +29,11 @@ FuncionarioNaoExistente::FuncionarioNaoExistente(int i) : id(i) {}
 int FuncionarioNaoExistente::getID() const
 {
     return id;
+}
+
+FuncionarioNaoPodeTerMaisVeiculos::FuncionarioNaoPodeTerMaisVeiculos(int n) : num(n) {}
+
+int FuncionarioNaoPodeTerMaisVeiculos::getNumeroVeiculos() const
+{
+    return num;
 }

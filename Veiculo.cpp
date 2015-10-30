@@ -10,7 +10,7 @@ using namespace std;
 
 Servico::Servico(string name, float price, int days) : nome(name), preco(price), terminado(false), dias(days) {}
 
-bool Servico::terminado() const
+bool Servico::estaTerminado() const
 {
     return terminado;
 }
@@ -25,7 +25,7 @@ float Servico::getPreco() const
     return preco;
 }
 
-int getDias() const
+int Servico::getDias() const
 {
     return dias;
 }
@@ -47,7 +47,7 @@ bool Veiculo::estaPronto()
 {
     for(int i = 0; i < servicos.size(); i++)
     {
-        if(!servicos[i].terminado())
+        if(!servicos[i].estaTerminado())
         {
             return false;
         }
@@ -86,7 +86,7 @@ void Automovel::getInfo() const
 	cout << "Numero de lugares: " << lugares << endl << endl;
 }
 
-Motorizada(int year, int month, string comb, int cilindr) : Veiculo(year, month, comb), cilindrada(cilindr) {}
+Motorizada::Motorizada(int year, int month, string comb, int cilindr) : Veiculo(year, month, comb), cilindrada(cilindr) {}
 
 // MOTORIZADA (VEICULO)
 void Motorizada::getInfo() const
@@ -95,7 +95,7 @@ void Motorizada::getInfo() const
 	cout << endl;
 }
 
-Camiao(int year, int month, string comb, int tar) : Veiculo(year, month, comb), tara(tar) {}
+Camiao::Camiao(int year, int month, string comb, int tar) : Veiculo(year, month, comb), tara(tar) {}
 
 //CAMIAO (VEICULO)
 void Camiao::getInfo() const
@@ -104,7 +104,7 @@ void Camiao::getInfo() const
 	cout << "Tara: " << tara << endl << endl;
 }
 
-Autocarro(int year, int month, string comb, int max_lugares) : Veiculo(year, month, comb), capacidade(max_lugares) {}
+Autocarro::Autocarro(int year, int month, string comb, int max_lugares) : Veiculo(year, month, comb), capacidade(max_lugares) {}
 
 //AUTOCARRO (VEICULO)
 void Autocarro::getInfo() const
@@ -115,11 +115,6 @@ void Autocarro::getInfo() const
 
 void Veiculo::passaDias(int n)
 {
-    if(n < 0)
-    {
-        throw(NumeroDiasInvalido(n));
-    }
-
     for(int i = 0; i < servicos.size(); i++)
     {
         servicos[i].passaDias(n);
@@ -128,15 +123,10 @@ void Veiculo::passaDias(int n)
 
 void Servico::passaDias(int n)
 {
-    if(n < 0)
-    {
-        throw(NumeroDiasInvalido(n));
-    }
-
     dias += n;
 }
 
-void Veiculo::setFuncionario()
+void Veiculo::setFuncionario(Funcionario* f1)
 {
     f = f1;
 }
@@ -150,5 +140,5 @@ string VeiculoNaoExistente::getNome() const
 
 void Servico::desconto(float d)
 {
-    preco -= desconto;
+    preco -= d;
 }

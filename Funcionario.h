@@ -14,7 +14,7 @@ public:
 	Funcionario(string name);
 	string getNome() const { return nome; };
 	int getID() const	{return ID; };		//Este ID é uma var geral que à medida que se acrescentam mais funcionarios, o ID vai crescendo automaticamente
-	bool acrescentaVeiculos(Veiculo *v);
+	void acrescentaVeiculos(Veiculo *v);
 	vector <Veiculo *> getVeiculos() const;
 private:
 	static unsigned int maxVeiculos;
@@ -29,6 +29,14 @@ class FuncionarioNaoExistente
 public:
     FuncionarioNaoExistente(int i);
     int getID() const;
+};
+
+class FuncionarioNaoPodeTerMaisVeiculos
+{
+    int num;
+public:
+    FuncionarioNaoPodeTerMaisVeiculos(int n);
+    int getNumeroVeiculos() const;
 };
 
 #endif

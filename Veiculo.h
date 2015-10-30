@@ -17,7 +17,7 @@ class Servico
 	int dias;
 public:
     Servico(string name, float price, int days);
-    bool terminado() const;
+    bool estaTerminado() const;
     string getName() const;
     float getPreco() const;
     int getDias() const;
