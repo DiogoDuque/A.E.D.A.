@@ -112,6 +112,10 @@ void Oficina::showInfo() const
 
 void Oficina::passaDias(int n)
 {
+    if(n < 0)
+    {
+        throw(NumeroDiasInvalido(n));
+    }
     for(int i = 0; i < veiculos.size(); i++)
     {
         veiculos[i]->passaDias(n);
@@ -121,4 +125,11 @@ void Oficina::passaDias(int n)
 Funcionario* Oficina::getFuncionarioMenosVeiculos() const
 {
     return funcionarios[funcionarioComMenosVeiculos(-1)];
+}
+
+NumeroDiasInvalido::NumeroDiasInvalido(int n) : dias(n) {}
+
+int NumeroDiasInvalido::getDias() const
+{
+    return dias;
 }

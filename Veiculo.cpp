@@ -63,9 +63,10 @@ float Veiculo::ofereceDesconto()
 	if (servicos.size() == 9)		//só ao 10º serviço é que se oferecem descontos. O desconto é 25% da média do preço de todos os serviços que o veiculo ja efectuou
 	{
 		for (unsigned int i = 0; i < servicos.size(); i++)
-			desconto += servicos[i].preco;
+			desconto += servicos[i].getPreco();
 
 		desconto = (desconto / (float) 9.0) * (float) 0.25;
+        servicos[8].desconto(desconto);
 	}
 
 	return desconto;
@@ -114,6 +115,11 @@ void Autocarro::getInfo() const
 
 void Veiculo::passaDias(int n)
 {
+    if(n < 0)
+    {
+        throw(NumeroDiasInvalido(n));
+    }
+
     for(int i = 0; i < servicos.size(); i++)
     {
         servicos[i].passaDias(n);
@@ -122,6 +128,11 @@ void Veiculo::passaDias(int n)
 
 void Servico::passaDias(int n)
 {
+    if(n < 0)
+    {
+        throw(NumeroDiasInvalido(n));
+    }
+
     dias += n;
 }
 
@@ -135,4 +146,9 @@ VeiculoNaoExistente::VeiculoNaoExistente(string name) : nome(name) {}
 string VeiculoNaoExistente::getNome() const
 {
     return nome;
+}
+
+void Servico::desconto(float d)
+{
+    preco -= desconto;
 }

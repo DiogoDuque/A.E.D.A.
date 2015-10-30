@@ -36,4 +36,12 @@ private:
 	const vector <Servico> servicos; //importar dum ficheiro
 };
 
+class NumeroDiasInvalido
+{
+    int dias;
+public:
+    NumeroDiasInvalido(int n);
+    int getDias() const;
+};
+
 #endif

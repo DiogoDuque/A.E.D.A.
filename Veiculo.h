@@ -22,6 +22,7 @@ public:
     float getPreco() const;
     int getDias() const;
     void passaDias(int n);
+    void desconto(float d);
 };
 
 class Veiculo
