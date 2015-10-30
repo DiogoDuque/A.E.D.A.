@@ -10,6 +10,11 @@
 #include <cstdlib>			//usado para o 'ENTER'
 #include <sstream>
 
+#define UP 72
+#define DOWN 80
+#define ENTER '\r'
+#define ESC 27
+
 using namespace std;
 
 /*
@@ -92,23 +97,6 @@ void intro()
 	gotoxy(0, 0);
 }
 
-void despedeFuncionarios(vector <Funcionario> v)
-{
-	int temp;
-
-	vector <string> nomes;
-
-	for (unsigned int i = 0; i < v.size(); i++)
-		nomes.push_back(v[i].getNome());
-
-	temp = makeMenu("DESPEDIR FUNCIONARIOS", nomes);
-
-	//if (temp == -1)
-
-
-
-}
-
 void menuManager(Oficina oficina1)
 {
 	vector <int> options = { 0 }; //sera usado para se poder retroceder nos menus
@@ -120,7 +108,7 @@ void menuManager(Oficina oficina1)
 		case 0: //MENU PRINCIPAL 1-4
 		{
 					temp = makeMenu(oficina1.getNome(), { "Gestao de funcionarios", "Gestao de veiculos",
-						"Gestao de clientes", "Mostrar informacao acerca da oficina" });
+						"Gestao de clientes", "Mostrar informacao acerca da oficina" }, -1);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(1 + temp);
@@ -128,7 +116,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 1: //GESTAO DE FUNCIONARIOS 5-6
 		{
-					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" });
+					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" }, -1);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(5 + temp);
@@ -136,7 +124,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 2: //GESTAO DE VEICULOS 7-8
 		{
-					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo" });
+					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo" }, -1);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(7 + temp);
@@ -144,7 +132,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 3: //GESTAO DE CLIENTES 9-10
 		{
-					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" });
+					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" }, -1);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(9 + temp);
@@ -194,7 +182,7 @@ void menuManager(Oficina oficina1)
 				  cout << "Este sao os funcionarios que trabalham actualmente\nna empresa:" << endl << endl;
 
 				  for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
-					  cout << i + 1 << "º: " << oficina1.getFuncionarios()[i].getNome() << " - ID: " << oficina1.getFuncionarios()[i].getID() << endl;
+					  cout << i + 1 << ": " << oficina1.getFuncionarios()[i].getNome() << " - ID: " << oficina1.getFuncionarios()[i].getID() << endl;
 
 				  cout << "Qual deseja despedir (ID): ";
 				  getline(cin, IDFunc);
@@ -205,6 +193,92 @@ void menuManager(Oficina oficina1)
 				  ss >> intIDFunc;
 
 				  oficina1.removeFuncionario(intIDFunc);
+		}
+		case 7:
+		{
+				  int temp;
+
+				  temp = makeMenu("ADICIONAR VEICULO", { "SIM", "NAO" }, 0);
+
+				  if (temp == -1)
+					  options.pop_back();
+				  else
+				  if (temp == 0)
+					  options.push_back(8 + temp);
+		}
+		case 9:
+		{
+				  string ano, mes, combustivel;
+				  int tipoVeiculo = -1;
+
+				  gotoxy(3, 0);
+				  cout << "ADICIONAR VEICULO";
+
+				  gotoxy(3, 3);
+				  cout << "Introduza o ano do carro: ";
+				  getline(cin, ano);
+
+				  gotoxy(3, 4);
+				  cout << "Introduza o mes: ";
+				  getline(cin, mes);
+
+				  gotoxy(3, 5);
+				  cout << "Introduza o tipo de combustivel: ";
+				  getline(cin, combustivel);
+
+				  gotoxy(3, 7);
+				  cout << "ESPECIFIQUE O TIPO DE VEICULO";
+
+				  gotoxy(0, 9);
+				  cout << "->";
+
+				  vector<string> veiculos = { "Automovel", "Motorizada", "Camiao", "Autocarro" };
+				  for (unsigned int i = 0; i < 4; i++)
+				  {
+					  gotoxy(3, 9 + 2 * i);
+					  cout << veiculos[i];
+				  }
+				  
+				  unsigned int input, selecao = 0;
+				  while (tipoVeiculo == -1)
+				  {
+					  gotoxy(0, 9 + 2*selecao);
+					  cout << "->";
+
+					  switch (input = _getch())
+					  {
+					  case ESC:
+					  {
+								  options.pop_back();
+								  break;
+					  }
+					  case ENTER:
+					  {
+									tipoVeiculo = selecao;
+									break;
+					  }
+					  case UP:
+					  {
+								 if (selecao > 0)
+								 {
+									 gotoxy(0, 9 + 2*selecao);
+									 cout << "  ";
+									 selecao--;
+								 }
+								 break;
+					  }
+					  case DOWN:
+					  {
+								   if (selecao < 3)
+								   {
+									   gotoxy(0, 9 + 2*selecao);
+									   cout << "  ";
+									   selecao++;
+								   }
+								   break;
+					  }
+					  }
+				  }
 		}
 		default:
 			break;

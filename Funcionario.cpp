@@ -2,9 +2,8 @@
 #include <string>
 
 using namespace std;
-unsigned int Funcionario::maxVeiculos = 10;
 
-//int ID = 0;
+unsigned int Funcionario::maxVeiculos = 10;
 
 Funcionario::Funcionario(string name)
 {

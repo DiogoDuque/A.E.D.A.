@@ -48,20 +48,37 @@ void setcolor(unsigned int color, unsigned int background_color)
 		SetConsoleTextAttribute(hCon, color | background_color * 16 + color);
 }
 
-int makeMenu(string titulo, vector <string> opcoes)
+int makeMenu(string titulo, vector <string> opcoes, int frase)
 {
-	//mostrar opcoes
 	clrscr();
+	
+	int tamanhoFrase;
+	
 	cout << "   " << titulo << endl << endl;
-	for (unsigned int i = 0; i < opcoes.size(); i++)
+
+	switch (frase)
 	{
-		cout << endl << "   " << opcoes[i] << endl;
+	case 0:
+	{
+		cout << "E a primeira vez que usa os nossos servicos?" << endl;
+		tamanhoFrase = 1;
+		break;
 	}
+	default:
+		tamanhoFrase = 0;
+	}
+	
+	//mostrar opcoes
+
+
+	for (unsigned int i = 0; i < opcoes.size(); i++)
+		cout << endl << "   " << opcoes[i] << endl;
+	
 	//ler input
 	unsigned int input, option = 0;
 	while (true)
 	{
-		gotoxy(0, 3 + option * 2);
+		gotoxy(0, tamanhoFrase + 3 + option * 2);
 		cout << "->";
 		switch (input = _getch())
 		{
@@ -79,7 +96,7 @@ int makeMenu(string titulo, vector <string> opcoes)
 		{
 					 if (option > 0)
 					 {
-						 gotoxy(0, 3 + option * 2);
+						 gotoxy(0, tamanhoFrase + 3 + option * 2);
 						 cout << "  ";
 						 option--;
 					 }
@@ -89,7 +106,7 @@ int makeMenu(string titulo, vector <string> opcoes)
 		{
 					 if (option < opcoes.size() - 1)
 					 {
-						 gotoxy(0, 3 + option * 2);
+						 gotoxy(0, tamanhoFrase + 3 + option * 2);
 						 cout << "  ";
 						 option++;
 					 }
