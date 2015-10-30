@@ -94,6 +94,11 @@ void Oficina::removeFuncionario(int id)
 
 void Oficina::showInfo() const
 {
+    if(!funcionarios.size())
+    {
+        throw(OficinaNaoTemFuncionarios());
+    }
+
 	cout << "Funcionarios existentes na empresa:" << endl << endl;
 
 	for (unsigned int i = 0; i < funcionarios.size(); i++) //percorre a lista de funcionarios

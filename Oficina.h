@@ -47,4 +47,6 @@ public:
     int getDias() const;
 };
 
+class OficinaNaoTemFuncionarios {};
+
 #endif
