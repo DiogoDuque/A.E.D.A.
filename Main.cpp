@@ -198,7 +198,7 @@ void menuManager(Oficina oficina1)
 				  cout << "Qual deseja despedir (ID): ";
 				  getline(cin, IDFunc);
 
-				  oficina1.removeFuncionario(IDFunc);
+				  //oficina1.removeFuncionario(IDFunc);
 		}
 		default:
 			break;
