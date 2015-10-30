@@ -101,6 +101,11 @@ void despedeFuncionarios(vector <Funcionario> v)
 		nomes.push_back(v[i].getNome());
 
 	temp = makeMenu("DESPEDIR FUNCIONARIOS", nomes);
+
+	if (temp == -1)
+
+
+
 }
 
 void menuManager(Oficina oficina1)
@@ -183,7 +188,17 @@ void menuManager(Oficina oficina1)
 		}
 		case 6:
 		{
-				  despedeFuncionarios();
+				  string IDFunc;
+
+				  cout << "Este sao os funcionarios que trabalham actualmente\nna empresa:" << endl << endl;
+
+				  for (unsigned int i = 0; i < oficina1.getFuncionarioMenosVeiculos(); i++)
+					  cout << i + 1 << "º: " << oficina1.getFuncionarios()[i].getNome() << " - ID: " << oficina1.getFuncionarios()[i].getID() << endl;
+
+				  cout << "Qual deseja despedir (ID): ";
+				  getline(cin, IDFunc);
+
+				  oficina1.removeFuncionario(IDFunc);
 		}
 		default:
 			break;
