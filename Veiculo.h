@@ -21,7 +21,7 @@ public:
 	Veiculo(int year, int month, string comb); //especificar o tipo de servico. caso nao conheca o servico, pede preco
 	void setFuncionario(); //TO DO!
 	virtual void getInfo() const;
-	bool estaPronto(); //TO DO!
+	bool estaPronto();
 	float ofereceDesconto();
 protected:
 	int ano;
@@ -44,7 +44,7 @@ private:
 class Motorizada : public Veiculo
 {
 public:
-	Motorizada(int year, int month, string comb, int cilindr); //TO DO!
+	Motorizada(int year, int month, string comb, int cilindr);
 	void getInfo() const;
 
 private:
@@ -54,7 +54,7 @@ private:
 class Camiao : public Veiculo
 {
 public:
-	Camiao(int year, int month, string comb, int tar); //TO DO!
+	Camiao(int year, int month, string comb, int tar);
 	void getInfo() const;
 
 private:
@@ -64,7 +64,7 @@ private:
 class Autocarro : public Veiculo
 {
 public:
-	Autocarro(int year, int month, string comb, int max_lugares); //TO DO!
+	Autocarro(int year, int month, string comb, int max_lugares);
 	void getInfo() const;
 
 private:

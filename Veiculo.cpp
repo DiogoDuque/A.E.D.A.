@@ -22,6 +22,19 @@ void Veiculo::getInfo() const
 	cout << "Ano: " << ano << "\nMes: " << mes << "\nCombustivel: " << combustivel << endl;
 }
 
+bool Veiculo::estaPronto()
+{
+    for(int i = 0; i < servicos.size(); i++)
+    {
+        if(!servicos[i].terminado())
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 float Veiculo::ofereceDesconto()
 {
 	float desconto = 0;
@@ -51,6 +64,7 @@ void Automovel::getInfo() const
 	cout << "Numero de lugares: " << lugares << endl << endl;
 }
 
+Motorizada(int year, int month, string comb, int cilindr) : Veiculo(year, month, comb), cilindrada(cilindr) {}
 
 // MOTORIZADA (VEICULO)
 void Motorizada::getInfo() const
@@ -59,6 +73,7 @@ void Motorizada::getInfo() const
 	cout << endl;
 }
 
+Camiao(int year, int month, string comb, int tar) : Veiculo(year, month, comb), tara(tar) {}
 
 //CAMIAO (VEICULO)
 void Camiao::getInfo() const
@@ -66,6 +81,8 @@ void Camiao::getInfo() const
 	Veiculo::getInfo();
 	cout << "Tara: " << tara << endl << endl;
 }
+
+Autocarro(int year, int month, string comb, int max_lugares) : Veiculo(year, month, comb), capacidade(max_lugares) {}
 
 //AUTOCARRO (VEICULO)
 void Autocarro::getInfo() const
