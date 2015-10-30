@@ -91,6 +91,18 @@ void intro()
 	gotoxy(0, 0);
 }
 
+void despedeFuncionarios(vector <Funcionario> v)
+{
+	int temp;
+
+	vector <string> nomes;
+
+	for (unsigned int i = 0; i < v.size(); i++)
+		nomes.push_back(v[i].getNome());
+
+	temp = makeMenu("DESPEDIR FUNCIONARIOS", nomes);
+}
+
 void menuManager(Oficina oficina1)
 {
 	vector <int> options = { 0 }; //sera usado para se poder retroceder nos menus
@@ -168,6 +180,10 @@ void menuManager(Oficina oficina1)
 						options.pop_back();
 						break;
 					}
+		}
+		case 6:
+		{
+				  despedeFuncionarios();
 		}
 		default:
 			break;
