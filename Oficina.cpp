@@ -32,7 +32,7 @@ void Oficina::removeVeiculo(Veiculo *v)
 		}
 	}
 
-	throw(VeiculoNaoExistente(v->getNome()));
+	throw(VeiculoNaoExistente(v->getID()));
 }
 
 void Oficina::adicionaFuncionario(Funcionario f)
@@ -68,7 +68,7 @@ void Oficina::removeCliente(Cliente cl)
 		}
 	}
 
-    throw(ClienteNaoExistente(c1.getNome()));
+    throw(ClienteNaoExistente(cl.getNome()));
 }
 
 //Função que remove funcionarios, e se tiverem veiculos associados, passa esse veiculos para o funcionario com menos veiculos
@@ -122,7 +122,7 @@ void Oficina::passaDias(int n)
     }
 }
 
-Funcionario* Oficina::getFuncionarioMenosVeiculos() const
+Funcionario Oficina::getFuncionarioMenosVeiculos() const
 {
     return funcionarios[funcionarioComMenosVeiculos(-1)];
 }
@@ -132,4 +132,19 @@ NumeroDiasInvalido::NumeroDiasInvalido(int n) : dias(n) {}
 int NumeroDiasInvalido::getDias() const
 {
     return dias;
+}
+
+vector<Veiculo*> Oficina::getVeiculos() const
+{
+    return veiculos;
+}
+
+vector<Funcionario> Oficina::getFuncionarios() const
+{
+    return funcionarios;
+}
+
+vector<Cliente> Oficina::getClientes() const
+{
+    return clientes;
 }

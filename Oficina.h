@@ -24,8 +24,11 @@ public:
 	void removeFuncionario(int id);
 	int funcionarioComMenosVeiculos(int indiceNaoUsar) const;
 	void passaDias(int n);
-    Funcionario* getFuncionarioMenosVeiculos() const;
+    Funcionario getFuncionarioMenosVeiculos() const;
     void ordenaClientes();
+    vector<Veiculo*> getVeiculos() const;
+    vector<Funcionario> getFuncionarios() const;
+    vector<Cliente> getClientes() const;
 
 	void showInfo() const;
 private:

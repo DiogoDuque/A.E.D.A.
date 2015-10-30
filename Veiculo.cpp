@@ -15,7 +15,7 @@ bool Servico::estaTerminado() const
     return terminado;
 }
 
-string Servico::getName() const
+string Servico::getNome() const
 {
     return nome;
 }
@@ -104,13 +104,13 @@ void Camiao::getInfo() const
 	cout << "Tara: " << tara << endl << endl;
 }
 
-Autocarro::Autocarro(int year, int month, string comb, int max_lugares) : Veiculo(year, month, comb), capacidade(max_lugares) {}
+Autocarro::Autocarro(int year, int month, string comb, int max_lugares) : Veiculo(year, month, comb), lugares(max_lugares) {}
 
 //AUTOCARRO (VEICULO)
 void Autocarro::getInfo() const
 {
 	Veiculo::getInfo();
-	cout << "Capacidade: " << capacidade << endl << endl;
+	cout << "Capacidade: " << lugares << endl << endl;
 }
 
 void Veiculo::passaDias(int n)
@@ -131,14 +131,19 @@ void Veiculo::setFuncionario(Funcionario* f1)
     f = f1;
 }
 
-VeiculoNaoExistente::VeiculoNaoExistente(string name) : nome(name) {}
+VeiculoNaoExistente::VeiculoNaoExistente(int i) : id(i) {}
 
-string VeiculoNaoExistente::getNome() const
+int VeiculoNaoExistente::getID() const
 {
-    return nome;
+    return id;
 }
 
 void Servico::desconto(float d)
 {
     preco -= d;
+}
+
+int Veiculo::getID() const
+{
+    return id;
 }

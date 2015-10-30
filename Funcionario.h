@@ -13,13 +13,13 @@ class Funcionario
 public:
 	Funcionario(string name);
 	string getNome() const { return nome; };
-	int getID() const	{return ID; };		//Este ID é uma var geral que à medida que se acrescentam mais funcionarios, o ID vai crescendo automaticamente
+	int getID() const	{return id; };		//Este ID é uma var geral que à medida que se acrescentam mais funcionarios, o ID vai crescendo automaticamente
 	void acrescentaVeiculos(Veiculo *v);
 	vector <Veiculo *> getVeiculos() const;
 private:
 	static unsigned int maxVeiculos;
 	string nome;
-	int ID;
+	int id;
 	vector<Veiculo *> veiculos;
 };
 

@@ -18,7 +18,7 @@ class Servico
 public:
     Servico(string name, float price, int days);
     bool estaTerminado() const;
-    string getName() const;
+    string getNome() const;
     float getPreco() const;
     int getDias() const;
     void passaDias(int n);
@@ -34,7 +34,9 @@ public:
 	bool estaPronto();
 	float ofereceDesconto();
 	void passaDias(int n);
+    int getID() const;
 protected:
+    int id;
 	int ano;
 	int mes;
 	string combustivel;
@@ -79,15 +81,15 @@ public:
 	void getInfo() const;
 
 private:
-	int capacidade;
+	int lugares;
 };
 
 class VeiculoNaoExistente
 {
-    string nome;
+    int id;
 public:
-    VeiculoNaoExistente(string name);
-    string getNome() const;
+    VeiculoNaoExistente(int i);
+    int getID() const;
 };
 
 #endif

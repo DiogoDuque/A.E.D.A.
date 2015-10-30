@@ -24,14 +24,14 @@ vector<Veiculo *> Cliente::getVeiculos() const
 	return veiculos;
 }
 
-Cliente::getNome() const
+string Cliente::getNome() const
 {
     return nome;
 }
 
 ClienteNaoExistente::ClienteNaoExistente(string name) : nome(name) {}
 
-string ClienteNaoExistente::getNome()
+string ClienteNaoExistente::getNome() const
 {
     return nome;
 }
