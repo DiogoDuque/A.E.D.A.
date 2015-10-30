@@ -9,7 +9,6 @@ Funcionario::Funcionario(string name)
 {
 	nome = name;
 
-	
 	id = ID;
 	ID++;
 }

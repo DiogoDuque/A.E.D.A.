@@ -1,5 +1,4 @@
 #include "Veiculo.h"
-#include "Funcionario.h"
 
 #include <iostream>
 #include <string>
@@ -126,7 +125,7 @@ void Servico::passaDias(int n)
     dias += n;
 }
 
-void Veiculo::setFuncionario(Funcionario* f1)
+void Veiculo::setFuncionario(Funcionario *f1)
 {
     f = f1;
 }

@@ -2,12 +2,10 @@
 #define Veiculo_h
 
 #include "Funcionario.h"
-#include <string>
 #include <vector>
 #include <string>
 
 using namespace std;
-class Funcionario;
 
 class Servico
 {
@@ -29,7 +27,7 @@ class Veiculo
 {
 public:
 	Veiculo(int year, int month, string comb); //especificar o tipo de servico. caso nao conheca o servico, pede preco
-	void setFuncionario(Funcionario* f1); //TO DO!
+	void setFuncionario(Funcionario *f1); //TO DO!
 	virtual void getInfo() const;
 	bool estaPronto();
 	float ofereceDesconto();

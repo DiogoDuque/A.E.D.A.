@@ -49,14 +49,14 @@ void Oficina::adicionaFuncionario(Funcionario f)
 int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
 {
 	int indice = -1;
-	unsigned int quantidade = 0;
+	unsigned int numVeiculos = 1000;
 
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
-		if (funcionarios[i].getVeiculos().size() > quantidade)
+		if (funcionarios[i].getVeiculos().size() < numVeiculos)
 		{
-			if (indiceNaoUsar != i)
-				indice = i;
+			numVeiculos = funcionarios[i].getVeiculos().size();
+			indice = i;
 		}
 	}
 

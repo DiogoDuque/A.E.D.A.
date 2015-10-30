@@ -209,6 +209,7 @@ void menuManager(Oficina oficina1)
 		case 9:
 		{
 				  string ano, mes, combustivel;
+				  int anoInt, mesInt;
 				  int tipoVeiculo = -1;
 
 				  gotoxy(3, 0);
@@ -225,6 +226,11 @@ void menuManager(Oficina oficina1)
 				  gotoxy(3, 5);
 				  cout << "Introduza o tipo de combustivel: ";
 				  getline(cin, combustivel);
+
+				  istringstream ss(ano);
+				  ss >> anoInt;
+				  istringstream ss2(mes);
+				  ss2 >> mesInt;
 
 				  gotoxy(3, 7);
 				  cout << "ESPECIFIQUE O TIPO DE VEICULO";
@@ -279,6 +285,86 @@ void menuManager(Oficina oficina1)
 					  }
 					  }
 				  }
+
+				  gotoxy(3, 19);
+
+				  switch (tipoVeiculo)
+				  {
+				  case 0:
+				  {
+							int numLugaresInt;
+							string numLugares;
+
+							cout << "Introduza o numero de lugares: ";
+							getline(cin, numLugares);
+
+							istringstream ss(numLugares);
+							ss >> numLugaresInt;
+
+							Veiculo *a1 = new Automovel(anoInt, mesInt, combustivel, numLugaresInt);
+							oficina1.adicionaVeiculo(a1);
+
+							int indice = oficina1.funcionarioComMenosVeiculos(-1);
+							a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+							break;
+				  }
+				  case 1:
+				  {
+							int cilindradaInt;
+							string cilindrada;
+
+							cout << "Introduza a cilindrada: ";
+							getline(cin, cilindrada);
+
+							istringstream ss(cilindrada);
+							ss >> cilindradaInt;
+
+							Veiculo *a1 = new Motorizada(anoInt, mesInt, combustivel, cilindradaInt);
+							oficina1.adicionaVeiculo(a1);
+
+							int indice = oficina1.funcionarioComMenosVeiculos(-1);
+							a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+							break;
+				  }
+				  case 2:
+				  {
+							int taraInt;
+							string tara;
+
+							cout << "Introduza a tara: ";
+							getline(cin, tara);
+
+							istringstream ss(tara);
+							ss >> taraInt;
+
+							Veiculo *a1 = new Camiao(anoInt, mesInt, combustivel, taraInt);
+							oficina1.adicionaVeiculo(a1);
+
+							int indice = oficina1.funcionarioComMenosVeiculos(-1);
+							a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+							break;
+				  }
+				  case 3:
+				  {
+							int numLugaresInt;
+							string numLugares;
+
+							cout << "Introduza o numero de lugares: ";
+							getline(cin, numLugares);
+
+							istringstream ss(numLugares);
+							ss >> numLugaresInt;
+
+							Veiculo *a1 = new Autocarro(anoInt, mesInt, combustivel, numLugaresInt);
+							oficina1.adicionaVeiculo(a1);
+							
+							int indice = oficina1.funcionarioComMenosVeiculos(-1);
+							a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+							break;
+				  }
+				  }
+
+				  options.pop_back();
 		}
 		default:
 			break;
