@@ -4,9 +4,15 @@
 using namespace std;
 unsigned int Funcionario::maxVeiculos = 10;
 
+//int ID = 0;
+
 Funcionario::Funcionario(string name)
 {
 	nome = name;
+
+	
+	id = ID;
+	ID++;
 }
 
 void Funcionario::acrescentaVeiculos(Veiculo *v)

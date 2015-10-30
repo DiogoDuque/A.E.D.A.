@@ -8,6 +8,7 @@
 #include <fstream>
 #include <windows.h>		//usado para o 'ENTER'
 #include <cstdlib>			//usado para o 'ENTER'
+#include <sstream>
 
 using namespace std;
 
@@ -198,7 +199,12 @@ void menuManager(Oficina oficina1)
 				  cout << "Qual deseja despedir (ID): ";
 				  getline(cin, IDFunc);
 
-				  //oficina1.removeFuncionario(IDFunc);
+				  /*De string para int*/
+				  istringstream ss(IDFunc);
+				  int intIDFunc;
+				  ss >> intIDFunc;
+
+				  oficina1.removeFuncionario(intIDFunc);
 		}
 		default:
 			break;

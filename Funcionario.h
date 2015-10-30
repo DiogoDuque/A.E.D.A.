@@ -8,6 +8,8 @@
 using namespace std;
 class Veiculo;
 
+static int ID = 1;
+
 class Funcionario
 {
 public:
