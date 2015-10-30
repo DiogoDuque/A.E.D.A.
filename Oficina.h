@@ -19,11 +19,14 @@ public:
 	void adicionaVeiculo(Veiculo *v);
 	void adicionaCliente(Cliente cl);
 	void adicionaFuncionario(Funcionario f1);
-	bool removeVeiculo(Veiculo *v);
-	bool removeCliente(Cliente cl);
-	bool removeFuncionario(int id);
+	void removeVeiculo(Veiculo *v);
+	void removeCliente(Cliente cl);
+	void removeFuncionario(int id);
 	int funcionarioComMenosVeiculos(int indiceNaoUsar) const;
-	
+	void passaDias(int n);
+    Funcionario* getFuncionarioMenosVeiculos() const;
+    void ordenaClientes();
+
 	void showInfo() const;
 private:
 	string nomeOficina;

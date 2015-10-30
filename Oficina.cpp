@@ -22,18 +22,17 @@ void Oficina::adicionaCliente(Cliente cl)
 /*
 Retorna true caso o veículo exista e seja possível de ser removido, caso contrário retorna false
 */
-bool Oficina::removeVeiculo(Veiculo *v)
+void Oficina::removeVeiculo(Veiculo *v)
 {
 	for (unsigned int i = 0; i < veiculos.size(); i++)
 	{
 		if (veiculos[i] == v)
 		{
 			veiculos.erase(veiculos.begin() + i);
-			return true;
 		}
 	}
 
-	return false;
+	throw(VeiculoNaoExistente(v->getNome()));
 }
 
 void Oficina::adicionaFuncionario(Funcionario f)
@@ -59,18 +58,17 @@ int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
 	return indice;
 }
 
-bool Oficina::removeCliente(Cliente cl)
+void Oficina::removeCliente(Cliente cl)
 {
 	for (unsigned int i = 0; i < clientes.size(); i++)
 	{
 		if (clientes[i].getNumRegisto() == cl.getNumRegisto())
 		{
 			clientes.erase(clientes.begin() + i);
-			return true;
 		}
 	}
 
-	return false;
+    throw(ClienteNaoExistente(c1.getNome()))
 }
 
 //Função que remove funcionarios, e se tiverem veiculos associados, passa esse veiculos para o funcionario com menos veiculos
@@ -111,4 +109,17 @@ void Oficina::showInfo() const
 			cout << endl;
 		}
 	}
+}
+
+void Oficina::passaDias(int n)
+{
+    for(int i = 0; i < veiculos.size(); i++)
+    {
+        veiculos[i]->passaDias(n);
+    }
+}
+
+Funcionario* Oficina::getFuncionarioMenosVeiculos() const
+{
+    return funcionarios[funcionarioComMenosVeiculos(-1)];
 }

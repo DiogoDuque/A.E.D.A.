@@ -8,13 +8,34 @@
 
 using namespace std;
 
+Servico::Servico(string name, float price, int days) : nome(name), preco(price), terminado(false), dias(days) {}
+
+bool Servico::terminado() const
+{
+    return terminado;
+}
+
+string Servico::getName() const
+{
+    return nome;
+}
+
+float Servico::getPreco() const
+{
+    return preco;
+}
+
+int getDias() const
+{
+    return dias;
+}
+
 //VEICULO [ABSTRATA]
 Veiculo::Veiculo(int year, int month, string comb)
 {
 	ano = year;
 	mes = month;
 	combustivel = comb;
-	f = f1;
 }
 
 void Veiculo::getInfo() const
@@ -89,4 +110,22 @@ void Autocarro::getInfo() const
 {
 	Veiculo::getInfo();
 	cout << "Capacidade: " << capacidade << endl << endl;
+}
+
+void Veiculo::passaDias(int n)
+{
+    for(int i = 0; i < servicos.size(); i++)
+    {
+        servicos[i].passaDias(n);
+    }
+}
+
+void Servico::passaDias(int n)
+{
+    dias += n;
+}
+
+void Veiculo::setFuncionario()
+{
+    f = f1;
 }

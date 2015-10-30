@@ -9,20 +9,30 @@
 using namespace std;
 class Funcionario;
 
-struct Servico
+class Servico
 {
 	string nome;
 	float preco;
+	bool terminado;
+	int dias;
+public:
+    Servico(string name, float price, int days);
+    bool terminado() const;
+    string getName() const;
+    float getPreco() const;
+    int getDias() const;
+    void passaDias(int n);
 };
 
 class Veiculo
 {
 public:
 	Veiculo(int year, int month, string comb); //especificar o tipo de servico. caso nao conheca o servico, pede preco
-	void setFuncionario(); //TO DO!
+	void setFuncionario(Funcionario* f1); //TO DO!
 	virtual void getInfo() const;
 	bool estaPronto();
 	float ofereceDesconto();
+	void passaDias(int n);
 protected:
 	int ano;
 	int mes;
