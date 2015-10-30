@@ -26,6 +26,7 @@ public:
 	void passaDias(int n);
     Funcionario getFuncionarioMenosVeiculos() const;
     void ordenaClientes();
+	string getNome() const;
     vector<Veiculo*> getVeiculos() const;
     vector<Funcionario> getFuncionarios() const;
     vector<Cliente> getClientes() const;

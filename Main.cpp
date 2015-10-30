@@ -192,7 +192,7 @@ void menuManager(Oficina oficina1)
 
 				  cout << "Este sao os funcionarios que trabalham actualmente\nna empresa:" << endl << endl;
 
-				  for (unsigned int i = 0; i < oficina1.getFuncionarioMenosVeiculos(); i++)
+				  for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
 					  cout << i + 1 << "º: " << oficina1.getFuncionarios()[i].getNome() << " - ID: " << oficina1.getFuncionarios()[i].getID() << endl;
 
 				  cout << "Qual deseja despedir (ID): ";

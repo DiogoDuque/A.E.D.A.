@@ -9,6 +9,11 @@ Oficina::Oficina(string myNomeOficina)
 	nomeOficina = myNomeOficina;
 }
 
+string Oficina::getNome() const
+{
+	return nomeOficina;
+}
+
 void Oficina::adicionaVeiculo(Veiculo *v)
 {
 	veiculos.push_back(v);
