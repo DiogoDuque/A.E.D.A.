@@ -102,7 +102,7 @@ void despedeFuncionarios(vector <Funcionario> v)
 
 	temp = makeMenu("DESPEDIR FUNCIONARIOS", nomes);
 
-	if (temp == -1)
+	//if (temp == -1)
 
 
 
