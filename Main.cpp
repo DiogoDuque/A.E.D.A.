@@ -6,6 +6,8 @@
 #include <conio.h>
 #include <ctime>
 #include <fstream>
+#include <windows.h>		//usado para o 'ENTER'
+#include <cstdlib>			//usado para o 'ENTER'
 
 using namespace std;
 
@@ -21,31 +23,12 @@ return i;
 return -1;
 }
 
-int main()
-{
-Oficina oficina("Duque do Zé");
-//Registar novo cliente
-string nome;
-unsigned int n_cliente;
-
-cout << "Introduza o seu nome: ";
-getline(cin, nome);
-cout << "Introduza o seu numero de cliente: ";
-cin >> n_cliente;
-
-clienteJaExiste(nome, n_cliente, oficina);
-
-oficina.clientes.push_back(cl);
-}
-
 IDEIAS
 
 
 - Oferecer descontos
 
 - Impor taxa de permanencia de veiculos apos o tempo de reparos
-
-- Software para clientes e outro para a empresa
 
 - Adicionar hierarquias aos trabalhadores (mecanico, executivo)
 
@@ -108,18 +91,34 @@ void intro()
 	gotoxy(0, 0);
 }
 
+void despedeFuncionarios(vector <Funcionario> v)
+{
+	int temp;
+
+	vector <string> nomes;
+
+	for (unsigned int i = 0; i < v.size(); i++)
+		nomes.push_back(v[i].getNome());
+
+	temp = makeMenu("DESPEDIR FUNCIONARIOS", nomes);
+
+	if (temp == -1)
+
+
+
+}
+
 void menuManager(Oficina oficina1)
 {
 	vector <int> options = { 0 }; //sera usado para se poder retroceder nos menus
 	int temp;
-	string temp2;
 	while (options.size() > 0)
 	{
 		switch (options.back())
 		{
 		case 0: //MENU PRINCIPAL 1-4
 		{
-					temp = makeMenu("OFICINA", { "Gestao de funcionarios", "Gestao de veiculos",
+					temp = makeMenu(oficina1.getNome(), { "Gestao de funcionarios", "Gestao de veiculos",
 						"Gestao de clientes", "Mostrar informacao acerca da oficina" });
 					if (temp == -1)
 						options.pop_back();
@@ -139,15 +138,15 @@ void menuManager(Oficina oficina1)
 					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo" });
 					if (temp == -1)
 						options.pop_back();
-					//else options.push_back(7 + temp);
+					else options.push_back(7 + temp);
 					break;
 		}
-		case 3: //GESTAO DE CLIENTES ?-?
+		case 3: //GESTAO DE CLIENTES 9-10
 		{
-					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "MENU EM CONSTRUCAO", "AINDA EM CONSTRUCAO", "USAR O ESC PARA SAIR SENAO DA BREAK" });
+					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" });
 					if (temp == -1)
 						options.pop_back();
-					//else options.push_back(9 + temp);
+					else options.push_back(9 + temp);
 					break;
 		}
 		case 4: //MOSTRAR INFO
@@ -160,42 +159,46 @@ void menuManager(Oficina oficina1)
 		}
 		case 5: //FUNC - ADD
 		{
-					clrscr();
-					cout << "Nome do funcionario: ";
-					getline(cin, temp2);
-					if (temp2.size() > 0)
+					string nomeFunc;
+
+					gotoxy(3, 0);
+					cout << "EMPREGAR FUNCIONARIOS" << endl;
+
+					gotoxy(3, 3);
+					cout << "Introduza o nome do novo funcionario: ";
+					getline(cin, nomeFunc);
+
+					Funcionario f1(nomeFunc);
+					oficina1.adicionaFuncionario(f1);
+
+					gotoxy(3, 5);
+					cout << "O funcionario " << nomeFunc << " foi adicionado com sucesso!" << endl;
+
+					gotoxy(3, 7);
+					cout << "PRIMA 'ENTER' PARA CONTINUAR";
+
+					cin.ignore();
+
+					//IMPLEMENTAR PARA NAO DAR PARA ESCREVER NADA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					if (GetAsyncKeyState(VK_RETURN))
 					{
-						Funcionario f1(temp2);
-						oficina1.adicionaFuncionario(f1);
-						cout << "\n\nFuncionario adicionado!\n";
+						options.pop_back();
+						break;
 					}
-					else cout << "\n\nERRO: Nome impossivel\n";
-					pause();
-					options.pop_back();
-					break;
 		}
-		case 6: //FUNC - DEL
+		case 6:
 		{
-					clrscr();
-					cout << "ID do funcionario: ";
-					getline(cin, temp2);
-					if (oficina1.removeFuncionario(stoi(temp2)))
-						cout << "\n\nFuncionario removido!\n";
-					else cout << "\n Funcionario nao encontrado!\n";
-					pause();
-					options.pop_back();
-					break;
-		}
-		case 7: //VEIC - ADD
-		{
-					//ZE CARLOS: como vamos mandar um apontador para o construtor do Veiculo? vamos ter de fazer mais funcoes, nao?
-					options.pop_back();
-					break;
-		}
-		case 8: //VEIC - DEL
-		{
-					options.pop_back();
-					break;
+				  string IDFunc;
+
+				  cout << "Este sao os funcionarios que trabalham actualmente\nna empresa:" << endl << endl;
+
+				  for (unsigned int i = 0; i < oficina1.getFuncionarioMenosVeiculos(); i++)
+					  cout << i + 1 << "º: " << oficina1.getFuncionarios()[i].getNome() << " - ID: " << oficina1.getFuncionarios()[i].getID() << endl;
+
+				  cout << "Qual deseja despedir (ID): ";
+				  getline(cin, IDFunc);
+
+				  oficina1.removeFuncionario(IDFunc);
 		}
 		default:
 			break;
@@ -205,18 +208,15 @@ void menuManager(Oficina oficina1)
 
 int main()
 {
-	intro();
+	//intro();
 	clrscr();
-	
-	//aqui era fixe ter algo para limpar o buffer caso se tentasse escrever algo durante a intro
-
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
 	getline(cin, nomeOficina);
 	Oficina oficina1(nomeOficina);
 
 	menuManager(oficina1);
-	
+
 	clrscr();
 	return 0;
 }
