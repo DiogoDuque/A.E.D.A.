@@ -81,5 +81,12 @@ private:
 	int capacidade;
 };
 
+class VeiculoNaoExistente
+{
+    string nome;
+public:
+    VeiculoNaoExistente(string name);
+    string getNome() const;
+};
 
 #endif

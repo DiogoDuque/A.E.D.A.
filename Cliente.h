@@ -12,12 +12,21 @@ public:
 	void setNumRegisto();
 	int getNumRegisto() const;
 	vector<Veiculo *> getVeiculos() const;
+	string getNome() const;
 private:
 	string nome;
 	static int numRegisto;
 	vector<Veiculo *> veiculos;
 
 
+};
+
+class ClienteNaoExistente
+{
+    string nome;
+public:
+    ClienteNaoExistente(string name);
+    string getNome() const;
 };
 
 #endif

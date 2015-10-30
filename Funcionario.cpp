@@ -21,3 +21,10 @@ vector <Veiculo *> Funcionario::getVeiculos() const
 {
 	return veiculos;
 }
+
+FuncionarioNaoExistente::FuncionarioNaoExistente(int i) : id(i) {}
+
+int FuncionarioNaoExistente::getID() const
+{
+    return id;
+}

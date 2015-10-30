@@ -129,3 +129,10 @@ void Veiculo::setFuncionario()
 {
     f = f1;
 }
+
+VeiculoNaoExistente::VeiculoNaoExistente(string name) : nome(name) {}
+
+string VeiculoNaoExistente::getNome() const
+{
+    return nome;
+}

@@ -23,4 +23,12 @@ private:
 	vector<Veiculo *> veiculos;
 };
 
+class FuncionarioNaoExistente
+{
+    int id;
+public:
+    FuncionarioNaoExistente(int i);
+    int getID() const;
+};
+
 #endif

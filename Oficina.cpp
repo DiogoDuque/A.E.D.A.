@@ -68,11 +68,11 @@ void Oficina::removeCliente(Cliente cl)
 		}
 	}
 
-    throw(ClienteNaoExistente(c1.getNome()))
+    throw(ClienteNaoExistente(c1.getNome()));
 }
 
 //Função que remove funcionarios, e se tiverem veiculos associados, passa esse veiculos para o funcionario com menos veiculos
-bool Oficina::removeFuncionario(int id)
+void Oficina::removeFuncionario(int id)
 {
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
@@ -85,11 +85,10 @@ bool Oficina::removeFuncionario(int id)
 			}
 
 			funcionarios.erase(funcionarios.begin() + i);
-			return true;
 		}
 	}
 
-	return false;
+	throw(FuncionarioNaoExistente(id));
 }
 
 
