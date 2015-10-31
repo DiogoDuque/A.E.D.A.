@@ -176,7 +176,7 @@ void menuManager(Oficina oficina1)
 						break;
 					}
 		}
-		case 6:
+		case 6: //FUNC - DEL
 		{
 				  string IDFunc;
 
@@ -195,7 +195,7 @@ void menuManager(Oficina oficina1)
 
 				  oficina1.removeFuncionario(intIDFunc);
 		}
-		case 7:
+		case 7: //VEIC - ADD
 		{
 				  int temp;
 
