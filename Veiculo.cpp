@@ -44,7 +44,7 @@ void Veiculo::getInfo() const
 
 bool Veiculo::estaPronto()
 {
-    for(int i = 0; i < servicos.size(); i++)
+    for(unsigned int i = 0; i < servicos.size(); i++)
     {
         if(!servicos[i].estaTerminado())
         {
@@ -114,7 +114,7 @@ void Autocarro::getInfo() const
 
 void Veiculo::passaDias(int n)
 {
-    for(int i = 0; i < servicos.size(); i++)
+    for(unsigned int i = 0; i < servicos.size(); i++)
     {
         servicos[i].passaDias(n);
     }

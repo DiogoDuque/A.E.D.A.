@@ -157,7 +157,8 @@ void menuManager(Oficina oficina1)
 					cout << "Introduza o nome do novo funcionario: ";
 					getline(cin, nomeFunc);
 
-					Funcionario f1(nomeFunc);
+					Funcionario temp(nomeFunc);
+					Funcionario* f1 = &temp;
 					oficina1.adicionaFuncionario(f1);
 
 					gotoxy(3, 5);
@@ -182,7 +183,7 @@ void menuManager(Oficina oficina1)
 				  cout << "Este sao os funcionarios que trabalham actualmente\nna empresa:" << endl << endl;
 
 				  for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
-					  cout << i + 1 << ": " << oficina1.getFuncionarios()[i].getNome() << " - ID: " << oficina1.getFuncionarios()[i].getID() << endl;
+					  cout << i + 1 << ": " << oficina1.getFuncionarios()[i]->getNome() << " - ID: " << oficina1.getFuncionarios()[i]->getID() << endl;
 
 				  cout << "Qual deseja despedir (ID): ";
 				  getline(cin, IDFunc);
@@ -379,6 +380,12 @@ int main()
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
 	getline(cin, nomeOficina);
+	while (nomeOficina.size() < 3)
+	{
+		clrscr();
+		cout << "Nome demasiado curto! Introduza um nome correto.\nNome da Oficina: ";
+		getline(cin, nomeOficina);
+	}
 	Oficina oficina1(nomeOficina);
 
 	menuManager(oficina1);

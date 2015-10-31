@@ -18,24 +18,24 @@ public:
 	Oficina(string nomeOficina);
 	void adicionaVeiculo(Veiculo *v);
 	void adicionaCliente(Cliente cl);
-	void adicionaFuncionario(Funcionario f1);
+	void adicionaFuncionario(Funcionario *f1);
 	void removeVeiculo(Veiculo *v);
 	void removeCliente(Cliente cl);
 	void removeFuncionario(int id);
 	int funcionarioComMenosVeiculos(int indiceNaoUsar) const;
 	void passaDias(int n);
-    Funcionario getFuncionarioMenosVeiculos() const;
+    Funcionario* getFuncionarioMenosVeiculos() const;
     void ordenaClientes();
 	string getNome() const;
     vector<Veiculo*> getVeiculos() const;
-    vector<Funcionario> getFuncionarios() const;
+    vector<Funcionario*> getFuncionarios() const;
     vector<Cliente> getClientes() const;
 
 	void showInfo() const;
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;
-	vector <Funcionario> funcionarios;
+	vector <Funcionario*> funcionarios;
 	vector <Cliente> clientes;
 	const vector <Servico> servicos; //importar dum ficheiro
 };

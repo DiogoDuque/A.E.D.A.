@@ -7,6 +7,8 @@
 
 using namespace std;
 
+class Funcionario; //necessario visto que Veiculo e Funcionario sao interdependentes
+
 class Servico
 {
 	string nome;

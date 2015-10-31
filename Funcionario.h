@@ -6,6 +6,7 @@
 #include <vector>
 
 using namespace std;
+
 class Veiculo;
 
 static int ID = 1;

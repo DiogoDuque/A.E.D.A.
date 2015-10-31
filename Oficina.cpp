@@ -40,7 +40,7 @@ void Oficina::removeVeiculo(Veiculo *v)
 	throw(VeiculoNaoExistente(v->getID()));
 }
 
-void Oficina::adicionaFuncionario(Funcionario f)
+void Oficina::adicionaFuncionario(Funcionario *f)
 {
 	funcionarios.push_back(f);
 }
@@ -53,9 +53,9 @@ int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
 
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
-		if (funcionarios[i].getVeiculos().size() < numVeiculos)
+		if (funcionarios[i]->getVeiculos().size() < numVeiculos)
 		{
-			numVeiculos = funcionarios[i].getVeiculos().size();
+			numVeiculos = funcionarios[i]->getVeiculos().size();
 			indice = i;
 		}
 	}
@@ -83,12 +83,12 @@ void Oficina::removeFuncionario(int id)
 
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
-		if (funcionarios[i].getID() == id)
+		if (funcionarios[i]->getID() == id)
 		{
-			if (funcionarios[i].getVeiculos().size() != 0)		//se o funcionario tiver veiculos a seu cargo, passa-los para outros funcionarios
+			if (funcionarios[i]->getVeiculos().size() != 0)		//se o funcionario tiver veiculos a seu cargo, passa-los para outros funcionarios
 			{
-				for (unsigned int j = 0; j < funcionarios[i].getVeiculos().size(); j++)
-					funcionarios[funcionarioComMenosVeiculos(i)].acrescentaVeiculos(funcionarios[i].getVeiculos()[j]);
+				for (unsigned int j = 0; j < funcionarios[i]->getVeiculos().size(); j++)
+					funcionarios[funcionarioComMenosVeiculos(i)]->acrescentaVeiculos(funcionarios[i]->getVeiculos()[j]);
 			}
 
 			funcionarios.erase(funcionarios.begin() + i);
@@ -105,7 +105,7 @@ void Oficina::removeFuncionario(int id)
 
 void Oficina::showInfo() const
 {
-    if(!funcionarios.size())
+    if(funcionarios.size()==0)
     {
         throw(OficinaNaoTemFuncionarios());
     }
@@ -114,13 +114,13 @@ void Oficina::showInfo() const
 
 	for (unsigned int i = 0; i < funcionarios.size(); i++) //percorre a lista de funcionarios
 	{
-		cout << "- " << funcionarios[i].getNome() << endl;
+		cout << "- " << funcionarios[i]->getNome() << endl;
 		cout << "Veiculos a seu cargo: " << endl;
 
-		for (unsigned int j = 0; j < funcionarios[i].getVeiculos().size(); j++)
+		for (unsigned int j = 0; j < funcionarios[i]->getVeiculos().size(); j++)
 		{
 			cout << "Veiculo " << j + 1 << ": ";
-			funcionarios[i].getVeiculos()[j]->getInfo();
+			funcionarios[i]->getVeiculos()[j]->getInfo();
 			cout << endl;
 		}
 	}
@@ -132,13 +132,13 @@ void Oficina::passaDias(int n)
     {
         throw(NumeroDiasInvalido(n));
     }
-    for(int i = 0; i < veiculos.size(); i++)
+    for(unsigned int i = 0; i < veiculos.size(); i++)
     {
         veiculos[i]->passaDias(n);
     }
 }
 
-Funcionario Oficina::getFuncionarioMenosVeiculos() const
+Funcionario* Oficina::getFuncionarioMenosVeiculos() const
 {
     return funcionarios[funcionarioComMenosVeiculos(-1)];
 }
@@ -155,7 +155,7 @@ vector<Veiculo*> Oficina::getVeiculos() const
     return veiculos;
 }
 
-vector<Funcionario> Oficina::getFuncionarios() const
+vector<Funcionario*> Oficina::getFuncionarios() const
 {
     return funcionarios;
 }
