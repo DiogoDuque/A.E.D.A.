@@ -123,7 +123,7 @@ void menuManager(Oficina oficina1)
 					else options.push_back(5 + temp);
 					break;
 		}
-		case 2: //GESTAO DE VEICULOS 7-8
+		case 2: //GESTAO DE VEICULOS 7-??
 		{
 					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo" }, -1);
 					if (temp == -1)
@@ -131,7 +131,7 @@ void menuManager(Oficina oficina1)
 					else options.push_back(7 + temp);
 					break;
 		}
-		case 3: //GESTAO DE CLIENTES 9-10
+		case 3: //GESTAO DE CLIENTES ????
 		{
 					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" }, -1);
 					if (temp == -1)
@@ -158,7 +158,7 @@ void menuManager(Oficina oficina1)
 					cout << "Introduza o nome do novo funcionario: ";
 					getline(cin, nomeFunc);
 
-					Funcionario f1(nomeFunc);
+					Funcionario *f1= new Funcionario(nomeFunc);
 					oficina1.adicionaFuncionario(f1);
 
 					gotoxy(3, 5);
@@ -183,7 +183,7 @@ void menuManager(Oficina oficina1)
 				  cout << "Este sao os funcionarios que trabalham actualmente\nna empresa:" << endl << endl;
 
 				  for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
-					  cout << i + 1 << ": " << oficina1.getFuncionarios()[i].getNome() << " - ID: " << oficina1.getFuncionarios()[i].getID() << endl;
+					  cout << i + 1 << ": " << oficina1.getFuncionarios()[i]->getNome() << " - ID: " << oficina1.getFuncionarios()[i]->getID() << endl;
 
 				  cout << "Qual deseja despedir (ID): ";
 				  getline(cin, IDFunc);
@@ -375,7 +375,7 @@ void menuManager(Oficina oficina1)
 
 int main()
 {
-	intro();
+	//intro();
 	clrscr();
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
