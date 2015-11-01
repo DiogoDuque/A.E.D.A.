@@ -78,7 +78,6 @@ void intro()
 	for (int i = 0; i < 60; i++)
 	{
 		time_t t;
-
 		for (unsigned int j = 0; j < 4; j++)
 		{
 			if (i >= 42) //quando o carro comecar a entrar na garagem, comeca a desaparecer a parte da frente
@@ -87,8 +86,10 @@ void intro()
 
 			gotoxy(0 + i, 12 + j);
 			cout << carro[j];
-			t = clock();
 		}
+		t = clock();
+		if (i >= 42)
+			Beep(600, 25); //fazer beep
 
 		while (clock() - t < 80) //pausa entre frames
 		{
@@ -157,8 +158,7 @@ void menuManager(Oficina oficina1)
 					cout << "Introduza o nome do novo funcionario: ";
 					getline(cin, nomeFunc);
 
-					Funcionario temp(nomeFunc);
-					Funcionario* f1 = &temp;
+					Funcionario f1(nomeFunc);
 					oficina1.adicionaFuncionario(f1);
 
 					gotoxy(3, 5);
@@ -183,7 +183,7 @@ void menuManager(Oficina oficina1)
 				  cout << "Este sao os funcionarios que trabalham actualmente\nna empresa:" << endl << endl;
 
 				  for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
-					  cout << i + 1 << ": " << oficina1.getFuncionarios()[i]->getNome() << " - ID: " << oficina1.getFuncionarios()[i]->getID() << endl;
+					  cout << i + 1 << ": " << oficina1.getFuncionarios()[i].getNome() << " - ID: " << oficina1.getFuncionarios()[i].getID() << endl;
 
 				  cout << "Qual deseja despedir (ID): ";
 				  getline(cin, IDFunc);
@@ -375,7 +375,7 @@ void menuManager(Oficina oficina1)
 
 int main()
 {
-	//intro();
+	intro();
 	clrscr();
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
