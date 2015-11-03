@@ -4,6 +4,7 @@
 #include "Veiculo.h"
 
 using namespace std;
+static int clienteID = 1;
 
 class Cliente
 {
@@ -15,7 +16,7 @@ public:
 	string getNome() const;
 private:
 	string nome;
-	static int numRegisto;
+	int numRegisto;
 	vector<Veiculo *> veiculos;
 
 

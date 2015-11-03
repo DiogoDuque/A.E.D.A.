@@ -70,10 +70,12 @@ void Oficina::removeCliente(Cliente cl)
 		if (clientes[i].getNumRegisto() == cl.getNumRegisto())
 		{
 			clientes.erase(clientes.begin() + i);
+			break;
 		}
 	}
 
-    throw(ClienteNaoExistente(cl.getNome()));
+
+    //throw(ClienteNaoExistente(cl.getNome()));
 }
 
 //Função que remove funcionarios, e se tiverem veiculos associados, passa esse veiculos para o funcionario com menos veiculos

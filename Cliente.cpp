@@ -2,11 +2,12 @@
 
 using namespace std;
 
-int Cliente::numRegisto = 0;
-
 Cliente::Cliente(string myNome)
 {
 	nome = myNome;
+	numRegisto = clienteID;
+
+	clienteID++;
 }
 
 void Cliente::setNumRegisto()
