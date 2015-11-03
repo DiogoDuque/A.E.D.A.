@@ -131,7 +131,7 @@ void intro()
 	gotoxy(0, 0);
 }
 
-//selecao --> 0 para clientes, 1 para funcionarios
+//selecao --> 0 para clientes, 1 para funcionarios, 2 para veiculos
 int mostraInfo(Oficina oficina1, string frase, int n)
 {
 	clrscr();
@@ -139,21 +139,16 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 	gotoxy(3, 0);
 	cout << frase;
 
-	if (n == 0)
+	for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
 	{
-		for (unsigned int i = 0; i < oficina1.getClientes().size(); i++)
-		{
-			gotoxy(3, 3 + i * 2);
+		gotoxy(3, 3 + i * 2);
+
+		if (n == 0)
 			cout << oficina1.getClientes()[i].getNome() << " - ID: " << oficina1.getClientes()[i].getNumRegisto();
-		}
-	}
-	if (n == 1)
-	{
-		for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
-		{
-			gotoxy(3, 3 + i * 2);
+		if (n == 1)
 			cout << oficina1.getFuncionarios()[i];
-		}
+		if (n == 2)
+			oficina1.getVeiculos()[i]->getInfo();
 	}
 
 
@@ -247,7 +242,7 @@ void menuManager(Oficina oficina1)
 					else options.push_back(5 + temp);
 					break;
 		}
-		case 2: //GESTAO DE VEICULOS 7-??
+		case 2: //GESTAO DE VEICULOS 7 - (8 a 9) e 10
 		{
 					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo" }, "", 0);
 					if (temp == -1)
@@ -255,12 +250,12 @@ void menuManager(Oficina oficina1)
 					else options.push_back(7 + temp);
 					break;
 		}
-		case 3: //GESTAO DE CLIENTES ????
+		case 3: //GESTAO DE CLIENTES 11 - 12
 		{
 					temp = makeMenu("GESTAO DE CLIENTES", { "Registar cliente", "Eliminar cliente" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(10 + temp);
+					else options.push_back(11 + temp);
 					break;
 		}
 		case 4: //MOSTRAR INFO
@@ -342,17 +337,21 @@ void menuManager(Oficina oficina1)
 					if (temp == -1)
 						options.pop_back();
 					else
-						options.push_back(8 + temp);
+						options.push_back(9 + temp);
 					break;
 		}
-		case 9:		//Quando e a primeira vez que o cliente visita a oficina
+		case 8:	//Remover um veiculo
 		{
-						clientesNaoRegistados(0);
-						options.pop_back();
+						int temp = mostraInfo(oficina1, "", 2);
+
+						if (temp == -1)
+							options.pop_back();
+						else
+							options.push_back(10 + temp);
 
 						break;
 		}
-		case 8:		//Quando o cliente ja e antigo
+		case 9:		//Quando o cliente ja e antigo
 		{
 						if (oficina1.getClientes().size() == 0)
 						{
@@ -528,7 +527,15 @@ void menuManager(Oficina oficina1)
 
 						options.pop_back();
 		}
-		case 10:		//Registar cliente
+		case 10:		//Quando e a primeira vez que o cliente visita a oficina
+		{
+						clientesNaoRegistados(0);
+						options.pop_back();
+
+						break;
+		}
+		
+		case 11:		//Registar cliente
 		{
 							string nome;
 
@@ -555,7 +562,7 @@ void menuManager(Oficina oficina1)
 							options.pop_back();
 							break;
 		}
-		case 11:		//Remove cliente
+		case 12:		//Remove cliente
 		{
 							if (oficina1.getClientes().size() == 0)
 							{
