@@ -268,6 +268,7 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 	gotoxy(0, 3);
 	cout << "->";
 
+
 	unsigned int input;
 	unsigned int posicao = 0;
 
@@ -590,9 +591,11 @@ void menuManager(Oficina oficina1)
 
 								  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 								  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+								  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+								  oficina1.getClientes()[posCliente].addVeiculo(a1);
 
 								  gotoxy(0, 20);
-								  // TESTE --> a1->apresenta();
+								  //a1->apresenta();
 								  break;
 						}
 						case 1:
@@ -611,6 +614,8 @@ void menuManager(Oficina oficina1)
 
 								  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 								  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+								  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+								  oficina1.getClientes()[posCliente].addVeiculo(a1);
 								  break;
 						}
 						case 2:
@@ -629,6 +634,8 @@ void menuManager(Oficina oficina1)
 
 								  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 								  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+								  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+								  oficina1.getClientes()[posCliente].addVeiculo(a1);
 								  break;
 						}
 						case 3:
@@ -647,11 +654,16 @@ void menuManager(Oficina oficina1)
 
 								  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 								  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+								  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+								  oficina1.getClientes()[posCliente].addVeiculo(a1);
 								  break;
 						}
 						}
 
+						cout << endl << "   O veiculo pertencente a '" << oficina1.getClientes()[posCliente].getNome() << "', com o ID = '" << oficina1.getClientes()[posCliente].getNumRegisto() << "' foi adicionado com sucesso!";
+						waitForEnter();
 						options.pop_back();
+						break;
 		}
 		case 10:		//Quando e a primeira vez que o cliente visita a oficina
 		{
@@ -718,7 +730,7 @@ void menuManager(Oficina oficina1)
 int main()
 {
 	//intro();
-	anim_automovel();
+	//anim_automovel();
 	clrscr();
 	string nomeOficina;
 	cout << "Nome da Oficina: ";

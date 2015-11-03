@@ -82,7 +82,7 @@ Veiculo(year, month, comb)
 void Automovel::getInfo() const
 {
 	Veiculo::getInfo();
-	cout << ", numero de lugares: " << lugares << endl;
+	cout << ", numero de lugares: " << lugares;
 }
 
 Motorizada::Motorizada(int year, int month, string comb, int cilindr) : Veiculo(year, month, comb), cilindrada(cilindr) {}
@@ -91,7 +91,6 @@ Motorizada::Motorizada(int year, int month, string comb, int cilindr) : Veiculo(
 void Motorizada::getInfo() const
 {
 	Veiculo::getInfo();
-	cout << endl;
 }
 
 Camiao::Camiao(int year, int month, string comb, int tar) : Veiculo(year, month, comb), tara(tar) {}
@@ -100,7 +99,7 @@ Camiao::Camiao(int year, int month, string comb, int tar) : Veiculo(year, month,
 void Camiao::getInfo() const
 {
 	Veiculo::getInfo();
-	cout << ", tara: " << tara << endl;
+	cout << ", tara: " << tara;
 }
 
 Autocarro::Autocarro(int year, int month, string comb, int max_lugares) : Veiculo(year, month, comb), lugares(max_lugares) {}
@@ -109,7 +108,7 @@ Autocarro::Autocarro(int year, int month, string comb, int max_lugares) : Veicul
 void Autocarro::getInfo() const
 {
 	Veiculo::getInfo();
-	cout << ", capacidade: " << lugares << endl;
+	cout << ", capacidade: " << lugares;
 }
 
 void Veiculo::passaDias(int n)

@@ -9,10 +9,13 @@ class Cliente
 {
 public:
 	Cliente(string nome);
-	void setNumRegisto();
+	
 	int getNumRegisto() const;
-	vector<Veiculo *> getVeiculos() const;
 	string getNome() const;
+	vector<Veiculo *> getVeiculos() const;
+	void setNumRegisto();
+	void addVeiculo(Veiculo *v1);
+	
 private:
 	static int clienteID;
 	string nome;

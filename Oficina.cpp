@@ -117,7 +117,7 @@ void Oficina::showInfo() const
         throw(OficinaNaoTemFuncionarios());
     }
 
-	cout << "Funcionarios existentes na empresa:" << endl << endl;
+	cout << "FUNCIONARIOS EXISTENTES NA EMPRESA RESPONSAVEIS PELOS AUTOMOVEIS ACTUALMENTE:" << endl << endl;
 
 	for (unsigned int i = 0; i < funcionarios.size(); i++) //percorre a lista de funcionarios
 	{
@@ -126,7 +126,7 @@ void Oficina::showInfo() const
 
 		for (unsigned int j = 0; j < funcionarios[i]->getVeiculos().size(); j++)
 		{
-			cout << "Veiculo " << j + 1 << ": ";
+			cout << "   - Veiculo " << j + 1 << ": ";
 			funcionarios[i]->getVeiculos()[j]->getInfo();
 			cout << endl;
 		}

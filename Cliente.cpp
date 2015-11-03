@@ -38,3 +38,8 @@ string ClienteNaoExistente::getNome() const
 {
     return nome;
 }
+
+void Cliente::addVeiculo(Veiculo *v1)
+{
+	veiculos.push_back(v1);
+}
