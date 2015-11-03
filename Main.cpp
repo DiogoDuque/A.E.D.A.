@@ -76,6 +76,9 @@ void clientesNaoRegistados(int n)
 	gotoxy(3, 6); waitForEnter();
 }
 
+/**
+*Animação inicial. É executada apenas uma vez no inicio do programa.
+*/
 void intro()
 {
 	vector <string> oficina, carro;
@@ -129,6 +132,116 @@ void intro()
 		}
 	}
 	gotoxy(0, 0);
+}
+
+/**
+*Ecrã mostrado quando um automóvel é criada.
+*/
+void anim_automovel()
+{
+	gotoxy(15, 5);
+	cout << "        _......_";
+	gotoxy(15, 6);
+	cout << " , __.-'\\______\\\\'.______";
+	gotoxy(15, 7);
+	cout << " >`  '-`.--------'---`-`-`-.";
+	gotoxy(15, 8);
+	cout << "/    .-. \\________ \"\" .-.  =\\";
+	gotoxy(15, 9);
+	cout << "'---( o )------------( o )--'";
+	gotoxy(15, 10);
+	cout << "     '-'              '-'";
+	gotoxy(55, 6);
+	cout << "MENSAGEM: O seu automovel entrou na oficina e esta";
+	gotoxy(55, 7);
+	cout << "agora a ser arranjado pelos nossos melhores mecanicos.";
+	gotoxy(0, 14);
+	pause();
+}
+
+/**
+*Ecrã mostrado quando uma mota é criada.
+*/
+void anim_mota()
+{
+	gotoxy(15, 5);
+	cout << "         r==";
+	gotoxy(15, 6);
+	cout << "     _  //";
+	gotoxy(15, 7);
+	cout << "    |_)//(''''':";
+	gotoxy(15, 8);
+	cout << "      //  \\_____:_____.-----.P";
+	gotoxy(15, 9);
+	cout << "     //   | ===  |   /        \\";
+	gotoxy(15, 10);
+	cout << " .:'//.   \\ \\=|   \\ /  .:'':.";
+	gotoxy(15, 11);
+	cout << ":' // ':   \\ \\ ''..'--:'-.. ':";
+	gotoxy(15, 12);
+	cout << "'. '' .'    \\:.....:--'.-'' .'";
+	gotoxy(15, 13);
+	cout << " ':..:'                ':..:'";
+	gotoxy(55, 7);
+	cout << "MENSAGEM: A sua mota entrou na oficina e esta agora";
+	gotoxy(55, 8);
+	cout << "a ser arranjado pelos nossos melhores mecanicos.";
+	gotoxy(0, 17);
+	pause();
+}
+
+/**
+*Ecrã mostrado quando um camião é criado.
+*/
+void anim_camiao()
+{
+	gotoxy(10, 5);
+	cout << "         V   ~~~   ~~~   ~~~";
+	gotoxy(10, 6);
+	cout << "        _|_| |=========================|";
+	gotoxy(10, 7);
+	cout << "       (___| |                         |";
+	gotoxy(10, 8);
+	cout << "    __//__]| |                         |";
+	gotoxy(10, 9);
+	cout << "  >|:___ \'||\'|                         |";
+	gotoxy(10, 10);
+	cout << "   [/.-.\\= |-|.-._.-.===========.-._.-.=;";
+	gotoxy(10, 11);
+	cout << "   -|(o)|\\-~~|(o)|(o)\\~~''~''~~|(o)|(o)\\";
+	gotoxy(10, 12);
+	cout << "     \'-\'      \'-\' \'-\'           \'-\' \'-\'";
+	gotoxy(60, 7);
+	cout << "MENSAGEM: O seu camiao entrou na oficina e esta agora";
+	gotoxy(60, 8);
+	cout << "a ser arranjado pelos nossos melhores mecanicos.";
+	gotoxy(0, 16);
+	pause();
+}
+
+/**
+*Ecrã mostrado quando um autocarro é criado.
+*/
+void anim_autocarro()
+{
+	gotoxy(15, 5);
+	cout << " ______________________________";
+	gotoxy(15, 6);
+	cout << "/__  __  __  ___   ___   __   _\\";
+	gotoxy(15, 7);
+	cout << "|__)(__)|[]|(___) (___) |[]| (_|";
+	gotoxy(15, 8);
+	cout << "|       |  |            |  |   |";
+	gotoxy(15, 9);
+	cout << "[,-.____|__|____________|__|,-.]";
+	gotoxy(15, 10);
+	cout << " `-'                        `-'";
+	gotoxy(55, 6);
+	cout << "MENSAGEM: O seu autocarro entrou na oficina e esta";
+	gotoxy(55, 7);
+	cout << "agora a ser arranjado pelos nossos melhores mecanicos.";
+	gotoxy(0, 14);
+	pause();
 }
 
 //selecao --> 0 para clientes, 1 para funcionarios, 2 para veiculos
@@ -605,6 +718,7 @@ void menuManager(Oficina oficina1)
 int main()
 {
 	//intro();
+	anim_automovel();
 	clrscr();
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
