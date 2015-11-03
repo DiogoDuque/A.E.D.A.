@@ -53,6 +53,21 @@ void waitForEnter()
 		return;
 }
 
+void clientesNaoRegistados(int n)
+{
+	gotoxy(3, 0); cout << "ATENCAO!";
+	gotoxy(3, 2);
+	
+	if (n == 0)
+		 cout << "Para registar veiculos tem primeiro de se registar na base de dados.";
+	if (n == 1)
+		cout << "Para registar veiculos tem primeiro de haver clientes...";
+	
+	gotoxy(3, 4); cout << "Por favor, volte ao menu principal e selecione a opcao 'GESTAO DE CLIENTES'";
+
+	gotoxy(3, 6); waitForEnter();
+}
+
 void intro()
 {
 	vector <string> oficina, carro;
@@ -285,18 +300,28 @@ void menuManager(Oficina oficina1)
 		}
 		case 8:		//Quando e a primeira vez que o cliente visita a oficina
 		{
-						gotoxy(3, 0); cout << "ATENCAO!";
-						gotoxy(3, 2); cout << "Para registar veiculos tem primeiro de se registar na base de dados.";
-						gotoxy(3, 4); cout << "Por favor, volte ao menu principal e selecione a opcao 'GESTAO DE CLIENTES'";
-
-						gotoxy(3, 6); waitForEnter();
+						clientesNaoRegistados(0);
 						options.pop_back();
 
 						break;
 		}
 		case 9:		//Quando o cliente ja e antigo
 		{
-						int posCliente = mostraClientes(oficina1, "OOA");
+						if (oficina1.getClientes().size() == 0)
+						{
+							clientesNaoRegistados(1);
+							options.pop_back();
+
+							break;
+						}
+
+						int posCliente = mostraClientes(oficina1, "SELECIONA O CLIENTE A QUE DESEJA ASSOCIAR O AUTOMOVEL");
+
+						if (posCliente == -1)
+						{
+							options.pop_back();
+							break;
+						}
 
 						string ano, mes, combustivel;
 						int anoInt, mesInt;
