@@ -41,3 +41,9 @@ int FuncionarioNaoPodeTerMaisVeiculos::getNumeroVeiculos() const
 {
     return num;
 }
+
+ostream & operator<<(ostream & out, const Funcionario &f1)
+{
+	out << "   " << f1.getNome() << ", ID = " << f1.getID();
+	return out;
+}

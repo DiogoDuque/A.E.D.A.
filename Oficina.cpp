@@ -79,13 +79,13 @@ void Oficina::removeCliente(Cliente cl)
 }
 
 //Função que remove funcionarios, e se tiverem veiculos associados, passa esse veiculos para o funcionario com menos veiculos
-void Oficina::removeFuncionario(int id)
+void Oficina::removeFuncionario(Funcionario *f1)
 {
 	bool eliminou = false;
 
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 	{
-		if (funcionarios[i]->getID() == id)
+		if (funcionarios[i] == f1)
 		{
 			if (funcionarios[i]->getVeiculos().size() != 0)		//se o funcionario tiver veiculos a seu cargo, passa-los para outros funcionarios
 			{
@@ -100,7 +100,7 @@ void Oficina::removeFuncionario(int id)
 	}
 
 	if (!eliminou)
-		cout << "O funcionario com o ID '" << id << "' nao existe..." << endl;
+		cout << "O funcionario com o ID  nao existe..." << endl;
 		//throw(FuncionarioNaoExistente(id));
 }
 

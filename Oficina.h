@@ -21,7 +21,7 @@ public:
 	void adicionaFuncionario(Funcionario *f1);
 	void removeVeiculo(Veiculo *v);
 	void removeCliente(Cliente cl);
-	void removeFuncionario(int id);
+	void removeFuncionario(Funcionario *f1);
 	int funcionarioComMenosVeiculos(int indiceNaoUsar) const;
 	void passaDias(int n);
     Funcionario* getFuncionarioMenosVeiculos() const;

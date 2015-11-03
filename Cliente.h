@@ -4,6 +4,7 @@
 #include "Veiculo.h"
 
 using namespace std;
+
 static int clienteID = 1;
 
 class Cliente

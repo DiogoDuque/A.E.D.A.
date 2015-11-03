@@ -131,18 +131,31 @@ void intro()
 	gotoxy(0, 0);
 }
 
-int mostraClientes(Oficina oficina1, string frase)
+//selecao --> 0 para clientes, 1 para funcionarios
+int mostraInfo(Oficina oficina1, string frase, int n)
 {
 	clrscr();
 
 	gotoxy(3, 0);
 	cout << frase;
 
-	for (unsigned int i = 0; i < oficina1.getClientes().size(); i++)
+	if (n == 0)
 	{
-		gotoxy(3, 3 + i);
-		cout << oficina1.getClientes()[i].getNome() << " - ID: " << oficina1.getClientes()[i].getNumRegisto();
+		for (unsigned int i = 0; i < oficina1.getClientes().size(); i++)
+		{
+			gotoxy(3, 3 + i * 2);
+			cout << oficina1.getClientes()[i].getNome() << " - ID: " << oficina1.getClientes()[i].getNumRegisto();
+		}
 	}
+	if (n == 1)
+	{
+		for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
+		{
+			gotoxy(3, 3 + i * 2);
+			cout << oficina1.getFuncionarios()[i];
+		}
+	}
+
 
 	gotoxy(0, 3);
 	cout << "->";
@@ -152,7 +165,7 @@ int mostraClientes(Oficina oficina1, string frase)
 
 	while (true)
 	{
-		gotoxy(0, 3 + posicao);
+		gotoxy(0, 3 + posicao * 2);
 		cout << "->";
 
 		switch (input = _getch())
@@ -171,7 +184,7 @@ int mostraClientes(Oficina oficina1, string frase)
 		{
 				   if (posicao > 0)
 				   {
-					   gotoxy(0, 3 + posicao);
+					   gotoxy(0, 3 + posicao * 2);
 					   cout << "   ";
 					   posicao--;
 				   }
@@ -180,11 +193,23 @@ int mostraClientes(Oficina oficina1, string frase)
 		}
 		case DOWN:
 		{
-					 if (posicao < oficina1.getClientes().size() - 1)
+					 if (n == 0)
 					 {
-						 gotoxy(0, 3 + posicao);
-						 cout << "   ";
-						 posicao++;
+						 if (posicao < oficina1.getClientes().size() - 1)
+						 {
+							 gotoxy(0, 3 + posicao * 2);
+							 cout << "   ";
+							 posicao++;
+						 }
+					 }
+					 if (n == 1)
+					 {
+						 if (posicao < oficina1.getFuncionarios().size() - 1)
+						 {
+							 gotoxy(0, 3 + posicao * 2);
+							 cout << "   ";
+							 posicao++;
+						 }
 					 }
 
 					 break;
@@ -208,7 +233,7 @@ void menuManager(Oficina oficina1)
 		case 0: //MENU PRINCIPAL 1-4
 		{
 					temp = makeMenu(oficina1.getNome(), { "Gestao de funcionarios", "Gestao de veiculos",
-						"Gestao de clientes", "Mostrar informacao acerca da oficina" }, -1);
+						"Gestao de clientes", "Mostrar informacao acerca da oficina" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(1 + temp);
@@ -216,7 +241,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 1: //GESTAO DE FUNCIONARIOS 5-6
 		{
-					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" }, -1);
+					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(5 + temp);
@@ -224,7 +249,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 2: //GESTAO DE VEICULOS 7-??
 		{
-					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo" }, -1);
+					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(7 + temp);
@@ -232,7 +257,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 3: //GESTAO DE CLIENTES ????
 		{
-					temp = makeMenu("GESTAO DE CLIENTES", { "Registar cliente", "Eliminar cliente" }, -1);
+					temp = makeMenu("GESTAO DE CLIENTES", { "Registar cliente", "Eliminar cliente" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(10 + temp);
@@ -266,14 +291,17 @@ void menuManager(Oficina oficina1)
 					cout << "Introduza o nome do novo funcionario: ";
 					getline(cin, nomeFunc);
 
+					while (nomeFunc.empty())
+					{
+						cout << endl << "   O funcionario tem de ter um nome!" << endl << "Por favor, volte a introduzir o nome: ";
+						getline(cin, nomeFunc);
+					}
+
 					Funcionario *f1 = new Funcionario(nomeFunc);
 					oficina1.adicionaFuncionario(f1);
 
-					gotoxy(3, 5);
-					cout << "O funcionario " << nomeFunc << " foi adicionado com sucesso!" << endl;
-
-					gotoxy(3, 7);
-					cout << "PRIMA 'ENTER' PARA CONTINUAR";
+					cout << endl << "   O funcionario '" << nomeFunc << "' foi adicionado com sucesso!" << endl;
+					cout << endl << "   PRIMA 'ENTER' PARA CONTINUAR";
 
 					cin.ignore();
 
@@ -286,38 +314,30 @@ void menuManager(Oficina oficina1)
 		}
 		case 6: //FUNC - DEL
 		{
-					clrscr();
-
-					if (oficina1.getClientes().size() == 0)
+					if (oficina1.getFuncionarios().size() == 0)
 					{
-						funcionariosNaoRegistados();
+						gotoxy(3, 0); cout << "REMOVE FUNCIONARIO";
+						gotoxy(3, 2); cout << "Actualmente, nao ha funcionarios a trabalhar na oficina...";
+						waitForEnter();
 						options.pop_back();
-						break;
+					}
+					else
+					{
+						int posicao = mostraInfo(oficina1, "REMOVE FUNCIONARIO", 1);
+
+						if (posicao == -1)
+							options.pop_back();
+						else
+							oficina1.removeFuncionario(oficina1.getFuncionarios()[posicao]);
 					}
 
-					string IDFunc;
-
-					cout << "Este sao os funcionarios que trabalham actualmente\nna empresa:" << endl << endl;
-
-					for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
-						cout << i + 1 << ": " << oficina1.getFuncionarios()[i]->getNome() << " - ID: " << oficina1.getFuncionarios()[i]->getID() << endl;
-
-					cout << "Qual deseja despedir (ID): ";
-					getline(cin, IDFunc);
-
-					/*De string para int*/
-					istringstream ss(IDFunc);
-					int intIDFunc;
-					ss >> intIDFunc;
-
-					oficina1.removeFuncionario(intIDFunc);
 					break;
 		}
 		case 7: //VEIC - ADD
 		{
 					int temp;
 
-					temp = makeMenu("ADICIONAR VEICULO", { "SIM", "NAO" }, 0);
+					temp = makeMenu("ADICIONAR VEICULO", { "SIM", "NAO" }, "O cliente ja se encontra registado na nossa base de dados?", 1);
 
 					if (temp == -1)
 						options.pop_back();
@@ -325,14 +345,14 @@ void menuManager(Oficina oficina1)
 						options.push_back(8 + temp);
 					break;
 		}
-		case 8:		//Quando e a primeira vez que o cliente visita a oficina
+		case 9:		//Quando e a primeira vez que o cliente visita a oficina
 		{
 						clientesNaoRegistados(0);
 						options.pop_back();
 
 						break;
 		}
-		case 9:		//Quando o cliente ja e antigo
+		case 8:		//Quando o cliente ja e antigo
 		{
 						if (oficina1.getClientes().size() == 0)
 						{
@@ -342,7 +362,7 @@ void menuManager(Oficina oficina1)
 							break;
 						}
 
-						int posCliente = mostraClientes(oficina1, "SELECIONA O CLIENTE A QUE DESEJA ASSOCIAR O AUTOMOVEL");
+						int posCliente = mostraInfo(oficina1, "SELECIONA O CLIENTE A QUE DESEJA ASSOCIAR O AUTOMOVEL", 0);
 
 						if (posCliente == -1)
 						{
@@ -519,15 +539,20 @@ void menuManager(Oficina oficina1)
 							cout << "Introduza o nome do cliente: ";
 							getline(cin, nome);
 
+							while (nome.empty())
+							{
+								cout << endl << "   O cliente tem de ter um nome!" << endl;
+								cout << "   Por favor, volte a escrever o nome do cliente: ";
+								getline(cin, nome);
+							}
+
 							Cliente c1(nome);
 							oficina1.adicionaCliente(c1);
 
-							gotoxy(3, 5);
-							cout << "O cliente '" << nome << "' foi adicionado com sucesso!";
+							cout << endl << "   O cliente '" << nome << "' foi adicionado com sucesso!";
 							
 							waitForEnter();
 							options.pop_back();
-							
 							break;
 		}
 		case 11:		//Remove cliente
@@ -536,18 +561,17 @@ void menuManager(Oficina oficina1)
 							{
 								gotoxy(3, 0); cout << "REMOVE CLIENTE";
 								gotoxy(3, 2); cout << "Actualmente, nao ha clientes registados na oficina...";
-							
 								waitForEnter();
 								options.pop_back();
 							}
 							else
 							{
-								int posicao = mostraClientes(oficina1, "REMOVE CLIENTE");
+								int posicao = mostraInfo(oficina1, "REMOVE CLIENTE", 0);
 
 								if (posicao == -1)
 									options.pop_back();
-
-								oficina1.removeCliente(oficina1.getClientes()[posicao]);
+								else
+									oficina1.removeCliente(oficina1.getClientes()[posicao]);
 							}
 
 							break;

@@ -19,12 +19,16 @@ public:
 	int getID() const	{return id; };		//Este ID é uma var geral que à medida que se acrescentam mais funcionarios, o ID vai crescendo automaticamente
 	void acrescentaVeiculos(Veiculo *v);
 	vector <Veiculo *> getVeiculos() const;
+
+	
 private:
 	static unsigned int maxVeiculos;
 	string nome;
 	int id;
 	vector<Veiculo *> veiculos;
 };
+
+ostream & operator<<(ostream & out, const Funcionario &f1);
 
 class FuncionarioNaoExistente
 {
