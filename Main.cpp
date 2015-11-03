@@ -347,8 +347,18 @@ void menuManager(Oficina oficina1)
 						if (temp == -1)
 							options.pop_back();
 						else
-							options.push_back(10 + temp);
+						{
+							try
+							{
+								oficina1.removeVeiculo(oficina1.getVeiculos()[temp]);
+							}
+							catch (VeiculoNaoExistente x)
+							{
+								cout << "   O Veiculo '" << x.getID() << "' nao existe na oficina..." << endl;
+							}
+						}
 
+						waitForEnter();
 						break;
 		}
 		case 9:		//Quando o cliente ja e antigo

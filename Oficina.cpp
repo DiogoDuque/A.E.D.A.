@@ -29,15 +29,20 @@ Retorna true caso o veículo exista e seja possível de ser removido, caso contrár
 */
 void Oficina::removeVeiculo(Veiculo *v)
 {
+	bool eliminou = false;
+
 	for (unsigned int i = 0; i < veiculos.size(); i++)
 	{
 		if (veiculos[i] == v)
 		{
 			veiculos.erase(veiculos.begin() + i);
+			eliminou = true;
+			break;
 		}
 	}
 
-	throw(VeiculoNaoExistente(v->getID()));
+	if (!eliminou)
+		throw(VeiculoNaoExistente(v->getID()));
 }
 
 void Oficina::adicionaFuncionario(Funcionario *f)
