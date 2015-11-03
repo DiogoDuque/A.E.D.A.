@@ -146,3 +146,8 @@ int Veiculo::getID() const
 {
     return id;
 }
+
+void Veiculo::apresenta() const
+{
+	cout << f->getNome() << endl;
+}

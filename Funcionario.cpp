@@ -3,6 +3,7 @@
 
 using namespace std;
 
+int Funcionario::ID = 1;
 unsigned int Funcionario::maxVeiculos = 10;
 
 Funcionario::Funcionario(string name)

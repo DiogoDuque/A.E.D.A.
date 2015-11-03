@@ -35,6 +35,7 @@ public:
 	float ofereceDesconto();
 	void passaDias(int n);
     int getID() const;
+	void apresenta() const;
 protected:
     int id;
 	int ano;

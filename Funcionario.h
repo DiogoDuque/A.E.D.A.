@@ -9,8 +9,6 @@ using namespace std;
 
 class Veiculo;
 
-static int ID = 1;
-
 class Funcionario
 {
 public:
@@ -22,6 +20,7 @@ public:
 
 	
 private:
+	static int ID;
 	static unsigned int maxVeiculos;
 	string nome;
 	int id;

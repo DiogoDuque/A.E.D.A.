@@ -2,6 +2,8 @@
 
 using namespace std;
 
+int Cliente::clienteID = 1;
+
 Cliente::Cliente(string myNome)
 {
 	nome = myNome;

@@ -5,8 +5,6 @@
 
 using namespace std;
 
-static int clienteID = 1;
-
 class Cliente
 {
 public:
@@ -16,6 +14,7 @@ public:
 	vector<Veiculo *> getVeiculos() const;
 	string getNome() const;
 private:
+	static int clienteID;
 	string nome;
 	int numRegisto;
 	vector<Veiculo *> veiculos;

@@ -146,7 +146,7 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 		if (n == 0)
 			cout << oficina1.getClientes()[i].getNome() << " - ID: " << oficina1.getClientes()[i].getNumRegisto();
 		if (n == 1)
-			cout << oficina1.getFuncionarios()[i];
+			cout << *oficina1.getFuncionarios()[i];
 		if (n == 2)
 			oficina1.getVeiculos()[i]->getInfo();
 	}
@@ -156,7 +156,7 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 	cout << "->";
 
 	unsigned int input;
-	int posicao = 0;
+	unsigned int posicao = 0;
 
 	while (true)
 	{
@@ -477,6 +477,9 @@ void menuManager(Oficina oficina1)
 
 								  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 								  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+
+								  gotoxy(0, 20);
+								  // TESTE --> a1->apresenta();
 								  break;
 						}
 						case 1:
