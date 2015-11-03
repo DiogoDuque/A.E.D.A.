@@ -53,6 +53,14 @@ void waitForEnter()
 		return;
 }
 
+void funcionariosNaoRegistados()
+{
+	gotoxy(3, 0); cout << "ATENCAO!";
+	gotoxy(3, 2); cout << "Nao pode despedir funcionarios se nao ha funcionarios para despedir...";
+
+	gotoxy(3, 4); waitForEnter();
+}
+
 void clientesNaoRegistados(int n)
 {
 	gotoxy(3, 0); cout << "ATENCAO!";
@@ -233,8 +241,17 @@ void menuManager(Oficina oficina1)
 		case 4: //MOSTRAR INFO
 		{
 					clrscr();
-					oficina1.showInfo();
-					pause();
+
+					try
+					{
+						oficina1.showInfo();
+					}
+					catch (OficinaNaoTemFuncionarios)
+					{
+						gotoxy(3, 0); cout << "Actualmente a oficina nao tem funcionarios...";
+					}
+
+					waitForEnter();
 					options.pop_back();
 					break;
 		}
@@ -269,6 +286,15 @@ void menuManager(Oficina oficina1)
 		}
 		case 6: //FUNC - DEL
 		{
+					clrscr();
+
+					if (oficina1.getClientes().size() == 0)
+					{
+						funcionariosNaoRegistados();
+						options.pop_back();
+						break;
+					}
+
 					string IDFunc;
 
 					cout << "Este sao os funcionarios que trabalham actualmente\nna empresa:" << endl << endl;
@@ -285,6 +311,7 @@ void menuManager(Oficina oficina1)
 					ss >> intIDFunc;
 
 					oficina1.removeFuncionario(intIDFunc);
+					break;
 		}
 		case 7: //VEIC - ADD
 		{
