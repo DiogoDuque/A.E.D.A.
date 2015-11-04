@@ -7,6 +7,8 @@
 
 using namespace std;
 
+int Veiculo::next_id = 1;
+
 Servico::Servico(string name, float price, int days) : nome(name), preco(price), terminado(false), dias(days) {}
 
 bool Servico::estaTerminado() const
@@ -35,9 +37,9 @@ Veiculo::Veiculo(int year, int month, string comb)
 	ano = year;
 	mes = month;
 	combustivel = comb;
-	id = IDGeral;
+	id = next_id;
 
-	IDGeral++;
+	next_id++;
 }
 
 void Veiculo::getInfo() const

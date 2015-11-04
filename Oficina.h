@@ -38,7 +38,7 @@ private:
 	vector <Veiculo*> veiculos;
 	vector <Funcionario*> funcionarios;
 	vector <Cliente> clientes;
-	const vector <Servico> servicos; //importar dum ficheiro
+	vector <Servico> servicos; //importar dum ficheiro
 };
 
 class NumeroDiasInvalido

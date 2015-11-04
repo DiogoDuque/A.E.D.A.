@@ -1,5 +1,7 @@
 #include "Oficina.h"
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -7,6 +9,19 @@ using namespace std;
 Oficina::Oficina(string myNomeOficina)
 {
 	nomeOficina = myNomeOficina;
+
+	//importar servicos
+	ifstream file("servicos.txt");
+	string s1, s2, s3;
+	while (!file.eof())
+	{
+		getline(file, s1);
+		file >> s2;
+		file >> s3;
+		Servico temp(s1, (float)stoi(s2), stoi(s3));
+		getline(file, s1); //limpar '\n'
+		servicos.push_back(temp);
+	}
 }
 
 string Oficina::getNome() const

@@ -7,8 +7,6 @@
 
 using namespace std;
 
-static int IDGeral = 1;
-
 class Funcionario; //necessario visto que Veiculo e Funcionario sao interdependentes
 
 class Servico
@@ -39,6 +37,7 @@ public:
     int getID() const;
 	void apresenta() const;
 protected:
+	static int next_id;
     int id;
 	int ano;
 	int mes;

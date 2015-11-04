@@ -799,7 +799,6 @@ void menuManager(Oficina oficina1)
 int main()
 {
 	//intro();
-	//anim_automovel();
 	clrscr();
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
@@ -809,6 +808,13 @@ int main()
 		clrscr();
 		cout << "Nome demasiado curto! Introduza um nome correto.\nNome da Oficina: ";
 		getline(cin, nomeOficina);
+	}
+	ifstream file("servicos.txt");
+	if (file.good())
+		file.close();
+	else {
+		file.close();
+		cout << "Foi impossivel importar o ficheiro de servicos.\nPor favor certifique-se que este esta no diretorio correto!\n\n";
 	}
 	Oficina oficina1(nomeOficina);
 
