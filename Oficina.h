@@ -30,6 +30,7 @@ public:
     vector<Veiculo*> getVeiculos() const;
     vector<Funcionario*> getFuncionarios() const;
     vector<Cliente> getClientes() const;
+	void associaVeiculoCliente(Veiculo *v1, Cliente c1);
 
 	void showInfo() const;
 private:

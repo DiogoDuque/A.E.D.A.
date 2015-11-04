@@ -29,12 +29,15 @@ int Servico::getDias() const
     return dias;
 }
 
-//VEICULO [ABSTRATA]
+//VEICULO
 Veiculo::Veiculo(int year, int month, string comb)
 {
 	ano = year;
 	mes = month;
 	combustivel = comb;
+	id = IDGeral;
+
+	IDGeral++;
 }
 
 void Veiculo::getInfo() const

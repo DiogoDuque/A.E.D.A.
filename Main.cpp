@@ -56,7 +56,7 @@ void waitForEnter()
 void funcionariosNaoRegistados()
 {
 	gotoxy(3, 0); cout << "ATENCAO!";
-	gotoxy(3, 2); cout << "Nao pode despedir funcionarios se nao ha funcionarios para despedir...";
+	gotoxy(3, 2); cout << "Para registar veiculos e necessario que haja funcionarios para os reparar..." << endl << "   Faca o favor de empregar alguem!";
 
 	gotoxy(3, 4); waitForEnter();
 }
@@ -251,23 +251,31 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 
 	gotoxy(3, 0);
 	cout << frase;
+	
+	if (n == 0)
+	for (unsigned int i = 0; i < oficina1.getClientes().size(); i++)
+	{
+		gotoxy(3, 3 + i * 2);
+		cout << oficina1.getClientes()[i].getNome() << " - ID: " << oficina1.getClientes()[i].getNumRegisto();
+	}
 
+	if (n == 1)
 	for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
 	{
 		gotoxy(3, 3 + i * 2);
-
-		if (n == 0)
-			cout << oficina1.getClientes()[i].getNome() << " - ID: " << oficina1.getClientes()[i].getNumRegisto();
-		if (n == 1)
-			cout << *oficina1.getFuncionarios()[i];
-		if (n == 2)
-			oficina1.getVeiculos()[i]->getInfo();
+		cout << *oficina1.getFuncionarios()[i];
 	}
-
+	
+	if (n == 2)
+	for (unsigned int i = 0; i < oficina1.getVeiculos().size(); i++)
+	{
+		gotoxy(3, 3 + i * 2);
+		oficina1.getVeiculos()[i]->getInfo();
+		cout << endl;
+	}
 
 	gotoxy(0, 3);
 	cout << "->";
-
 
 	unsigned int input;
 	unsigned int posicao = 0;
@@ -320,6 +328,15 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 							 posicao++;
 						 }
 					 }
+					 if (n == 2)
+					 {
+						 if (posicao < oficina1.getVeiculos().size() - 1)
+						 {
+							 gotoxy(0, 3 + posicao * 2);
+							 cout << "   ";
+							 posicao++;
+						 }
+					 }
 
 					 break;
 		}
@@ -348,28 +365,28 @@ void menuManager(Oficina oficina1)
 					else options.push_back(1 + temp);
 					break;
 		}
-		case 1: //GESTAO DE FUNCIONARIOS 5-6
+		case 1: //GESTAO DE FUNCIONARIOS 5-6-7
 		{
-					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario" }, "", 0);
+					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario", "Listar funcionarios" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(5 + temp);
 					break;
 		}
-		case 2: //GESTAO DE VEICULOS 7 - (8 a 9) e 10
+		case 2: //GESTAO DE VEICULOS (8 - 11 - 12) 9 10
 		{
-					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo" }, "", 0);
+					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo", "Listar Veiculos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(7 + temp);
+					else options.push_back(8 + temp);
 					break;
 		}
 		case 3: //GESTAO DE CLIENTES 11 - 12
 		{
-					temp = makeMenu("GESTAO DE CLIENTES", { "Registar cliente", "Eliminar cliente" }, "", 0);
+					temp = makeMenu("GESTAO DE CLIENTES", { "Registar cliente", "Eliminar cliente", "Listar clientes" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(11 + temp);
+					else options.push_back(13 + temp);
 					break;
 		}
 		case 4: //MOSTRAR INFO
@@ -442,7 +459,21 @@ void menuManager(Oficina oficina1)
 
 					break;
 		}
-		case 7: //VEIC - ADD
+		case 7:
+		{
+				  clrscr();
+				  cout << "   LISTAGEM DE FUNCIONARIOS" << endl << endl;
+
+				  for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
+				  {
+					  cout << "   " << i + 1 << ". " << *oficina1.getFuncionarios()[i] << endl;;
+				  }
+
+				  waitForEnter();
+				  options.pop_back();
+				  break;
+		}
+		case 8: //VEIC - ADD
 		{
 					int temp;
 
@@ -451,229 +482,252 @@ void menuManager(Oficina oficina1)
 					if (temp == -1)
 						options.pop_back();
 					else
-						options.push_back(9 + temp);
+						options.push_back(11 + temp);
 					break;
 		}
-		case 8:	//Remover um veiculo
+		case 9:	//Remover um veiculo
 		{
-						int temp = mostraInfo(oficina1, "", 2);
+					int temp = mostraInfo(oficina1, "REMOVER VEICULO", 2);
 
-						if (temp == -1)
-							options.pop_back();
-						else
+					if (temp == -1)
+						options.pop_back();
+					else
+					{
+						try
 						{
-							try
-							{
-								oficina1.removeVeiculo(oficina1.getVeiculos()[temp]);
-							}
-							catch (VeiculoNaoExistente x)
-							{
-								cout << "   O Veiculo '" << x.getID() << "' nao existe na oficina..." << endl;
-							}
+							oficina1.removeVeiculo(oficina1.getVeiculos()[temp]);
 						}
+						catch (VeiculoNaoExistente x)
+						{
+							cout << "   O Veiculo '" << x.getID() << "' nao existe na oficina..." << endl;
+						}
+					}
 
-						waitForEnter();
-						break;
+					waitForEnter();
+					break;
 		}
-		case 9:		//Quando o cliente ja e antigo
+		case 10:		//Listagem de veiculos
 		{
-						if (oficina1.getClientes().size() == 0)
-						{
-							clientesNaoRegistados(1);
-							options.pop_back();
+				   clrscr();
+				   cout << "   LISTAGEM DE VEICULOS" << endl << endl;
 
-							break;
-						}
+				   for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
+				   {
+					   cout << "   " << i + 1 << ". ";
+					   oficina1.getVeiculos()[i]->getInfo();
+					   cout << endl;
+				   }
 
-						int posCliente = mostraInfo(oficina1, "SELECIONA O CLIENTE A QUE DESEJA ASSOCIAR O AUTOMOVEL", 0);
+				   waitForEnter();
+				   options.pop_back();
+				   break;
+		}
+		case 11:		//Quando o cliente ja e antigo
+		{
+							if (oficina1.getClientes().size() == 0)
+							{
+								clientesNaoRegistados(1);
+								options.pop_back();
 
-						if (posCliente == -1)
-						{
-							options.pop_back();
-							break;
-						}
+								break;
+							}
 
-						string ano, mes, combustivel;
-						int anoInt, mesInt;
-						int tipoVeiculo = -1;
+							if (oficina1.getFuncionarios().size() == 0)
+							{
+								funcionariosNaoRegistados();
+								options.pop_back();
 
-						gotoxy(3, 0);
-						cout << "ADICIONAR VEICULO";
+								break;
+							}
 
-						gotoxy(3, 3);
-						cout << "Introduza o ano do carro: ";
-						getline(cin, ano);
+							int posCliente = mostraInfo(oficina1, "SELECIONA O CLIENTE A QUE DESEJA ASSOCIAR O AUTOMOVEL", 0);
 
-						gotoxy(3, 4);
-						cout << "Introduza o mes: ";
-						getline(cin, mes);
+							if (posCliente == -1)
+							{
+								options.pop_back();
+								break;
+							}
 
-						gotoxy(3, 5);
-						cout << "Introduza o tipo de combustivel: ";
-						getline(cin, combustivel);
+							string ano, mes, combustivel;
+							int anoInt, mesInt;
+							int tipoVeiculo = -1;
 
-						istringstream ss(ano);
-						ss >> anoInt;
-						istringstream ss2(mes);
-						ss2 >> mesInt;
+							gotoxy(3, 0);
+							cout << "ADICIONAR VEICULO";
 
-						gotoxy(3, 7);
-						cout << "ESPECIFIQUE O TIPO DE VEICULO";
+							gotoxy(3, 3);
+							cout << "Introduza o ano do carro: ";
+							getline(cin, ano);
 
-						gotoxy(0, 9);
-						cout << "->";
+							gotoxy(3, 4);
+							cout << "Introduza o mes: ";
+							getline(cin, mes);
 
-						vector<string> veiculos = { "Automovel", "Motorizada", "Camiao", "Autocarro" };
-						for (unsigned int i = 0; i < 4; i++)
-						{
-							gotoxy(3, 9 + 2 * i);
-							cout << veiculos[i];
-						}
+							gotoxy(3, 5);
+							cout << "Introduza o tipo de combustivel: ";
+							getline(cin, combustivel);
 
-						unsigned int input, selecao = 0;
-						while (tipoVeiculo == -1)
-						{
-							gotoxy(0, 9 + 2 * selecao);
+							istringstream ss(ano);
+							ss >> anoInt;
+							istringstream ss2(mes);
+							ss2 >> mesInt;
+
+							gotoxy(3, 7);
+							cout << "ESPECIFIQUE O TIPO DE VEICULO";
+
+							gotoxy(0, 9);
 							cout << "->";
 
-							switch (input = _getch())
+							vector<string> veiculos = { "Automovel", "Motorizada", "Camiao", "Autocarro" };
+							for (unsigned int i = 0; i < 4; i++)
 							{
-							case ESC:
+								gotoxy(3, 9 + 2 * i);
+								cout << veiculos[i];
+							}
+
+							unsigned int input, selecao = 0;
+							while (tipoVeiculo == -1)
 							{
-										options.pop_back();
-										break;
+								gotoxy(0, 9 + 2 * selecao);
+								cout << "->";
+
+								switch (input = _getch())
+								{
+								case ESC:
+								{
+											options.pop_back();
+											break;
+								}
+								case ENTER:
+								{
+											  tipoVeiculo = selecao;
+											  break;
+								}
+								case UP:
+								{
+										   if (selecao > 0)
+										   {
+											   gotoxy(0, 9 + 2 * selecao);
+											   cout << "  ";
+											   selecao--;
+										   }
+										   break;
+								}
+								case DOWN:
+								{
+											 if (selecao < 3)
+											 {
+												 gotoxy(0, 9 + 2 * selecao);
+												 cout << "  ";
+												 selecao++;
+											 }
+											 break;
+								}
+								}
 							}
-							case ENTER:
+
+							gotoxy(3, 19);
+
+							switch (tipoVeiculo)
 							{
-										  tipoVeiculo = selecao;
-										  break;
-							}
-							case UP:
+							case 0:
 							{
-									   if (selecao > 0)
-									   {
-										   gotoxy(0, 9 + 2 * selecao);
-										   cout << "  ";
-										   selecao--;
-									   }
-									   break;
+									  int numLugaresInt;
+									  string numLugares;
+
+									  cout << "Introduza o numero de lugares: ";
+									  getline(cin, numLugares);
+
+									  istringstream ss(numLugares);
+									  ss >> numLugaresInt;
+
+									  Veiculo *a1 = new Automovel(anoInt, mesInt, combustivel, numLugaresInt);
+									  oficina1.adicionaVeiculo(a1);
+
+									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
+									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  oficina1.getClientes()[posCliente].addVeiculo(a1);
+
+									  //a1->apresenta();
+									  break;
 							}
-							case DOWN:
+							case 1:
 							{
-										 if (selecao < 3)
-										 {
-											 gotoxy(0, 9 + 2 * selecao);
-											 cout << "  ";
-											 selecao++;
-										 }
-										 break;
+									  int cilindradaInt;
+									  string cilindrada;
+
+									  cout << "Introduza a cilindrada: ";
+									  getline(cin, cilindrada);
+
+									  istringstream ss(cilindrada);
+									  ss >> cilindradaInt;
+
+									  Veiculo *a1 = new Motorizada(anoInt, mesInt, combustivel, cilindradaInt);
+									  oficina1.adicionaVeiculo(a1);
+
+									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
+									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  oficina1.getClientes()[posCliente].addVeiculo(a1);
+									  break;
+							}
+							case 2:
+							{
+									  int taraInt;
+									  string tara;
+
+									  cout << "Introduza a tara: ";
+									  getline(cin, tara);
+
+									  istringstream ss(tara);
+									  ss >> taraInt;
+
+									  Veiculo *a1 = new Camiao(anoInt, mesInt, combustivel, taraInt);
+									  oficina1.adicionaVeiculo(a1);
+
+									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
+									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  oficina1.getClientes()[posCliente].addVeiculo(a1);
+									  break;
+							}
+							case 3:
+							{
+									  int numLugaresInt;
+									  string numLugares;
+
+									  cout << "Introduza o numero de lugares: ";
+									  getline(cin, numLugares);
+
+									  istringstream ss(numLugares);
+									  ss >> numLugaresInt;
+
+									  Veiculo *a1 = new Autocarro(anoInt, mesInt, combustivel, numLugaresInt);
+									  oficina1.adicionaVeiculo(a1);
+
+									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
+									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  oficina1.getClientes()[posCliente].addVeiculo(a1);
+									  break;
 							}
 							}
-						}
 
-						gotoxy(3, 19);
-
-						switch (tipoVeiculo)
-						{
-						case 0:
-						{
-								  int numLugaresInt;
-								  string numLugares;
-
-								  cout << "Introduza o numero de lugares: ";
-								  getline(cin, numLugares);
-
-								  istringstream ss(numLugares);
-								  ss >> numLugaresInt;
-
-								  Veiculo *a1 = new Automovel(anoInt, mesInt, combustivel, numLugaresInt);
-								  oficina1.adicionaVeiculo(a1);
-
-								  int indice = oficina1.funcionarioComMenosVeiculos(-1);
-								  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-								  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-								  oficina1.getClientes()[posCliente].addVeiculo(a1);
-
-								  gotoxy(0, 20);
-								  //a1->apresenta();
-								  break;
-						}
-						case 1:
-						{
-								  int cilindradaInt;
-								  string cilindrada;
-
-								  cout << "Introduza a cilindrada: ";
-								  getline(cin, cilindrada);
-
-								  istringstream ss(cilindrada);
-								  ss >> cilindradaInt;
-
-								  Veiculo *a1 = new Motorizada(anoInt, mesInt, combustivel, cilindradaInt);
-								  oficina1.adicionaVeiculo(a1);
-
-								  int indice = oficina1.funcionarioComMenosVeiculos(-1);
-								  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-								  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-								  oficina1.getClientes()[posCliente].addVeiculo(a1);
-								  break;
-						}
-						case 2:
-						{
-								  int taraInt;
-								  string tara;
-
-								  cout << "Introduza a tara: ";
-								  getline(cin, tara);
-
-								  istringstream ss(tara);
-								  ss >> taraInt;
-
-								  Veiculo *a1 = new Camiao(anoInt, mesInt, combustivel, taraInt);
-								  oficina1.adicionaVeiculo(a1);
-
-								  int indice = oficina1.funcionarioComMenosVeiculos(-1);
-								  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-								  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-								  oficina1.getClientes()[posCliente].addVeiculo(a1);
-								  break;
-						}
-						case 3:
-						{
-								  int numLugaresInt;
-								  string numLugares;
-
-								  cout << "Introduza o numero de lugares: ";
-								  getline(cin, numLugares);
-
-								  istringstream ss(numLugares);
-								  ss >> numLugaresInt;
-
-								  Veiculo *a1 = new Autocarro(anoInt, mesInt, combustivel, numLugaresInt);
-								  oficina1.adicionaVeiculo(a1);
-
-								  int indice = oficina1.funcionarioComMenosVeiculos(-1);
-								  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-								  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-								  oficina1.getClientes()[posCliente].addVeiculo(a1);
-								  break;
-						}
-						}
-
-						cout << endl << "   O veiculo pertencente a '" << oficina1.getClientes()[posCliente].getNome() << "', com o ID = '" << oficina1.getClientes()[posCliente].getNumRegisto() << "' foi adicionado com sucesso!";
-						waitForEnter();
-						options.pop_back();
-						break;
+							cout << endl << "   O veiculo pertencente a '" << oficina1.getClientes()[posCliente].getNome() << "', com o ID = '" << oficina1.getClientes()[posCliente].getNumRegisto() << "' foi adicionado com sucesso!";
+							waitForEnter();
+							options.pop_back();
+							break;
 		}
-		case 10:		//Quando e a primeira vez que o cliente visita a oficina
+		case 12:		//Quando e a primeira vez que o cliente visita a oficina
 		{
-						clientesNaoRegistados(0);
-						options.pop_back();
+							clientesNaoRegistados(0);
+							options.pop_back();
 
-						break;
+							break;
 		}
-		
-		case 11:		//Registar cliente
+
+		case 13:		//Registar cliente
 		{
 							string nome;
 
@@ -695,12 +749,12 @@ void menuManager(Oficina oficina1)
 							oficina1.adicionaCliente(c1);
 
 							cout << endl << "   O cliente '" << nome << "' foi adicionado com sucesso!";
-							
+
 							waitForEnter();
 							options.pop_back();
 							break;
 		}
-		case 12:		//Remove cliente
+		case 14:		//Remove cliente
 		{
 							if (oficina1.getClientes().size() == 0)
 							{
@@ -720,6 +774,21 @@ void menuManager(Oficina oficina1)
 							}
 
 							break;
+		}
+		case 15:		//Lista clientes
+		{
+				   clrscr();
+				   cout << "   LISTAGEM DE CLIENTES" << endl << endl;
+
+				   for (unsigned int i = 0; i < oficina1.getClientes().size(); i++)
+				   {
+					   cout << "   " << i + 1 << ". ";
+					   cout << oficina1.getClientes()[i] << endl;
+				   }
+
+				   waitForEnter();
+				   options.pop_back();
+				   break;
 		}
 		default:
 			break;

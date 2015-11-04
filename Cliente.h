@@ -21,9 +21,9 @@ private:
 	string nome;
 	int numRegisto;
 	vector<Veiculo *> veiculos;
-
-
 };
+
+ostream & operator<<(ostream &out, const Cliente &v1);
 
 class ClienteNaoExistente
 {
