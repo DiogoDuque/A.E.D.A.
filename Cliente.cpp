@@ -44,3 +44,8 @@ ostream & operator<<(ostream &out, const Cliente &v1)
 
 	return out;
 }
+
+bool Cliente::operator<(const Cliente& cl) const
+{
+    return (nome < cl.getNome());
+}

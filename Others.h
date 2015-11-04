@@ -1,6 +1,7 @@
 #ifndef Other_h
 #define Other_h
 
+#include <string>
 #include <vector>
 
 using namespace std;

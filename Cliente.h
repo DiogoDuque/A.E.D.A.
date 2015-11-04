@@ -9,13 +9,14 @@ class Cliente
 {
 public:
 	Cliente(string nome);
-	
+
 	int getNumRegisto() const;
 	string getNome() const;
 	vector<Veiculo *> getVeiculos() const;
 	void setNumRegisto();
 	void addVeiculo(Veiculo *v1);
-	
+	bool operator <(const Cliente& cl) const;
+
 private:
 	static int clienteID;
 	string nome;

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -187,5 +188,21 @@ void Oficina::showInfo() const
 	}
 }
 
+void Oficina::ordenaClientes()
+{
+    sort(clientes.begin(), clientes.end());
+}
 
+void Oficina::associaVeiculoCliente(Veiculo* v1, Cliente c1)
+{
+    for(unsigned int i = 0; i < clientes.size(); i++)
+    {
+        if(clientes[i].getNome() == c1.getNome())
+        {
+            c1.addVeiculo(v1);
+            return;
+        }
+    }
 
+    throw(ClienteNaoExistente(c1.getNome()));
+}
