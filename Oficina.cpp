@@ -162,8 +162,20 @@ void Oficina::passaDias(int n)
 }
 
 
-//FALTAM FUNCOES AQUI!!!!
+//FALTA UMA FUNCAO AQUI!!!!
 
+void Oficina::associaVeiculoCliente(Veiculo *v1, Cliente c1)
+{
+	int id = c1.getNumRegisto();
+	for (unsigned int i = 0; i < clientes.size(); i++)
+	{
+		if (clientes[i].getNumRegisto() == id)
+		{
+			clientes[i].addVeiculo(v1);
+			break;
+		}
+	}
+}
 
 void Oficina::showInfo() const
 {
