@@ -9,12 +9,12 @@ using namespace std;
 
 int Veiculo::next_id = 1;
 
-Servico::Servico(string name, float price, int days) : nome(name), preco(price), terminado(false), dias(days) {}
 
-bool Servico::estaTerminado() const
-{
-    return terminado;
-}
+/*###################
+  #     SERVICO     #
+  ###################
+*/
+Servico::Servico(string name, float price, int days) : nome(name), preco(price), terminado(false), dias(days) {}
 
 string Servico::getNome() const
 {
@@ -31,7 +31,28 @@ int Servico::getDias() const
     return dias;
 }
 
-//VEICULO
+void Servico::passaDias(int n)
+{
+	dias -= n;
+	if (dias < 0)
+		dias = 0;
+}
+
+bool Servico::estaTerminado() const
+{
+	return terminado;
+}
+
+void Servico::desconto(float d)
+{
+	preco -= d;
+}
+
+
+/*###################
+  #     VEICULO     #
+  ###################
+*/
 Veiculo::Veiculo(int year, int month, string comb)
 {
 	ano = year;
@@ -42,9 +63,19 @@ Veiculo::Veiculo(int year, int month, string comb)
 	next_id++;
 }
 
+int Veiculo::getID() const
+{
+	return id;
+}
+
 void Veiculo::getInfo() const
 {
 	cout << "ID: " << id << ", ano: " << ano << ", mes: " << mes << ", combustivel: " << combustivel;
+}
+
+void Veiculo::setFuncionario(Funcionario *f1)
+{
+	f = f1;
 }
 
 bool Veiculo::estaPronto()
@@ -76,8 +107,24 @@ float Veiculo::ofereceDesconto()
 	return desconto;
 }
 
+void Veiculo::passaDias(int n)
+{
+	for (unsigned int i = 0; i < servicos.size(); i++)
+	{
+		servicos[i].passaDias(n);
+	}
+}
 
-//AUTOMOVEL (VEICULO)
+void Veiculo::apresenta() const //JUST FOR DEBUGGING
+{
+	cout << f->getNome() << endl;
+}
+
+
+/*###################
+  #    AUTOMOVEL    #
+  ###################
+*/
 Automovel::Automovel(int year, int month, string comb, int seats) :
 Veiculo(year, month, comb)
 {
@@ -90,68 +137,51 @@ void Automovel::getInfo() const
 	cout << ", numero de lugares: " << lugares;
 }
 
+
+/*###################
+  #   MOTORIZADA    #
+  ###################
+*/
 Motorizada::Motorizada(int year, int month, string comb, int cilindr) : Veiculo(year, month, comb), cilindrada(cilindr) {}
 
-// MOTORIZADA (VEICULO)
 void Motorizada::getInfo() const
 {
 	Veiculo::getInfo();
 }
 
+
+/*###################
+  #     CAMIAO      #
+  ###################
+*/
 Camiao::Camiao(int year, int month, string comb, int tar) : Veiculo(year, month, comb), tara(tar) {}
 
-//CAMIAO (VEICULO)
 void Camiao::getInfo() const
 {
 	Veiculo::getInfo();
 	cout << ", tara: " << tara;
 }
 
+
+/*###################
+  #    AUTOCARRO    #
+  ###################
+*/
 Autocarro::Autocarro(int year, int month, string comb, int max_lugares) : Veiculo(year, month, comb), lugares(max_lugares) {}
 
-//AUTOCARRO (VEICULO)
 void Autocarro::getInfo() const
 {
 	Veiculo::getInfo();
 	cout << ", capacidade: " << lugares;
 }
 
-void Veiculo::passaDias(int n)
-{
-    for(unsigned int i = 0; i < servicos.size(); i++)
-    {
-        servicos[i].passaDias(n);
-    }
-}
-
-void Servico::passaDias(int n)
-{
-    dias += n;
-}
-
-void Veiculo::setFuncionario(Funcionario *f1)
-{
-    f = f1;
-}
-
+/*###################
+  #      ERROS      #
+  ###################
+*/
 VeiculoNaoExistente::VeiculoNaoExistente(int i) : id(i) {}
 
 int VeiculoNaoExistente::getID() const
 {
     return id;
-}
-
-void Servico::desconto(float d)
-{
-    preco -= d;
-}
-
-int Veiculo::getID() const
-{
-    return id;
-}
-
-void Veiculo::apresenta() const
-{
-	cout << f->getNome() << endl;
 }

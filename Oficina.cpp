@@ -29,9 +29,29 @@ string Oficina::getNome() const
 	return nomeOficina;
 }
 
+vector<Veiculo*> Oficina::getVeiculos() const
+{
+	return veiculos;
+}
+
+vector<Cliente> Oficina::getClientes() const
+{
+	return clientes;
+}
+
+vector<Funcionario*> Oficina::getFuncionarios() const
+{
+	return funcionarios;
+}
+
 void Oficina::adicionaVeiculo(Veiculo *v)
 {
 	veiculos.push_back(v);
+}
+
+void Oficina::adicionaFuncionario(Funcionario *f)
+{
+	funcionarios.push_back(f);
 }
 
 void Oficina::adicionaCliente(Cliente cl)
@@ -39,8 +59,8 @@ void Oficina::adicionaCliente(Cliente cl)
 	clientes.push_back(cl);
 }
 
-/*
-Retorna true caso o veículo exista e seja possível de ser removido, caso contrário retorna false
+/**
+*Retorna true caso o veículo exista e seja possível de ser removido, caso contrário retorna false
 */
 void Oficina::removeVeiculo(Veiculo *v)
 {
@@ -60,45 +80,9 @@ void Oficina::removeVeiculo(Veiculo *v)
 		throw(VeiculoNaoExistente(v->getID()));
 }
 
-void Oficina::adicionaFuncionario(Funcionario *f)
-{
-	funcionarios.push_back(f);
-}
-
-//Devolve o indice do funcionario com menos veiculos (expecto o funcionario que queremos remover)
-int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
-{
-	int indice = -1;
-	unsigned int numVeiculos = 1000;
-
-	for (unsigned int i = 0; i < funcionarios.size(); i++)
-	{
-		if (funcionarios[i]->getVeiculos().size() < numVeiculos)
-		{
-			numVeiculos = funcionarios[i]->getVeiculos().size();
-			indice = i;
-		}
-	}
-
-	return indice;
-}
-
-void Oficina::removeCliente(Cliente cl)
-{
-	for (unsigned int i = 0; i < clientes.size(); i++)
-	{
-		if (clientes[i].getNumRegisto() == cl.getNumRegisto())
-		{
-			clientes.erase(clientes.begin() + i);
-			break;
-		}
-	}
-
-
-    //throw(ClienteNaoExistente(cl.getNome()));
-}
-
-//Função que remove funcionarios, e se tiverem veiculos associados, passa esse veiculos para o funcionario com menos veiculos
+/**
+*Função que remove funcionarios, e se tiverem veiculos associados, passa esse veiculos para o funcionario com menos veiculos
+*/
 void Oficina::removeFuncionario(Funcionario *f1)
 {
 	bool eliminou = false;
@@ -121,8 +105,63 @@ void Oficina::removeFuncionario(Funcionario *f1)
 
 	if (!eliminou)
 		cout << "O funcionario com o ID  nao existe..." << endl;
-		//throw(FuncionarioNaoExistente(id));
+	//throw(FuncionarioNaoExistente(id));
 }
+
+void Oficina::removeCliente(Cliente cl)
+{
+	for (unsigned int i = 0; i < clientes.size(); i++)
+	{
+		if (clientes[i].getNumRegisto() == cl.getNumRegisto())
+		{
+			clientes.erase(clientes.begin() + i);
+			break;
+		}
+	}
+
+
+	//throw(ClienteNaoExistente(cl.getNome()));
+}
+
+Funcionario* Oficina::getFuncionarioMenosVeiculos() const
+{
+	return funcionarios[funcionarioComMenosVeiculos(-1)];
+}
+
+/**
+*Devolve o indice do funcionario com menos veiculos (exceto o funcionario que queremos remover)
+*/
+int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
+{
+	int indice = -1;
+	unsigned int numVeiculos = 1000;
+
+	for (unsigned int i = 0; i < funcionarios.size(); i++)
+	{
+		if (funcionarios[i]->getVeiculos().size() < numVeiculos)
+		{
+			numVeiculos = funcionarios[i]->getVeiculos().size();
+			indice = i;
+		}
+	}
+
+	return indice;
+}
+
+void Oficina::passaDias(int n)
+{
+	if (n < 0)
+	{
+		throw(NumeroDiasInvalido(n));
+	}
+	for (unsigned int i = 0; i < veiculos.size(); i++)
+	{
+		veiculos[i]->passaDias(n);
+	}
+}
+
+
+//FALTAM FUNCOES AQUI!!!!
 
 
 void Oficina::showInfo() const
@@ -148,41 +187,5 @@ void Oficina::showInfo() const
 	}
 }
 
-void Oficina::passaDias(int n)
-{
-    if(n < 0)
-    {
-        throw(NumeroDiasInvalido(n));
-    }
-    for(unsigned int i = 0; i < veiculos.size(); i++)
-    {
-        veiculos[i]->passaDias(n);
-    }
-}
 
-Funcionario* Oficina::getFuncionarioMenosVeiculos() const
-{
-    return funcionarios[funcionarioComMenosVeiculos(-1)];
-}
 
-NumeroDiasInvalido::NumeroDiasInvalido(int n) : dias(n) {}
-
-int NumeroDiasInvalido::getDias() const
-{
-    return dias;
-}
-
-vector<Veiculo*> Oficina::getVeiculos() const
-{
-    return veiculos;
-}
-
-vector<Funcionario*> Oficina::getFuncionarios() const
-{
-    return funcionarios;
-}
-
-vector<Cliente> Oficina::getClientes() const
-{
-    return clientes;
-}

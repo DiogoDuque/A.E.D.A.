@@ -17,11 +17,11 @@ class Servico
 	int dias;
 public:
     Servico(string name, float price, int days);
+	string getNome() const;
+	float getPreco() const;
+	int getDias() const;
+	void passaDias(int n);
     bool estaTerminado() const;
-    string getNome() const;
-    float getPreco() const;
-    int getDias() const;
-    void passaDias(int n);
     void desconto(float d);
 };
 
@@ -29,13 +29,13 @@ class Veiculo
 {
 public:
 	Veiculo(int year, int month, string comb); //especificar o tipo de servico. caso nao conheca o servico, pede preco
-	void setFuncionario(Funcionario *f1);
+	int getID() const;
 	virtual void getInfo() const;
+	void setFuncionario(Funcionario *f1);
 	bool estaPronto();
 	float ofereceDesconto();
 	void passaDias(int n);
-    int getID() const;
-	void apresenta() const;
+	void apresenta() const; //DEBUGGING
 protected:
 	static int next_id;
     int id;

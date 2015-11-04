@@ -16,22 +16,21 @@ class Oficina
 {
 public:
 	Oficina(string nomeOficina);
+	string getNome() const;
+	vector<Veiculo*> getVeiculos() const;
+	vector<Cliente> getClientes() const;
+	vector<Funcionario*> getFuncionarios() const;
 	void adicionaVeiculo(Veiculo *v);
 	void adicionaCliente(Cliente cl);
 	void adicionaFuncionario(Funcionario *f1);
 	void removeVeiculo(Veiculo *v);
 	void removeCliente(Cliente cl);
 	void removeFuncionario(Funcionario *f1);
+	Funcionario* getFuncionarioMenosVeiculos() const;
 	int funcionarioComMenosVeiculos(int indiceNaoUsar) const;
 	void passaDias(int n);
-    Funcionario* getFuncionarioMenosVeiculos() const;
     void ordenaClientes();
-	string getNome() const;
-    vector<Veiculo*> getVeiculos() const;
-    vector<Funcionario*> getFuncionarios() const;
-    vector<Cliente> getClientes() const;
 	void associaVeiculoCliente(Veiculo *v1, Cliente c1);
-
 	void showInfo() const;
 private:
 	string nomeOficina;
@@ -45,8 +44,8 @@ class NumeroDiasInvalido
 {
     int dias;
 public:
-    NumeroDiasInvalido(int n);
-    int getDias() const;
+	NumeroDiasInvalido(int n) { dias = n; };
+	int getDias() const { return dias; };
 };
 
 class OficinaNaoTemFuncionarios {};

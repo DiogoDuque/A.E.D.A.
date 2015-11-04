@@ -29,8 +29,8 @@ class ClienteNaoExistente
 {
     string nome;
 public:
-    ClienteNaoExistente(string name);
-    string getNome() const;
+	ClienteNaoExistente(string name) { nome = name; };
+	string getNome() const { return nome; };
 };
 
 #endif

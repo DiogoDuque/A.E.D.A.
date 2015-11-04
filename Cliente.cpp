@@ -12,14 +12,14 @@ Cliente::Cliente(string myNome)
 	clienteID++;
 }
 
-void Cliente::setNumRegisto()
-{
-	numRegisto = numRegisto + 1;
-}
-
 int Cliente::getNumRegisto() const
 {
 	return numRegisto;
+}
+
+string Cliente::getNome() const
+{
+	return nome;
 }
 
 vector<Veiculo *> Cliente::getVeiculos() const
@@ -27,16 +27,9 @@ vector<Veiculo *> Cliente::getVeiculos() const
 	return veiculos;
 }
 
-string Cliente::getNome() const
+void Cliente::setNumRegisto()
 {
-    return nome;
-}
-
-ClienteNaoExistente::ClienteNaoExistente(string name) : nome(name) {}
-
-string ClienteNaoExistente::getNome() const
-{
-    return nome;
+	numRegisto = numRegisto + 1;
 }
 
 void Cliente::addVeiculo(Veiculo *v1)
