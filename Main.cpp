@@ -39,12 +39,12 @@ void clientesNaoRegistados(int n)
 {
 	gotoxy(3, 0); cout << "ATENCAO!";
 	gotoxy(3, 2);
-	
+
 	if (n == 0)
 		 cout << "Para registar veiculos tem primeiro de se registar na base de dados.";
 	if (n == 1)
 		cout << "Para registar veiculos tem primeiro de haver clientes...";
-	
+
 	gotoxy(3, 4); cout << "Por favor, volte ao menu principal e selecione a opcao 'GESTAO DE CLIENTES'";
 
 	gotoxy(3, 6); waitForEnter();
@@ -236,7 +236,7 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 
 	gotoxy(3, 0);
 	cout << frase;
-	
+
 	if (n == 0)
 	for (unsigned int i = 0; i < oficina1.getClientes().size(); i++)
 	{
@@ -250,7 +250,7 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 		gotoxy(3, 3 + i * 2);
 		cout << *oficina1.getFuncionarios()[i];
 	}
-	
+
 	if (n == 2)
 	for (unsigned int i = 0; i < oficina1.getVeiculos().size(); i++)
 	{
@@ -439,7 +439,11 @@ void menuManager(Oficina oficina1)
 						if (posicao == -1)
 							options.pop_back();
 						else
-							oficina1.removeFuncionario(oficina1.getFuncionarios()[posicao]);
+                            try
+							{
+							    oficina1.removeFuncionario(oficina1.getFuncionarios()[posicao]);
+							}
+							catch(FuncionarioNaoExistente) {}
 					}
 
 					break;
@@ -698,7 +702,7 @@ void menuManager(Oficina oficina1)
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
-									  
+
 									  associarServicosVeiculos(oficina1, a1);
 									  clrscr();
 									  cout << a1->getServicos()[0].getNome() << " - " << a1->getServicos()[0].getPreco();
@@ -763,7 +767,14 @@ void menuManager(Oficina oficina1)
 								if (posicao == -1)
 									options.pop_back();
 								else
-									oficina1.removeCliente(oficina1.getClientes()[posicao]);
+									try
+									{
+									    oficina1.removeCliente(oficina1.getClientes()[posicao]);
+									}
+									catch(ClienteNaoExistente cl)
+									{
+                                        cout << "O cliente " << cl.getNome() << " não existe!" << endl;
+									}
 							}
 
 							break;

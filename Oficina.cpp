@@ -110,8 +110,10 @@ void Oficina::removeFuncionario(Funcionario *f1)
 	}
 
 	if (!eliminou)
-		cout << "O funcionario com o ID  nao existe..." << endl;
-	//throw(FuncionarioNaoExistente(id));
+	{
+	    cout << "O funcionario com o ID  nao existe..." << endl;
+        throw(FuncionarioNaoExistente(f1->getID()));
+	}
 }
 
 void Oficina::removeCliente(Cliente cl)
@@ -126,7 +128,7 @@ void Oficina::removeCliente(Cliente cl)
 	}
 
 
-	//throw(ClienteNaoExistente(cl.getNome()));
+	throw(ClienteNaoExistente(cl.getNome()));
 }
 
 Funcionario* Oficina::getFuncionarioMenosVeiculos() const
