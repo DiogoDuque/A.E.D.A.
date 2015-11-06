@@ -23,6 +23,7 @@ public:
 	void passaDias(int n);
     bool estaTerminado() const;
     void desconto(float d);
+	bool operator==(const Servico s1);
 };
 
 ostream & operator<<(ostream &out, Servico s1);
@@ -40,6 +41,7 @@ public:
 	void adicionaServico(Servico s1);
 	vector<Servico> getServicos() const;
 	void apresenta() const; //DEBUGGING
+	bool veiculoUsaServico(Servico s1);
 protected:
 	static int next_id;
     int id;

@@ -136,9 +136,23 @@ void Oficina::removeCliente(Cliente cl)
 	throw(ClienteNaoExistente(cl.getNome()));
 }
 
-void Oficina::removeServico(int pos)
+bool Oficina::removeServico(int pos)
 {
-	servicos.erase(servicos.begin() + pos);
+	bool podeEliminar = true;
+
+	for (unsigned int i = 0; i < veiculos.size(); i++)
+	{
+		if (veiculos[i]->veiculoUsaServico(servicos[pos]))
+			podeEliminar = false;
+	}
+
+	if (podeEliminar)
+	{
+		servicos.erase(servicos.begin() + pos);
+		return true;
+	}
+	else
+		return false;
 }
 
 Funcionario* Oficina::getFuncionarioMenosVeiculos() const
@@ -216,11 +230,6 @@ void Oficina::showInfo() const
 			cout << endl;
 		}
 	}
-}
-
-void Oficina::ordenaClientes()
-{
-    sort(clientes.begin(), clientes.end());
 }
 
 bool compFunc(Funcionario * &f1, Funcionario * &f2)
@@ -310,4 +319,42 @@ void Oficina::listaClientes()
 
 	sort(clientes.begin(), clientes.end(), compClientes);
 	showInfoClientes();
+}
+
+bool compServicos(const Servico &s1, const Servico &s2)
+{
+	if (s1.getPreco() < s2.getPreco())
+		return true;
+	else
+	if (s1.getPreco() > s2.getPreco())
+		return false;
+	else
+	if (s1.getDias() < s2.getDias())
+		return true;
+	else
+	if (s1.getDias() > s2.getDias())
+		return false;
+	else
+	if (s1.getNome() < s2.getNome())
+		return true;
+
+	return false;
+}
+
+void Oficina::showInfoServicos() const
+{
+	for (unsigned int i = 0; i < servicos.size(); i++)
+		cout << "   " << servicos[i] << endl;
+}
+
+void Oficina::listaServicos()
+{
+	if (servicos.size() == 0)
+	{
+		cout << "Actualmente, a oficina nao dispoe de quaisquer servicos...";
+		return;
+	}
+
+	sort(servicos.begin(), servicos.end(), compServicos);
+	showInfoServicos();
 }

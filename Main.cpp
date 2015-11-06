@@ -487,7 +487,7 @@ void menuManager(Oficina oficina1)
 		case 9:	//FUNC - Listar
 		{
 				  clrscr();
-				  cout << "   LISTAGEM DE FUNCIONARIOS" << endl << endl;
+				  cout << "   LISTAGEM DE FUNCIONARIOS (por nome)" << endl << endl;
 
 				  oficina1.listaFunc();
 
@@ -531,7 +531,7 @@ void menuManager(Oficina oficina1)
 		case 12:		//Listagem de veiculos
 		{
 				   clrscr();
-				   cout << "   LISTAGEM DE VEICULOS" << endl << endl;
+				   cout << "   LISTAGEM DE VEICULOS (por ID)" << endl << endl;
 
 				   oficina1.listaVeiculos();
 
@@ -811,7 +811,7 @@ void menuManager(Oficina oficina1)
 		case 17:		//Lista clientes
 		{
 				   clrscr();
-				   cout << "   LISTAGEM DE CLIENTES" << endl << endl;
+				   cout << "   LISTAGEM DE CLIENTES (por nome)" << endl << endl;
 
 				   oficina1.listaClientes();
 
@@ -819,7 +819,7 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 18:
+		case 18:		//Adicionar servicos
 		{
 				   string nome;
 				   float preco;
@@ -838,7 +838,7 @@ void menuManager(Oficina oficina1)
 				   cout << "   Introduza o preco: ";
 				   cin >> preco;
 
-				   cout << "Introduza o tempo que demora a realizar o servico: ";
+				   cout << "   Introduza o tempo que demora a realizar o servico: ";
 				   cin >> dias;
 
 				   Servico s1(nome, preco, dias);
@@ -850,7 +850,7 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 19:
+		case 19:		//Remover servicos
 		{
 				   if (oficina1.getServicos().size() == 0)
 				   {
@@ -868,13 +868,35 @@ void menuManager(Oficina oficina1)
 					   int posicao = mostraInfo(oficina1, "REMOVE SERVICOS", 3);
 
 					   if (posicao == -1)
+					   {
 						   options.pop_back();
+						   break;
+					   }
 					   else
-						   oficina1.removeServico(posicao);
+					   {
+						   if (!oficina1.removeServico(posicao))
+						   {
+							   clrscr();
+							   cout << endl << endl << "   Nao se pode eliminar esse servico, visto que esse servico esta a decorrer para um veiculo";
+
+						   }
+					   }
 				   }
 
+				   waitForEnter();
 				   break;
 
+		}
+		case 20:		//Listagem de servicos
+		{
+				   clrscr();
+				   cout << "   LISTAGEM DE SERVICOS (por preco)" << endl << endl;
+
+				   oficina1.listaServicos();
+
+				   waitForEnter();
+				   options.pop_back();
+				   break;
 		}
 		default:
 			break;

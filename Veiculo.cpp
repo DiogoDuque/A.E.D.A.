@@ -57,6 +57,14 @@ ostream & operator<<(ostream &out, Servico s1)
 	return out;
 }
 
+bool Servico::operator==(const Servico s1)
+{
+	if (nome == s1.getNome() && dias == s1.getDias() && preco == s1.getPreco())
+		return true;
+
+	return false;
+}
+
 
 /*###################
   #     VEICULO     #
@@ -150,6 +158,17 @@ void Veiculo::adicionaServico(Servico s1)
 vector<Servico> Veiculo::getServicos() const
 {
 	return servicos;
+}
+
+bool Veiculo::veiculoUsaServico(Servico s1)
+{
+	for (unsigned int i = 0; i < servicos.size(); i++)		//Caso o servico que se quer eliminar nao esteja acabado num veiculo, não se pode eliminar
+	{
+		if (s1 == servicos[i] && !servicos[i].estaTerminado())
+			return true;
+	}
+
+	return false;
 }
 
 
