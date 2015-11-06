@@ -419,9 +419,12 @@ void menuManager(Oficina oficina1)
 				  gotoxy(3, 2); cout << "Quantos dias deseja avancar: ";
 				  cin >> diasAvancar;
 
-				  while (diasAvancar <= 0)
+				  while (cin.fail())
 				  {
-					  cout << endl << "   Introduza um numero de dias a avancar valido: ";
+					  cin.clear();
+					  cin.ignore(1000, '\n');
+
+					  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
 					  cin >> diasAvancar;
 				  }
 
@@ -448,9 +451,12 @@ void menuManager(Oficina oficina1)
 					cout << "Introduza o nome do novo funcionario: ";
 					getline(cin, nomeFunc);
 
-					while (nomeFunc.empty())
+					while (cin.fail())
 					{
-						cout << endl << "   O funcionario tem de ter um nome!" << endl << "Por favor, volte a introduzir o nome: ";
+						cin.clear();
+						cin.ignore(1000, '\n');
+
+						cout << "   Introduziu um nome inapropriado. Tente novamente: ";
 						getline(cin, nomeFunc);
 					}
 
@@ -565,8 +571,8 @@ void menuManager(Oficina oficina1)
 								break;
 							}
 
-							string ano, mes, combustivel;
-							int anoInt, mesInt;
+							string combustivel;
+							int ano, mes;
 							int tipoVeiculo = -1;
 
 							gotoxy(3, 0);
@@ -574,38 +580,50 @@ void menuManager(Oficina oficina1)
 
 							gotoxy(3, 3);
 							cout << "Introduza o ano do veiculo: ";
-							getline(cin, ano);
+							cin >> ano;
 
-							gotoxy(3, 4);
-							cout << "Introduza o mes: ";
-							getline(cin, mes);
+							while (cin.fail())
+							{
+								cin.clear();
+								cin.ignore(1000, '\n');
 
-							gotoxy(3, 5);
-							cout << "Introduza o tipo de combustivel: ";
+								cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+								cin >> ano;
+							}
+
+							cout << "   Introduza o mes: ";
+							cin >> mes;
+
+							while (cin.fail())
+							{
+								cin.clear();
+								cin.ignore(1000, '\n');
+
+								cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+								cin >> mes;
+							}
+
+							cout << "   Introduza o tipo de combustivel: ";
 							getline(cin, combustivel);
 
-							istringstream ss(ano);
-							ss >> anoInt;
-							istringstream ss2(mes);
-							ss2 >> mesInt;
-
-							gotoxy(3, 7);
+							clrscr();
+							gotoxy(3, 1);
 							cout << "ESPECIFIQUE O TIPO DE VEICULO";
 
-							gotoxy(0, 9);
+							gotoxy(0, 3);
 							cout << "->";
 
 							vector<string> veiculos = { "Automovel", "Motorizada", "Camiao", "Autocarro" };
 							for (unsigned int i = 0; i < 4; i++)
 							{
-								gotoxy(3, 9 + 2 * i);
+								gotoxy(3, 3 + 2 * i);
 								cout << veiculos[i];
 							}
 
 							unsigned int input, selecao = 0;
 							while (tipoVeiculo == -1)
 							{
-								gotoxy(0, 9 + 2 * selecao);
+								gotoxy(0, 3 + 2 * selecao);
 								cout << "->";
 
 								switch (input = _getch())
@@ -624,7 +642,7 @@ void menuManager(Oficina oficina1)
 								{
 										   if (selecao > 0)
 										   {
-											   gotoxy(0, 9 + 2 * selecao);
+											   gotoxy(0, 3 + 2 * selecao);
 											   cout << "  ";
 											   selecao--;
 										   }
@@ -634,7 +652,7 @@ void menuManager(Oficina oficina1)
 								{
 											 if (selecao < 3)
 											 {
-												 gotoxy(0, 9 + 2 * selecao);
+												 gotoxy(0, 3 + 2 * selecao);
 												 cout << "  ";
 												 selecao++;
 											 }
@@ -643,22 +661,27 @@ void menuManager(Oficina oficina1)
 								}
 							}
 
-							gotoxy(3, 19);
+							gotoxy(3, 12);
 
 							switch (tipoVeiculo)
 							{
 							case 0:		//Automovel
 							{
-									  int numLugaresInt;
-									  string numLugares;
+									  int numLugares;
 
 									  cout << "Introduza o numero de lugares: ";
-									  getline(cin, numLugares);
+									  cin >> numLugares;
 
-									  istringstream ss(numLugares);
-									  ss >> numLugaresInt;
+									  while (cin.fail())
+									  {
+										  cin.clear();
+										  cin.ignore(1000, '\n');
 
-									  Veiculo *a1 = new Automovel(anoInt, mesInt, combustivel, numLugaresInt);
+										  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+										  cin >> numLugares;
+									  }
+
+									  Veiculo *a1 = new Automovel(ano, mes, combustivel, numLugares);
 									  oficina1.adicionaVeiculo(a1);
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
@@ -674,16 +697,21 @@ void menuManager(Oficina oficina1)
 							}
 							case 1:		//Mota
 							{
-									  int cilindradaInt;
-									  string cilindrada;
+									  int cilindrada;
 
-									  cout << "Introduza a cilindrada: ";
-									  getline(cin, cilindrada);
+									  cout << "   Introduza a cilindrada: ";
+									  cin >> cilindrada;
 
-									  istringstream ss(cilindrada);
-									  ss >> cilindradaInt;
+									  while (cin.fail())
+									  {
+										  cin.clear();
+										  cin.ignore(1000, '\n');
 
-									  Veiculo *a1 = new Motorizada(anoInt, mesInt, combustivel, cilindradaInt);
+										  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+										  cin >> cilindrada;
+									  }
+
+									  Veiculo *a1 = new Motorizada(ano, mes, combustivel, cilindrada);
 									  oficina1.adicionaVeiculo(a1);
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
@@ -699,16 +727,21 @@ void menuManager(Oficina oficina1)
 							}
 							case 2:		//Camiao
 							{
-									  int taraInt;
-									  string tara;
+									  int tara;
 
 									  cout << "Introduza a tara: ";
-									  getline(cin, tara);
+									  cin >> tara;
 
-									  istringstream ss(tara);
-									  ss >> taraInt;
+									  while (cin.fail())
+									  {
+										  cin.clear();
+										  cin.ignore(1000, '\n');
 
-									  Veiculo *a1 = new Camiao(anoInt, mesInt, combustivel, taraInt);
+										  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+										  cin >> tara;
+									  }
+
+									  Veiculo *a1 = new Camiao(ano, mes, combustivel, tara);
 									  oficina1.adicionaVeiculo(a1);
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
@@ -724,16 +757,21 @@ void menuManager(Oficina oficina1)
 							}
 							case 3:		//Autocarro
 							{
-									  int numLugaresInt;
-									  string numLugares;
+									  int numLugares;
 
 									  cout << "Introduza o numero de lugares: ";
-									  getline(cin, numLugares);
+									  cin >> numLugares;
 
-									  istringstream ss(numLugares);
-									  ss >> numLugaresInt;
+									  while (cin.fail())
+									  {
+										  cin.clear();
+										  cin.ignore(1000, '\n');
 
-									  Veiculo *a1 = new Autocarro(anoInt, mesInt, combustivel, numLugaresInt);
+										  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+										  cin >> numLugares;
+									  }
+
+									  Veiculo *a1 = new Autocarro(ano, mes, combustivel, numLugares);
 									  oficina1.adicionaVeiculo(a1);
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
@@ -771,10 +809,12 @@ void menuManager(Oficina oficina1)
 							cout << "Introduza o nome do cliente: ";
 							getline(cin, nome);
 
-							while (nome.empty())
+							while (cin.fail())
 							{
-								cout << endl << "   O cliente tem de ter um nome!" << endl;
-								cout << "   Por favor, volte a escrever o nome do cliente: ";
+								cin.clear();
+								cin.ignore(1000, '\n');
+
+								cout << "   Introduziu um valor inapropriado. Tente novamente: ";
 								getline(cin, nome);
 							}
 
@@ -829,17 +869,38 @@ void menuManager(Oficina oficina1)
 				   gotoxy(3, 3); cout << "Introduza o nome do nome servico: ";
 				   getline(cin, nome);
 
-				   while (nome.empty())
+				   while (cin.fail())
 				   {
-					   cout << "   O servico tem de ter algum nome!" << endl << "   Introduza-o novamente: ";
+					   cin.clear();
+					   cin.ignore(1000, '\n');
+
+					   cout << "   Introduziu um nome inapropriado. Tente novamente: ";
 					   getline(cin, nome);
 				   }
 
 				   cout << "   Introduza o preco: ";
 				   cin >> preco;
 
+				   while (cin.fail())
+				   {
+					   cin.clear();
+					   cin.ignore(1000, '\n');
+
+					   cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+					   cin >> preco;
+				   }
+
 				   cout << "   Introduza o tempo que demora a realizar o servico: ";
 				   cin >> dias;
+
+				   while (cin.fail())
+				   {
+					   cin.clear();
+					   cin.ignore(1000, '\n');
+
+					   cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+					   cin >> dias;
+				   }
 
 				   Servico s1(nome, preco, dias);
 				   oficina1.adicionaServico(s1);
