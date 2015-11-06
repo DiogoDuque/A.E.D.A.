@@ -218,9 +218,39 @@ bool compFunc(Funcionario * &f1, Funcionario * &f2)
 	return (f1->getNome() < f2->getNome());
 }
 
+void Oficina::showInfoFuncionarios() const
+{
+	for (unsigned int i = 0; i < funcionarios.size(); i++)
+		cout << "   " << i + 1 << ". " << *funcionarios[i] << endl;;
+}
+
 void Oficina::listaFunc()
 {
 	sort(funcionarios.begin(), funcionarios.end(), compFunc);
+
+	showInfoFuncionarios();
+}
+
+bool compVeiculos(Veiculo * &v1, Veiculo * &v2)
+{
+	return (v1->getID() < v2->getID());
+}
+
+void Oficina::showInfoVeiculos() const
+{
+	for (unsigned int i = 0; i < veiculos.size(); i++)
+	{
+		cout << "Veiculo '" << i + 1 << "'\n   ";
+		veiculos[i]->getInfo();
+		cout << endl;
+	}
+}
+
+void Oficina::listaVeiculos()
+{
+	sort(veiculos.begin(), veiculos.end(), compVeiculos);
+
+	showInfoVeiculos();
 
 }
 

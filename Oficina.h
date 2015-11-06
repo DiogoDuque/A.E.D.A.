@@ -34,7 +34,10 @@ public:
     void ordenaClientes();
 	void associaVeiculoCliente(Veiculo *v1, Cliente c1);
 	void showInfo() const;
+	void showInfoFuncionarios() const;
+	void showInfoVeiculos() const;
 	void listaFunc();
+	void listaVeiculos();
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;

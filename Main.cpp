@@ -40,12 +40,12 @@ void clientesNaoRegistados(int n)
 {
 	gotoxy(3, 0); cout << "ATENCAO!";
 	gotoxy(3, 2);
-
+	
 	if (n == 0)
 		 cout << "Para registar veiculos tem primeiro de se registar na base de dados.";
 	if (n == 1)
 		cout << "Para registar veiculos tem primeiro de haver clientes...";
-
+	
 	gotoxy(3, 4); cout << "Por favor, volte ao menu principal e selecione a opcao 'GESTAO DE CLIENTES'";
 
 	gotoxy(3, 6); waitForEnter();
@@ -237,7 +237,7 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 
 	gotoxy(3, 0);
 	cout << frase;
-
+	
 	if (n == 0)
 	for (unsigned int i = 0; i < oficina1.getClientes().size(); i++)
 	{
@@ -251,7 +251,7 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 		gotoxy(3, 3 + i * 2);
 		cout << *oficina1.getFuncionarios()[i];
 	}
-
+	
 	if (n == 2)
 	for (unsigned int i = 0; i < oficina1.getVeiculos().size(); i++)
 	{
@@ -407,12 +407,9 @@ void menuManager(Oficina oficina1)
 					  cin >> diasAvancar;
 				  }
 
-				  cout << "*************  " << oficina1.getVeiculos()[0]->getServicos()[0].getDias();
-
 				  for (unsigned int i = 0; i < oficina1.getVeiculos().size(); i++)
 					  oficina1.getVeiculos()[i]->passaDias(diasAvancar);
 
-				  cout << endl << endl << "*************** " << oficina1.getVeiculos()[0]->getServicos()[0].getDias();
 				  cout << "   ."; Sleep(500); cout << " ."; Sleep(500); cout << " ."; Sleep(500);
 				  cout << endl << endl << "   Passaram-se " << diasAvancar << " dias na oficina '" << oficina1.getNome() << "'";
 
@@ -470,11 +467,7 @@ void menuManager(Oficina oficina1)
 						if (posicao == -1)
 							options.pop_back();
 						else
-                            try
-							{
-							    oficina1.removeFuncionario(oficina1.getFuncionarios()[posicao]);
-							}
-							catch(FuncionarioNaoExistente) {}
+							oficina1.removeFuncionario(oficina1.getFuncionarios()[posicao]);
 					}
 
 					break;
@@ -485,11 +478,6 @@ void menuManager(Oficina oficina1)
 				  cout << "   LISTAGEM DE FUNCIONARIOS" << endl << endl;
 
 				  oficina1.listaFunc();
-
-				  for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
-				  {
-					  cout << "   " << i + 1 << ". " << *oficina1.getFuncionarios()[i] << endl;;
-				  }
 
 				  waitForEnter();
 				  options.pop_back();
@@ -533,12 +521,7 @@ void menuManager(Oficina oficina1)
 				   clrscr();
 				   cout << "   LISTAGEM DE VEICULOS" << endl << endl;
 
-				   for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
-				   {
-					   cout << "   " << i + 1 << ". ";
-					   oficina1.getVeiculos()[i]->getInfo();
-					   cout << endl;
-				   }
+				   oficina1.listaVeiculos();
 
 				   waitForEnter();
 				   options.pop_back();
@@ -668,17 +651,11 @@ void menuManager(Oficina oficina1)
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  try
-									  {
-									      oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-									  }
-									  catch(FuncionarioNaoPodeTerMaisVeiculos) {}
+									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
+									  associarServicosVeiculos(oficina1, a1);
 
-									  /*cout << endl << endl;
-									  oficina1.getClientes()[posCliente].getVeiculos()[0]->getInfo();*/
-
-									  //a1->apresenta();
+									  clrscr();
 									  break;
 							}
 							case 1:
@@ -697,15 +674,11 @@ void menuManager(Oficina oficina1)
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  try
-									  {
-									      oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-									  }
-									  catch(FuncionarioNaoPodeTerMaisVeiculos) {}
+									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
+									  associarServicosVeiculos(oficina1, a1);
 
-									  cout << "***************************" << endl;
-									  oficina1.getClientes()[posCliente].getVeiculos()[0]->getInfo();
+									  clrscr();
 									  break;
 							}
 							case 2:
@@ -724,12 +697,11 @@ void menuManager(Oficina oficina1)
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  try
-									  {
-									      oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-									  }
-									  catch(FuncionarioNaoPodeTerMaisVeiculos) {}
+									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
+									  associarServicosVeiculos(oficina1, a1);
+
+									  clrscr();
 									  break;
 							}
 							case 3:
@@ -748,16 +720,11 @@ void menuManager(Oficina oficina1)
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  try
-									  {
-									      oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-									  }
-									  catch(FuncionarioNaoPodeTerMaisVeiculos) {}
+									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
-
 									  associarServicosVeiculos(oficina1, a1);
+
 									  clrscr();
-									  cout << a1->getServicos()[0].getNome() << " - " << a1->getServicos()[0].getPreco();
 									  break;
 							}
 							}
@@ -819,14 +786,7 @@ void menuManager(Oficina oficina1)
 								if (posicao == -1)
 									options.pop_back();
 								else
-									try
-									{
-									    oficina1.removeCliente(oficina1.getClientes()[posicao]);
-									}
-									catch(ClienteNaoExistente cl)
-									{
-                                        cout << "O cliente " << cl.getNome() << " não existe!" << endl;
-									}
+									oficina1.removeCliente(oficina1.getClientes()[posicao]);
 							}
 
 							break;
