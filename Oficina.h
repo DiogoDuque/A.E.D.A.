@@ -20,6 +20,7 @@ public:
 	vector<Veiculo*> getVeiculos() const;
 	vector<Cliente> getClientes() const;
 	vector<Funcionario*> getFuncionarios() const;
+	vector<Servico> getServicos() const;
 	void adicionaVeiculo(Veiculo *v);
 	void adicionaCliente(Cliente cl);
 	void adicionaFuncionario(Funcionario *f1);

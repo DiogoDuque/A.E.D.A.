@@ -17,32 +17,6 @@
 
 using namespace std;
 
-/*
-int clienteJaExiste(string nome, unsigned int n_cliente, Oficina ofi)
-{
-for (int i = 0; i < ofi.getClientes().size(); i++)
-{
-if (ofi.getClientes[i].getNome() == nome && ofi.getClientes[i].getID() == n_cliente)
-return i;
-}
-
-return -1;
-}
-
-IDEIAS
-
-
-- Oferecer descontos
-
-- Impor taxa de permanencia de veiculos apos o tempo de reparos
-
-- Adicionar hierarquias aos trabalhadores (mecanico, executivo)
-
-- Adicionar salarios aos trabalhadores
-
-
-*/
-
 void waitForEnter()
 {
 	cout << endl << endl << "   Prima 'ENTER' para continuar...";
@@ -74,6 +48,17 @@ void clientesNaoRegistados(int n)
 	gotoxy(3, 4); cout << "Por favor, volte ao menu principal e selecione a opcao 'GESTAO DE CLIENTES'";
 
 	gotoxy(3, 6); waitForEnter();
+}
+
+void associarServicosVeiculos(Oficina oficina1, Veiculo *a1)
+{
+	vector<string> servicosString;
+	for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
+		servicosString.push_back(oficina1.getServicos()[i].getNome());
+
+	int temp = makeMenu("ESCOLHER SERVICO", servicosString, "", 0);
+
+	a1->adicionaServico(oficina1.getServicos()[temp]);
 }
 
 /**
@@ -359,7 +344,7 @@ void menuManager(Oficina oficina1)
 		case 0: //MENU PRINCIPAL 1-4
 		{
 					temp = makeMenu(oficina1.getNome(), { "Gestao de funcionarios", "Gestao de veiculos",
-						"Gestao de clientes", "Mostrar informacao acerca da oficina" }, "", 0);
+						"Gestao de clientes", "Mostrar informacao acerca da oficina", "Avancar no tempo" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(1 + temp);
@@ -627,7 +612,7 @@ void menuManager(Oficina oficina1)
 							}
 
 							gotoxy(3, 19);
-
+							Veiculo *a1;
 							switch (tipoVeiculo)
 							{
 							case 0:
@@ -648,6 +633,9 @@ void menuManager(Oficina oficina1)
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
+
+									  /*cout << endl << endl;
+									  oficina1.getClientes()[posCliente].getVeiculos()[0]->getInfo();*/
 
 									  //a1->apresenta();
 									  break;
@@ -710,11 +698,16 @@ void menuManager(Oficina oficina1)
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
+									  
+									  associarServicosVeiculos(oficina1, a1);
+									  clrscr();
+									  cout << a1->getServicos()[0].getNome() << " - " << a1->getServicos()[0].getPreco();
 									  break;
 							}
 							}
 
-							cout << endl << "   O veiculo pertencente a '" << oficina1.getClientes()[posCliente].getNome() << "', com o ID = '" << oficina1.getClientes()[posCliente].getNumRegisto() << "' foi adicionado com sucesso!";
+							cout << endl << "   O veiculo pertencente a '" << oficina1.getClientes()[posCliente].getNome() << "', com o ID = '" << oficina1.getClientes()[posCliente].getNumRegisto() << "' foi adicionado com sucesso!" << endl;
+
 							waitForEnter();
 							options.pop_back();
 							break;
@@ -803,12 +796,14 @@ int main()
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
 	getline(cin, nomeOficina);
+
 	while (nomeOficina.size() < 3)
 	{
 		clrscr();
 		cout << "Nome demasiado curto! Introduza um nome correto.\nNome da Oficina: ";
 		getline(cin, nomeOficina);
 	}
+
 	ifstream file("servicos.txt");
 	if (file.good())
 		file.close();
@@ -816,6 +811,7 @@ int main()
 		file.close();
 		cout << "Foi impossivel importar o ficheiro de servicos.\nPor favor certifique-se que este esta no diretorio correto!\n\n";
 	}
+
 	Oficina oficina1(nomeOficina);
 
 	menuManager(oficina1);

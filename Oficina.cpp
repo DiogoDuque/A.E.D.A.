@@ -45,6 +45,11 @@ vector<Funcionario*> Oficina::getFuncionarios() const
 	return funcionarios;
 }
 
+vector<Servico> Oficina::getServicos() const
+{
+	return servicos;
+}
+
 void Oficina::adicionaVeiculo(Veiculo *v)
 {
 	veiculos.push_back(v);

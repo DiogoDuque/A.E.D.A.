@@ -35,6 +35,8 @@ public:
 	bool estaPronto();
 	float ofereceDesconto();
 	void passaDias(int n);
+	void adicionaServico(Servico s1);
+	vector<Servico> getServicos() const;
 	void apresenta() const; //DEBUGGING
 protected:
 	static int next_id;

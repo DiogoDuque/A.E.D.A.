@@ -120,6 +120,16 @@ void Veiculo::apresenta() const //JUST FOR DEBUGGING
 	cout << f->getNome() << endl;
 }
 
+void Veiculo::adicionaServico(Servico s1)
+{
+	servicos.push_back(s1);
+}
+
+vector<Servico> Veiculo::getServicos() const
+{
+	return servicos;
+}
+
 
 /*###################
   #    AUTOMOVEL    #

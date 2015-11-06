@@ -17,11 +17,9 @@ Funcionario::Funcionario(string name)
 void Funcionario::acrescentaVeiculos(Veiculo *v)
 {
 	if (veiculos.size() >= maxVeiculos)
-    {
         throw(FuncionarioNaoPodeTerMaisVeiculos(veiculos.size()));
-    }
-
-	veiculos.push_back(v);
+	else
+		veiculos.push_back(v);
 }
 
 vector <Veiculo *> Funcionario::getVeiculos() const
