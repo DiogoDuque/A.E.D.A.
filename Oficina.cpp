@@ -226,8 +226,13 @@ void Oficina::showInfoFuncionarios() const
 
 void Oficina::listaFunc()
 {
-	sort(funcionarios.begin(), funcionarios.end(), compFunc);
+	if (funcionarios.size() == 0)
+	{
+		cout << "   Actualmente nao existem funcionarios contratados...";
+		return;
+	}
 
+	sort(funcionarios.begin(), funcionarios.end(), compFunc);
 	showInfoFuncionarios();
 }
 
@@ -248,8 +253,13 @@ void Oficina::showInfoVeiculos() const
 
 void Oficina::listaVeiculos()
 {
-	sort(veiculos.begin(), veiculos.end(), compVeiculos);
+	if (veiculos.size() == 0)
+	{
+		cout << "   Actualmente nao existem clientes registados...";
+		return;
+	}
 
+	sort(veiculos.begin(), veiculos.end(), compVeiculos);
 	showInfoVeiculos();
 
 }
@@ -264,4 +274,30 @@ void Oficina::removeVeiculosTratados()
 				funcionarios[i]->removeVeiculo(j);
 		}
 	}
+}
+
+bool compClientes(const Cliente &c1, const Cliente &c2)
+{
+	return (c1.getNome() < c2.getNome());
+}
+
+void Oficina::showInfoClientes() const
+{
+	for (unsigned int i = 0; i < clientes.size(); i++)
+	{
+		cout << "   " << i + 1 << ". ";
+		cout << clientes[i] << endl;
+	}
+}
+
+void Oficina::listaClientes()
+{
+	if (clientes.size() == 0)
+	{
+		cout << "   Actualmente nao existem clientes registados...";
+		return;
+	}
+
+	sort(clientes.begin(), clientes.end(), compClientes);
+	showInfoClientes();
 }

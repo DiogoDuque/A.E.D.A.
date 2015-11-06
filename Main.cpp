@@ -142,7 +142,6 @@ void anim_automovel()
 	gotoxy(55, 7);
 	cout << "agora a ser arranjado pelos nossos melhores mecanicos.";
 	gotoxy(0, 14);
-	pause();
 }
 
 /**
@@ -173,7 +172,6 @@ void anim_mota()
 	gotoxy(55, 8);
 	cout << "a ser arranjado pelos nossos melhores mecanicos.";
 	gotoxy(0, 17);
-	pause();
 }
 
 /**
@@ -202,7 +200,6 @@ void anim_camiao()
 	gotoxy(60, 8);
 	cout << "a ser arranjado pelos nossos melhores mecanicos.";
 	gotoxy(0, 16);
-	pause();
 }
 
 /**
@@ -227,7 +224,6 @@ void anim_autocarro()
 	gotoxy(55, 7);
 	cout << "agora a ser arranjado pelos nossos melhores mecanicos.";
 	gotoxy(0, 14);
-	pause();
 }
 
 //selecao --> 0 para clientes, 1 para funcionarios, 2 para veiculos
@@ -353,7 +349,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 1: //GESTAO DE FUNCIONARIOS 6-7-8
 		{
-					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario", "Listar funcionarios" }, "", 0);
+					temp = makeMenu("GESTAO DE FUNCIONARIOS (prima ESC para retroceder)", { "Empregar funcionario", "Despedir funcionario", "Listar funcionarios" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(6 + temp);
@@ -361,7 +357,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 2: //GESTAO DE VEICULOS (9 - 12 - 13) 10 11
 		{
-					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo", "Listar Veiculos" }, "", 0);
+					temp = makeMenu("GESTAO DE VEICULOS (prima ESC para retroceder)", { "Dar entrada a um veiculo", "Dar saida a um veiculo", "Listar Veiculos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(9 + temp);
@@ -369,7 +365,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 3: //GESTAO DE CLIENTES 14 - 15 - 16
 		{
-					temp = makeMenu("GESTAO DE CLIENTES", { "Registar cliente", "Eliminar cliente", "Listar clientes" }, "", 0);
+					temp = makeMenu("GESTAO DE CLIENTES (prima ESC para retroceder)", { "Registar cliente", "Eliminar cliente", "Listar clientes" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(14 + temp);
@@ -561,7 +557,7 @@ void menuManager(Oficina oficina1)
 							cout << "ADICIONAR VEICULO";
 
 							gotoxy(3, 3);
-							cout << "Introduza o ano do carro: ";
+							cout << "Introduza o ano do veiculo: ";
 							getline(cin, ano);
 
 							gotoxy(3, 4);
@@ -632,10 +628,10 @@ void menuManager(Oficina oficina1)
 							}
 
 							gotoxy(3, 19);
-							Veiculo *a1;
+
 							switch (tipoVeiculo)
 							{
-							case 0:
+							case 0:		//Automovel
 							{
 									  int numLugaresInt;
 									  string numLugares;
@@ -656,9 +652,11 @@ void menuManager(Oficina oficina1)
 									  associarServicosVeiculos(oficina1, a1);
 
 									  clrscr();
+									  anim_automovel();
+									  waitForEnter();
 									  break;
 							}
-							case 1:
+							case 1:		//Mota
 							{
 									  int cilindradaInt;
 									  string cilindrada;
@@ -679,9 +677,11 @@ void menuManager(Oficina oficina1)
 									  associarServicosVeiculos(oficina1, a1);
 
 									  clrscr();
+									  anim_mota();
+									  waitForEnter();
 									  break;
 							}
-							case 2:
+							case 2:		//Camiao
 							{
 									  int taraInt;
 									  string tara;
@@ -702,9 +702,11 @@ void menuManager(Oficina oficina1)
 									  associarServicosVeiculos(oficina1, a1);
 
 									  clrscr();
+									  anim_camiao();
+									  waitForEnter();
 									  break;
 							}
-							case 3:
+							case 3:		//Autocarro
 							{
 									  int numLugaresInt;
 									  string numLugares;
@@ -725,13 +727,12 @@ void menuManager(Oficina oficina1)
 									  associarServicosVeiculos(oficina1, a1);
 
 									  clrscr();
+									  anim_autocarro();
+									  waitForEnter();
 									  break;
 							}
 							}
 
-							cout << endl << "   O veiculo pertencente a '" << oficina1.getClientes()[posCliente].getNome() << "', com o ID = '" << oficina1.getClientes()[posCliente].getNumRegisto() << "' foi adicionado com sucesso!" << endl;
-
-							waitForEnter();
 							options.pop_back();
 							break;
 		}
@@ -796,11 +797,7 @@ void menuManager(Oficina oficina1)
 				   clrscr();
 				   cout << "   LISTAGEM DE CLIENTES" << endl << endl;
 
-				   for (unsigned int i = 0; i < oficina1.getClientes().size(); i++)
-				   {
-					   cout << "   " << i + 1 << ". ";
-					   cout << oficina1.getClientes()[i] << endl;
-				   }
+				   oficina1.listaClientes();
 
 				   waitForEnter();
 				   options.pop_back();

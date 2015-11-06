@@ -36,8 +36,10 @@ public:
 	void showInfo() const;
 	void showInfoFuncionarios() const;
 	void showInfoVeiculos() const;
+	void showInfoClientes() const;
 	void listaFunc();
 	void listaVeiculos();
+	void listaClientes();
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;
