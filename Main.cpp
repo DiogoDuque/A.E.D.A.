@@ -9,6 +9,7 @@
 #include <windows.h>		//usado para o 'ENTER'
 #include <cstdlib>			//usado para o 'ENTER'
 #include <sstream>
+#include <algorithm>
 
 #define UP 72
 #define DOWN 80
@@ -350,28 +351,28 @@ void menuManager(Oficina oficina1)
 					else options.push_back(1 + temp);
 					break;
 		}
-		case 1: //GESTAO DE FUNCIONARIOS 5-6-7
+		case 1: //GESTAO DE FUNCIONARIOS 6-7-8
 		{
 					temp = makeMenu("GESTAO DE FUNCIONARIOS", { "Empregar funcionario", "Despedir funcionario", "Listar funcionarios" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(5 + temp);
+					else options.push_back(6 + temp);
 					break;
 		}
-		case 2: //GESTAO DE VEICULOS (8 - 11 - 12) 9 10
+		case 2: //GESTAO DE VEICULOS (9 - 12 - 13) 10 11
 		{
 					temp = makeMenu("GESTAO DE VEICULOS", { "Dar entrada a um veiculo", "Dar saida a um veiculo", "Listar Veiculos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(8 + temp);
+					else options.push_back(9 + temp);
 					break;
 		}
-		case 3: //GESTAO DE CLIENTES 11 - 12
+		case 3: //GESTAO DE CLIENTES 14 - 15 - 16
 		{
 					temp = makeMenu("GESTAO DE CLIENTES", { "Registar cliente", "Eliminar cliente", "Listar clientes" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(13 + temp);
+					else options.push_back(14 + temp);
 					break;
 		}
 		case 4: //MOSTRAR INFO
@@ -391,7 +392,37 @@ void menuManager(Oficina oficina1)
 					options.pop_back();
 					break;
 		}
-		case 5: //FUNC - ADD
+		case 5:		//Avancar dias
+		{
+				  unsigned int diasAvancar;
+
+				  clrscr();
+				  gotoxy(3, 0); cout << "AVANCAR DIAS NA OFICINA";
+				  gotoxy(3, 2); cout << "Quantos dias deseja avancar: ";
+				  cin >> diasAvancar;
+
+				  while (diasAvancar <= 0)
+				  {
+					  cout << endl << "   Introduza um numero de dias a avancar valido: ";
+					  cin >> diasAvancar;
+				  }
+
+				  cout << "*************  " << oficina1.getVeiculos()[0]->getServicos()[0].getDias();
+
+				  for (unsigned int i = 0; i < oficina1.getVeiculos().size(); i++)
+					  oficina1.getVeiculos()[i]->passaDias(diasAvancar);
+
+				  cout << endl << endl << "*************** " << oficina1.getVeiculos()[0]->getServicos()[0].getDias();
+				  cout << "   ."; Sleep(500); cout << " ."; Sleep(500); cout << " ."; Sleep(500);
+				  cout << endl << endl << "   Passaram-se " << diasAvancar << " dias na oficina '" << oficina1.getNome() << "'";
+
+				  oficina1.removeVeiculosTratados();
+
+				  waitForEnter();
+				  options.pop_back();
+				  break;
+		}
+		case 6: //FUNC - ADD
 		{
 					string nomeFunc;
 
@@ -423,7 +454,7 @@ void menuManager(Oficina oficina1)
 						break;
 					}
 		}
-		case 6: //FUNC - DEL
+		case 7: //FUNC - DEL
 		{
 					if (oficina1.getFuncionarios().size() == 0)
 					{
@@ -448,10 +479,12 @@ void menuManager(Oficina oficina1)
 
 					break;
 		}
-		case 7:
+		case 8:	//FUNC - Listar
 		{
 				  clrscr();
 				  cout << "   LISTAGEM DE FUNCIONARIOS" << endl << endl;
+
+				  oficina1.listaFunc();
 
 				  for (unsigned int i = 0; i < oficina1.getFuncionarios().size(); i++)
 				  {
@@ -462,7 +495,7 @@ void menuManager(Oficina oficina1)
 				  options.pop_back();
 				  break;
 		}
-		case 8: //VEIC - ADD
+		case 9: //VEIC - ADD
 		{
 					int temp;
 
@@ -471,10 +504,10 @@ void menuManager(Oficina oficina1)
 					if (temp == -1)
 						options.pop_back();
 					else
-						options.push_back(11 + temp);
+						options.push_back(12 + temp);
 					break;
 		}
-		case 9:	//Remover um veiculo
+		case 10:	//Remover um veiculo
 		{
 					int temp = mostraInfo(oficina1, "REMOVER VEICULO", 2);
 
@@ -495,7 +528,7 @@ void menuManager(Oficina oficina1)
 					waitForEnter();
 					break;
 		}
-		case 10:		//Listagem de veiculos
+		case 11:		//Listagem de veiculos
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE VEICULOS" << endl << endl;
@@ -511,7 +544,7 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 11:		//Quando o cliente ja e antigo
+		case 12:		//Quando o cliente ja e antigo
 		{
 							if (oficina1.getClientes().size() == 0)
 							{
@@ -670,6 +703,9 @@ void menuManager(Oficina oficina1)
 									  }
 									  catch(FuncionarioNaoPodeTerMaisVeiculos) {}
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
+
+									  cout << "***************************" << endl;
+									  oficina1.getClientes()[posCliente].getVeiculos()[0]->getInfo();
 									  break;
 							}
 							case 2:
@@ -732,7 +768,7 @@ void menuManager(Oficina oficina1)
 							options.pop_back();
 							break;
 		}
-		case 12:		//Quando e a primeira vez que o cliente visita a oficina
+		case 13:		//Quando e a primeira vez que o cliente visita a oficina
 		{
 							clientesNaoRegistados(0);
 							options.pop_back();
@@ -740,7 +776,7 @@ void menuManager(Oficina oficina1)
 							break;
 		}
 
-		case 13:		//Registar cliente
+		case 14:		//Registar cliente
 		{
 							string nome;
 
@@ -767,7 +803,7 @@ void menuManager(Oficina oficina1)
 							options.pop_back();
 							break;
 		}
-		case 14:		//Remove cliente
+		case 15:		//Remove cliente
 		{
 							if (oficina1.getClientes().size() == 0)
 							{
@@ -795,7 +831,7 @@ void menuManager(Oficina oficina1)
 
 							break;
 		}
-		case 15:		//Lista clientes
+		case 16:		//Lista clientes
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE CLIENTES" << endl << endl;

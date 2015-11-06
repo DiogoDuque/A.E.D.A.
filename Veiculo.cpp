@@ -34,8 +34,11 @@ int Servico::getDias() const
 void Servico::passaDias(int n)
 {
 	dias -= n;
-	if (dias < 0)
+	if (dias <= 0)
+	{
 		dias = 0;
+		terminado = true;
+	}
 }
 
 bool Servico::estaTerminado() const
@@ -70,7 +73,20 @@ int Veiculo::getID() const
 
 void Veiculo::getInfo() const
 {
-	cout << "ID: " << id << ", ano: " << ano << ", mes: " << mes << ", combustivel: " << combustivel;
+	bool tudoPronto = true;
+
+	for (unsigned int i = 0; i < servicos.size(); i++)
+	{
+		if (!servicos[i].estaTerminado())
+			tudoPronto = false;
+	}
+
+	cout << "ID: " << id << ", ano: " << ano << ", mes: " << mes << ", combustivel: " << combustivel << ", status: ";
+
+	if (tudoPronto)
+		cout << " REPARADO";
+	else
+		cout << " A SER REPARADO";
 }
 
 void Veiculo::setFuncionario(Funcionario *f1)

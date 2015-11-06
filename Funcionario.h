@@ -17,6 +17,7 @@ public:
 	int getID() const	{return id; };		//Este ID é uma var geral que à medida que se acrescentam mais funcionarios, o ID vai crescendo automaticamente
 	void acrescentaVeiculos(Veiculo *v);
 	vector <Veiculo *> getVeiculos() const;
+	void removeVeiculo(int pos);
 
 	
 private:

@@ -17,8 +17,8 @@ class Oficina
 public:
 	Oficina(string nomeOficina);
 	string getNome() const;
-	vector<Veiculo*> getVeiculos() const;
-	vector<Cliente> getClientes() const;
+	vector<Veiculo*> &getVeiculos();
+	vector<Cliente> &getClientes();
 	vector<Funcionario*> getFuncionarios() const;
 	vector<Servico> getServicos() const;
 	void adicionaVeiculo(Veiculo *v);
@@ -27,12 +27,14 @@ public:
 	void removeVeiculo(Veiculo *v);
 	void removeCliente(Cliente cl);
 	void removeFuncionario(Funcionario *f1);
+	void removeVeiculosTratados();
 	Funcionario* getFuncionarioMenosVeiculos() const;
 	int funcionarioComMenosVeiculos(int indiceNaoUsar) const;
 	void passaDias(int n);
     void ordenaClientes();
 	void associaVeiculoCliente(Veiculo *v1, Cliente c1);
 	void showInfo() const;
+	void listaFunc();
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;

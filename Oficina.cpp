@@ -30,12 +30,12 @@ string Oficina::getNome() const
 	return nomeOficina;
 }
 
-vector<Veiculo*> Oficina::getVeiculos() const
+vector<Veiculo*> &Oficina::getVeiculos()
 {
 	return veiculos;
 }
 
-vector<Cliente> Oficina::getClientes() const
+vector<Cliente> &Oficina::getClientes()
 {
 	return clientes;
 }
@@ -213,4 +213,25 @@ void Oficina::ordenaClientes()
     sort(clientes.begin(), clientes.end());
 }
 
+bool compFunc(Funcionario * &f1, Funcionario * &f2)
+{
+	return (f1->getNome() < f2->getNome());
+}
 
+void Oficina::listaFunc()
+{
+	sort(funcionarios.begin(), funcionarios.end(), compFunc);
+
+}
+
+void Oficina::removeVeiculosTratados()
+{
+	for (unsigned int i = 0; i < funcionarios.size(); i++)
+	{
+		for (unsigned int j = 0; j < funcionarios[i]->getVeiculos().size(); j++)
+		{
+			if (funcionarios[i]->getVeiculos()[j]->estaPronto())
+				funcionarios[i]->removeVeiculo(j);
+		}
+	}
+}

@@ -47,3 +47,8 @@ ostream & operator<<(ostream & out, const Funcionario &f1)
 	out << endl << "      Veiculos responsaveis: " << f1.getVeiculos().size();
 	return out;
 }
+
+void Funcionario::removeVeiculo(int pos)
+{
+	veiculos.erase(veiculos.begin() + pos);
+}
