@@ -182,14 +182,8 @@ int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
 
 void Oficina::passaDias(int n)
 {
-	if (n < 0)
-	{
-		throw(NumeroDiasInvalido(n));
-	}
 	for (unsigned int i = 0; i < veiculos.size(); i++)
-	{
 		veiculos[i]->passaDias(n);
-	}
 }
 
 

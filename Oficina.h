@@ -51,14 +51,6 @@ private:
 	vector <Servico> servicos; //importar dum ficheiro
 };
 
-class NumeroDiasInvalido
-{
-    int dias;
-public:
-	NumeroDiasInvalido(int n) { dias = n; };
-	int getDias() const { return dias; };
-};
-
 class OficinaNaoTemFuncionarios {};
 
 #endif

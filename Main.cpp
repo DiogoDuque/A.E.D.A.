@@ -412,7 +412,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 6:		//Avancar dias
 		{
-				  unsigned int diasAvancar;
+				  int diasAvancar;
 
 				  clrscr();
 				  gotoxy(3, 0); cout << "AVANCAR DIAS NA OFICINA";
