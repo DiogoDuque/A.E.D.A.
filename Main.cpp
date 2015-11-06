@@ -419,7 +419,7 @@ void menuManager(Oficina oficina1)
 				  gotoxy(3, 2); cout << "Quantos dias deseja avancar: ";
 				  cin >> diasAvancar;
 
-				  while (cin.fail())
+				  while (cin.fail() || diasAvancar <= 0)
 				  {
 					  cin.clear();
 					  cin.ignore(1000, '\n');
