@@ -25,6 +25,8 @@ public:
     void desconto(float d);
 };
 
+ostream & operator<<(ostream &out, Servico s1);
+
 class Veiculo
 {
 public:

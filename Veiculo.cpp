@@ -51,6 +51,12 @@ void Servico::desconto(float d)
 	preco -= d;
 }
 
+ostream & operator<<(ostream &out, Servico s1)
+{
+	out << "Nome: " << s1.getNome() << ", preco: " << s1.getPreco() << ", dias: " << s1.getDias() << endl;
+	return out;
+}
+
 
 /*###################
   #     VEICULO     #

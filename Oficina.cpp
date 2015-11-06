@@ -65,6 +65,11 @@ void Oficina::adicionaCliente(Cliente cl)
 	clientes.push_back(cl);
 }
 
+void Oficina::adicionaServico(Servico s1)
+{
+	servicos.push_back(s1);
+}
+
 /**
 *Retorna true caso o veículo exista e seja possível de ser removido, caso contrário retorna false
 */
@@ -129,6 +134,11 @@ void Oficina::removeCliente(Cliente cl)
 
 
 	throw(ClienteNaoExistente(cl.getNome()));
+}
+
+void Oficina::removeServico(int pos)
+{
+	servicos.erase(servicos.begin() + pos);
 }
 
 Funcionario* Oficina::getFuncionarioMenosVeiculos() const
@@ -245,9 +255,9 @@ void Oficina::showInfoVeiculos() const
 {
 	for (unsigned int i = 0; i < veiculos.size(); i++)
 	{
-		cout << "Veiculo '" << i + 1 << "'\n   ";
+		cout << "   Veiculo '" << i + 1 << "'\n   ";
 		veiculos[i]->getInfo();
-		cout << endl;
+		cout << endl << endl;
 	}
 }
 

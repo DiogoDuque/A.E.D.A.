@@ -226,7 +226,7 @@ void anim_autocarro()
 	gotoxy(0, 14);
 }
 
-//selecao --> 0 para clientes, 1 para funcionarios, 2 para veiculos
+//selecao --> 0 para clientes, 1 para funcionarios, 2 para veiculos, 3 para servicos
 int mostraInfo(Oficina oficina1, string frase, int n)
 {
 	clrscr();
@@ -249,11 +249,16 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 	}
 	
 	if (n == 2)
-	for (unsigned int i = 0; i < oficina1.getVeiculos().size(); i++)
 	{
-		gotoxy(3, 3 + i * 2);
-		oficina1.getVeiculos()[i]->getInfo();
-		cout << endl;
+		cout << endl << endl;
+		oficina1.showInfoVeiculos();
+	}
+
+	if (n == 3)
+	for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
+	{
+			gotoxy(3, 3 + i * 2);
+			cout << oficina1.getServicos()[i];
 	}
 
 	gotoxy(0, 3);
@@ -319,6 +324,15 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 							 posicao++;
 						 }
 					 }
+					 if (n == 3)
+					 {
+						 if (posicao < oficina1.getServicos().size() - 1)
+						 {
+							 gotoxy(0, 3 + posicao * 2);
+							 cout << "   ";
+							 posicao++;
+						 }
+					 }
 
 					 break;
 		}
@@ -338,40 +352,48 @@ void menuManager(Oficina oficina1)
 	{
 		switch (options.back())
 		{
-		case 0: //MENU PRINCIPAL 1-4
+		case 0: //MENU PRINCIPAL 1-6
 		{
 					temp = makeMenu(oficina1.getNome(), { "Gestao de funcionarios", "Gestao de veiculos",
-						"Gestao de clientes", "Mostrar informacao acerca da oficina", "Avancar no tempo" }, "", 0);
+						"Gestao de clientes", "Gestao de servicos", "Mostrar informacao acerca da oficina", "Avancar no tempo" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(1 + temp);
 					break;
 		}
-		case 1: //GESTAO DE FUNCIONARIOS 6-7-8
+		case 1: //GESTAO DE FUNCIONARIOS 7-8-9
 		{
 					temp = makeMenu("GESTAO DE FUNCIONARIOS (prima ESC para retroceder)", { "Empregar funcionario", "Despedir funcionario", "Listar funcionarios" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(6 + temp);
+					else options.push_back(7 + temp);
 					break;
 		}
-		case 2: //GESTAO DE VEICULOS (9 - 12 - 13) 10 11
+		case 2: //GESTAO DE VEICULOS (10 - 13 - 14) 11 12
 		{
 					temp = makeMenu("GESTAO DE VEICULOS (prima ESC para retroceder)", { "Dar entrada a um veiculo", "Dar saida a um veiculo", "Listar Veiculos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(9 + temp);
+					else options.push_back(10 + temp);
 					break;
 		}
-		case 3: //GESTAO DE CLIENTES 14 - 15 - 16
+		case 3: //GESTAO DE CLIENTES 15 - 16 - 17
 		{
 					temp = makeMenu("GESTAO DE CLIENTES (prima ESC para retroceder)", { "Registar cliente", "Eliminar cliente", "Listar clientes" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(14 + temp);
+					else options.push_back(15 + temp);
 					break;
 		}
-		case 4: //MOSTRAR INFO
+		case 4:	//GESTAO DE SERVICOS 18 - 19 - 20
+		{
+					temp = makeMenu("GESTAO DE SERVICOS (prima ESC para retroceder)", { "Criar novo servico", "Eliminar servico", "Listar servicos" }, "", 0);
+					if (temp == -1)
+						options.pop_back();
+					else options.push_back(18 + temp);
+					break;
+		}
+		case 5: //MOSTRAR INFO
 		{
 					clrscr();
 
@@ -388,7 +410,7 @@ void menuManager(Oficina oficina1)
 					options.pop_back();
 					break;
 		}
-		case 5:		//Avancar dias
+		case 6:		//Avancar dias
 		{
 				  unsigned int diasAvancar;
 
@@ -415,7 +437,7 @@ void menuManager(Oficina oficina1)
 				  options.pop_back();
 				  break;
 		}
-		case 6: //FUNC - ADD
+		case 7: //FUNC - ADD
 		{
 					string nomeFunc;
 
@@ -436,18 +458,12 @@ void menuManager(Oficina oficina1)
 					oficina1.adicionaFuncionario(f1);
 
 					cout << endl << "   O funcionario '" << nomeFunc << "' foi adicionado com sucesso!" << endl;
-					cout << endl << "   PRIMA 'ENTER' PARA CONTINUAR";
-
-					cin.ignore();
-
-					//IMPLEMENTAR PARA NAO DAR PARA ESCREVER NADA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					if (GetAsyncKeyState(VK_RETURN))
-					{
-						options.pop_back();
-						break;
-					}
+					
+					waitForEnter();
+					options.pop_back();
+					break;
 		}
-		case 7: //FUNC - DEL
+		case 8: //FUNC - DEL
 		{
 					if (oficina1.getFuncionarios().size() == 0)
 					{
@@ -468,7 +484,7 @@ void menuManager(Oficina oficina1)
 
 					break;
 		}
-		case 8:	//FUNC - Listar
+		case 9:	//FUNC - Listar
 		{
 				  clrscr();
 				  cout << "   LISTAGEM DE FUNCIONARIOS" << endl << endl;
@@ -479,7 +495,7 @@ void menuManager(Oficina oficina1)
 				  options.pop_back();
 				  break;
 		}
-		case 9: //VEIC - ADD
+		case 10: //VEIC - ADD
 		{
 					int temp;
 
@@ -488,10 +504,10 @@ void menuManager(Oficina oficina1)
 					if (temp == -1)
 						options.pop_back();
 					else
-						options.push_back(12 + temp);
+						options.push_back(13 + temp);
 					break;
 		}
-		case 10:	//Remover um veiculo
+		case 11:	//Remover um veiculo
 		{
 					int temp = mostraInfo(oficina1, "REMOVER VEICULO", 2);
 
@@ -512,7 +528,7 @@ void menuManager(Oficina oficina1)
 					waitForEnter();
 					break;
 		}
-		case 11:		//Listagem de veiculos
+		case 12:		//Listagem de veiculos
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE VEICULOS" << endl << endl;
@@ -523,7 +539,7 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 12:		//Quando o cliente ja e antigo
+		case 13:		//Quando o cliente ja e antigo
 		{
 							if (oficina1.getClientes().size() == 0)
 							{
@@ -736,7 +752,7 @@ void menuManager(Oficina oficina1)
 							options.pop_back();
 							break;
 		}
-		case 13:		//Quando e a primeira vez que o cliente visita a oficina
+		case 14:		//Quando e a primeira vez que o cliente visita a oficina
 		{
 							clientesNaoRegistados(0);
 							options.pop_back();
@@ -744,7 +760,7 @@ void menuManager(Oficina oficina1)
 							break;
 		}
 
-		case 14:		//Registar cliente
+		case 15:		//Registar cliente
 		{
 							string nome;
 
@@ -771,7 +787,7 @@ void menuManager(Oficina oficina1)
 							options.pop_back();
 							break;
 		}
-		case 15:		//Remove cliente
+		case 16:		//Remove cliente
 		{
 							if (oficina1.getClientes().size() == 0)
 							{
@@ -792,7 +808,7 @@ void menuManager(Oficina oficina1)
 
 							break;
 		}
-		case 16:		//Lista clientes
+		case 17:		//Lista clientes
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE CLIENTES" << endl << endl;
@@ -802,6 +818,63 @@ void menuManager(Oficina oficina1)
 				   waitForEnter();
 				   options.pop_back();
 				   break;
+		}
+		case 18:
+		{
+				   string nome;
+				   float preco;
+				   int dias;
+
+				   gotoxy(3, 0); cout << "REGISTAR NOVO SERVICO";
+				   gotoxy(3, 3); cout << "Introduza o nome do nome servico: ";
+				   getline(cin, nome);
+
+				   while (nome.empty())
+				   {
+					   cout << "   O servico tem de ter algum nome!" << endl << "   Introduza-o novamente: ";
+					   getline(cin, nome);
+				   }
+
+				   cout << "   Introduza o preco: ";
+				   cin >> preco;
+
+				   cout << "Introduza o tempo que demora a realizar o servico: ";
+				   cin >> dias;
+
+				   Servico s1(nome, preco, dias);
+				   oficina1.adicionaServico(s1);
+
+				   cout << "   O servico '" << nome << "' foi adicionado com sucesso!";
+
+				   waitForEnter();
+				   options.pop_back();
+				   break;
+		}
+		case 19:
+		{
+				   if (oficina1.getServicos().size() == 0)
+				   {
+					   gotoxy(3, 0); cout << "REMOVE SERVICOS";
+					   gotoxy(3, 2); cout << "Actualmente, a oficina nao dispoe de quaisquer servicos...";
+					   waitForEnter();
+					   options.pop_back();
+				   }
+				   else
+				   {
+					   vector<string> servicos;
+					   for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
+						   servicos.push_back(oficina1.getServicos()[i].getNome());
+
+					   int posicao = mostraInfo(oficina1, "REMOVE SERVICOS", 3);
+
+					   if (posicao == -1)
+						   options.pop_back();
+					   else
+						   oficina1.removeServico(posicao);
+				   }
+
+				   break;
+
 		}
 		default:
 			break;
@@ -839,8 +912,3 @@ int main()
 	clrscr();
 	return 0;
 }
-
-/*
-void pause() --> avanca apos ENTER
-void clrscr() --> meter so uma linha para apagar consola
-*/
