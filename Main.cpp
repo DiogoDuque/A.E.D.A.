@@ -635,7 +635,11 @@ void menuManager(Oficina oficina1)
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  try
+									  {
+									      oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  }
+									  catch(FuncionarioNaoPodeTerMaisVeiculos) {}
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
 
 									  /*cout << endl << endl;
@@ -660,7 +664,11 @@ void menuManager(Oficina oficina1)
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  try
+									  {
+									      oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  }
+									  catch(FuncionarioNaoPodeTerMaisVeiculos) {}
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
 									  break;
 							}
@@ -680,7 +688,11 @@ void menuManager(Oficina oficina1)
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  try
+									  {
+									      oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  }
+									  catch(FuncionarioNaoPodeTerMaisVeiculos) {}
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
 									  break;
 							}
@@ -700,7 +712,11 @@ void menuManager(Oficina oficina1)
 
 									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  try
+									  {
+									      oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+									  }
+									  catch(FuncionarioNaoPodeTerMaisVeiculos) {}
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
 
 									  associarServicosVeiculos(oficina1, a1);
