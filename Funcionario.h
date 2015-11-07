@@ -18,7 +18,7 @@ public:
 	void acrescentaVeiculos(Veiculo *v);
 	vector <Veiculo *> getVeiculos() const;
 	void removeVeiculo(int pos);
-
+	bool verificaSeExiste(Veiculo *v1) const;
 	
 private:
 	static int ID;

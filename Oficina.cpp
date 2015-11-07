@@ -105,6 +105,9 @@ void Oficina::adicionaServico(Servico s1)
 */
 void Oficina::removeVeiculo(int posVeiculo)
 {
+	for (unsigned int i = 0; i < clientes.size(); i++)
+		clientes[i].removeVeiculo(veiculos[posVeiculo]);
+	
 	veiculos.erase(veiculos.begin() + posVeiculo);
 }
 
@@ -422,4 +425,15 @@ void Oficina::adicionaServicoVeiculo(int posCliente, int posVeiculo, int posServ
 	int indice = funcionarioComMenosVeiculos();
 	veiculos[posVeiculo]->setFuncionario(funcionarios[indice]);
 	funcionarios[indice]->acrescentaVeiculos(veiculos[posVeiculo]);
+}
+
+bool Oficina::podeRemoverVeiculo(int posVeiculo) const
+{
+	for (unsigned int i = 0; i < funcionarios.size(); i++)
+	{
+		if (funcionarios[i]->verificaSeExiste(veiculos[posVeiculo]))
+			return false;
+	}
+
+	return true;
 }

@@ -22,6 +22,7 @@ public:
 	void adicionaFuncionario(Funcionario *f1);
 	void adicionaServico(Servico s1);
 	void adicionaServicoVeiculo(int posCliente, int posVeiculo, int posServico);
+	bool podeRemoverVeiculo(int posVeiculo) const;
 	void removeVeiculo(int posVeiculo);
 	void removeCliente(Cliente cl);
 	void removeFuncionario(Funcionario *f1);

@@ -536,6 +536,8 @@ void menuManager(Oficina oficina1)
 		}
 		case 11:	//Remover um veiculo
 		{
+					clrscr();
+
 					if (oficina1.getVeiculos().size() == 0)
 					{
 						gotoxy(3, 0); cout << "REMOVE VEICULO";
@@ -545,10 +547,19 @@ void menuManager(Oficina oficina1)
 					}
 					else
 					{
-						int posVeiculo = mostraInfo(oficina1, "REMOVER VEICULO", 2, -1);
 
+						int posVeiculo = mostraInfo(oficina1, "REMOVER VEICULO", 2, -1);
+						
 						if (posVeiculo == -1)
 							options.pop_back();
+						else
+						if (!oficina1.podeRemoverVeiculo(posVeiculo))
+						{
+							clrscr();
+							cout << "   ATENCAO!" << endl << endl;
+							cout << "   O veiculo que esta a tentar remover esta a ser reparado! Aguarde ate a reparacao estar completa...";
+							waitForEnter();
+						}
 						else
 							oficina1.removeVeiculo(posVeiculo);
 					}
@@ -565,7 +576,6 @@ void menuManager(Oficina oficina1)
 				   {
 					   int posVeiculo = mostraInfo(oficina1, "SELECIONE O VEICULO A REPARAR", 4, posCliente);
 
-
 					   if (posVeiculo == -1)
 						   options.pop_back();
 					   else
@@ -580,7 +590,6 @@ void menuManager(Oficina oficina1)
 				   }
 
 				   waitForEnter();
-				   options.pop_back();
 				   options.pop_back();
 				   break;
 

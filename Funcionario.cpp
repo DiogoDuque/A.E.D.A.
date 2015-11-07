@@ -79,3 +79,14 @@ void Funcionario::removeVeiculo(int pos)
 {
 	veiculos.erase(veiculos.begin() + pos);
 }
+
+bool Funcionario::verificaSeExiste(Veiculo *v1) const
+{
+	for (unsigned int i = 0; i < veiculos.size(); i++)
+	{
+		if (v1 == veiculos[i])
+			return true;
+	}
+
+	return false;
+}
