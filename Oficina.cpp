@@ -427,3 +427,12 @@ void Oficina::listaServicos()
 	sort(servicos.begin(), servicos.end(), compServicos);
 	showInfoServicos();
 }
+
+void Oficina::adicionaServicoVeiculo(int posCliente, int posVeiculo, int posServico)
+{
+	clientes[posCliente].adicionaServicoVeiculo(posVeiculo, servicos[posServico]);
+
+	int indice = funcionarioComMenosVeiculos();
+	veiculos[posVeiculo]->setFuncionario(funcionarios[indice]);
+	funcionarios[indice]->acrescentaVeiculos(veiculos[posVeiculo]);
+}

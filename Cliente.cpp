@@ -80,3 +80,8 @@ void Cliente::removeVeiculo(Veiculo *v1)
 		}
 	}
 }
+
+void Cliente::adicionaServicoVeiculo(int posVeiculo, Servico s1)
+{
+	veiculos[posVeiculo]->adicionaServico(s1);
+}

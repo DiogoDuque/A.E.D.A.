@@ -21,6 +21,7 @@ public:
 	void adicionaCliente(Cliente cl);
 	void adicionaFuncionario(Funcionario *f1);
 	void adicionaServico(Servico s1);
+	void adicionaServicoVeiculo(int posCliente, int posVeiculo, int posServico);
 	void removeVeiculo(Veiculo *v);
 	void removeCliente(Cliente cl);
 	void removeFuncionario(Funcionario *f1);

@@ -226,8 +226,9 @@ void anim_autocarro()
 	gotoxy(0, 14);
 }
 
-//selecao --> 0 para clientes, 1 para funcionarios, 2 para veiculos, 3 para servicos
-int mostraInfo(Oficina oficina1, string frase, int n)
+//'n' --> 0 para clientes, 1 para funcionarios, 2 para veiculos, 3 para servicos, 4 para os veiculos de um determinado cliente
+//'pos' --> -1 se nao for necessario, diferente de -1 para indicar a posicao do cliente desejado
+int mostraInfo(Oficina oficina1, string frase, int n, int pos)
 {
 	clrscr();
 
@@ -259,6 +260,15 @@ int mostraInfo(Oficina oficina1, string frase, int n)
 	{
 			gotoxy(3, 3 + i * 2);
 			cout << oficina1.getServicos()[i];
+	}
+
+	if (n == 4)
+	{
+		for (unsigned int i = 0; i < oficina1.getClientes()[pos].getVeiculos().size(); i++)
+		{
+			gotoxy(3, 3 + i * 2);
+			cout << oficina1.getClientes()[pos].getVeiculos()[i];
+		}
 	}
 
 	gotoxy(0, 3);
@@ -369,9 +379,9 @@ void menuManager(Oficina oficina1)
 					else options.push_back(7 + temp);
 					break;
 		}
-		case 2: //GESTAO DE VEICULOS (10 - 13 - 14) 11 12
+		case 2: //GESTAO DE VEICULOS (10 - 13 - 14) 11 12 13
 		{
-					temp = makeMenu("GESTAO DE VEICULOS (prima ESC para retroceder)", { "Dar entrada a um veiculo", "Dar saida a um veiculo", "Listar Veiculos" }, "", 0);
+					temp = makeMenu("GESTAO DE VEICULOS (prima ESC para retroceder)", { "Dar entrada a um veiculo", "Dar saida a um veiculo", "Acrescentar servico a veiculo ja existente" ,"Listar Veiculos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(10 + temp);
@@ -491,7 +501,7 @@ void menuManager(Oficina oficina1)
 					}
 					else
 					{
-						int posicao = mostraInfo(oficina1, "REMOVE FUNCIONARIO", 1);
+						int posicao = mostraInfo(oficina1, "REMOVE FUNCIONARIO", 1, -1);
 
 						if (posicao == -1)
 							options.pop_back();
@@ -526,7 +536,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 11:	//Remover um veiculo
 		{
-					int temp = mostraInfo(oficina1, "REMOVER VEICULO", 2);
+					int temp = mostraInfo(oficina1, "REMOVER VEICULO", 2, -1);
 
 					if (temp == -1)
 						options.pop_back();
@@ -545,7 +555,36 @@ void menuManager(Oficina oficina1)
 					waitForEnter();
 					break;
 		}
-		case 12:		//Listagem de veiculos
+		case 12:
+		{
+				   int posCliente = mostraInfo(oficina1, "ESCOLHA O CLIENTE", 0, -1);
+
+				   if (posCliente == -1)
+					   options.pop_back();
+				   else
+				   {
+					   int posVeiculo = mostraInfo(oficina1, "SELECIONE O VEICULO A REPARAR", 4, posCliente);
+
+					   if (posVeiculo == -1)
+						   options.pop_back();
+					   else
+					   {
+						   int posServico = mostraInfo(oficina1, "SELECIONE O SERVICO", 3, -1);
+
+						   if (posServico == -1)
+							   options.pop_back();
+						   else
+							   oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
+					   }
+				   }
+
+				   waitForEnter();
+				   options.pop_back();
+				   options.pop_back();
+				   break;
+
+		}
+		case 30:		//Listagem de veiculos
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE VEICULOS (por ID)" << endl << endl;
@@ -574,7 +613,7 @@ void menuManager(Oficina oficina1)
 								break;
 							}
 
-							int posCliente = mostraInfo(oficina1, "SELECIONA O CLIENTE A QUE DESEJA ASSOCIAR O AUTOMOVEL", 0);
+							int posCliente = mostraInfo(oficina1, "SELECIONA O CLIENTE A QUE DESEJA ASSOCIAR O AUTOMOVEL", 0, -1);
 
 							if (posCliente == -1)
 							{
@@ -868,7 +907,7 @@ void menuManager(Oficina oficina1)
 							}
 							else
 							{
-								int posicao = mostraInfo(oficina1, "REMOVE CLIENTE", 0);
+								int posicao = mostraInfo(oficina1, "REMOVE CLIENTE", 0, -1);
 
 								if (posicao == -1)
 									options.pop_back();
@@ -956,7 +995,7 @@ void menuManager(Oficina oficina1)
 					   for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
 						   servicos.push_back(oficina1.getServicos()[i].getNome());
 
-					   int posicao = mostraInfo(oficina1, "REMOVE SERVICOS", 3);
+					   int posicao = mostraInfo(oficina1, "REMOVE SERVICOS", 3, -1);
 
 					   if (posicao == -1)
 					   {

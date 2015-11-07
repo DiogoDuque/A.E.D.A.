@@ -16,6 +16,7 @@ public:
 	void addVeiculo(Veiculo *v1);
 	void removeVeiculo(Veiculo *v1);
 	bool operator <(const Cliente& cl) const;
+	void adicionaServicoVeiculo(int posVeiculo, Servico s1);
 
 private:
 	static int clienteID;
