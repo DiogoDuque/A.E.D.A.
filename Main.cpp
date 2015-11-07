@@ -471,6 +471,15 @@ void menuManager(Oficina oficina1)
 		}
 		case 8: //FUNC - DEL
 		{
+					if (oficina1.getFuncionarios().size() == 1 && oficina1.getFuncionarios()[0]->getVeiculos().size() != 0)
+					{
+						gotoxy(3, 0); cout << "REMOVE FUNCIONARIO";
+						gotoxy(3, 2); cout << "So existe 1 unico funcionario na oficina, e este esta a tratar de " << oficina1.getFuncionarios()[0]->getVeiculos().size() << " veiculos..." << endl;
+						cout << "   Nao o pode despedir, caso contrario o negocio acaba...";
+						waitForEnter();
+						options.pop_back();
+					}
+					else
 					if (oficina1.getFuncionarios().size() == 0)
 					{
 						gotoxy(3, 0); cout << "REMOVE FUNCIONARIO";
@@ -684,7 +693,7 @@ void menuManager(Oficina oficina1)
 									  Veiculo *a1 = new Automovel(ano, mes, combustivel, numLugares);
 									  oficina1.adicionaVeiculo(a1);
 
-									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
+									  int indice = oficina1.funcionarioComMenosVeiculos();
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
@@ -714,7 +723,7 @@ void menuManager(Oficina oficina1)
 									  Veiculo *a1 = new Motorizada(ano, mes, combustivel, cilindrada);
 									  oficina1.adicionaVeiculo(a1);
 
-									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
+									  int indice = oficina1.funcionarioComMenosVeiculos();
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
@@ -744,7 +753,7 @@ void menuManager(Oficina oficina1)
 									  Veiculo *a1 = new Camiao(ano, mes, combustivel, tara);
 									  oficina1.adicionaVeiculo(a1);
 
-									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
+									  int indice = oficina1.funcionarioComMenosVeiculos();
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
@@ -774,7 +783,7 @@ void menuManager(Oficina oficina1)
 									  Veiculo *a1 = new Autocarro(ano, mes, combustivel, numLugares);
 									  oficina1.adicionaVeiculo(a1);
 
-									  int indice = oficina1.funcionarioComMenosVeiculos(-1);
+									  int indice = oficina1.funcionarioComMenosVeiculos();
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);

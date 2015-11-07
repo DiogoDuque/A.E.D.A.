@@ -14,23 +14,39 @@ int Veiculo::next_id = 1;
   #     SERVICO     #
   ###################
 */
+
+/**
+*Construtor da classe 'Servico'.
+*/
 Servico::Servico(string name, float price, int days) : nome(name), preco(price), terminado(false), dias(days) {}
 
+/**
+*Retorna o 'nome' do servico.
+*/
 string Servico::getNome() const
 {
     return nome;
 }
 
+/**
+*Retorna o 'preco' do sevico.
+*/
 float Servico::getPreco() const
 {
     return preco;
 }
 
+/**
+*Retorna o numero de 'dias' que o servico demora.
+*/
 int Servico::getDias() const
 {
     return dias;
 }
 
+/**
+*Subtrai 'n' dias aos 'dias' que o servico demora a ser realizado. Quando o numero de 'dias' e zero, o servico esta terminado.
+*/
 void Servico::passaDias(int n)
 {
 	dias -= n;
@@ -41,22 +57,26 @@ void Servico::passaDias(int n)
 	}
 }
 
+/**
+*Retorna o valor de verdade de 'terminado', ou seja, se o servico ja acabou ou nao.
+*/
 bool Servico::estaTerminado() const
 {
 	return terminado;
 }
 
-void Servico::desconto(float d)
-{
-	preco -= d;
-}
-
+/**
+*Overload do operador << do servico.
+*/
 ostream & operator<<(ostream &out, Servico s1)
 {
 	out << "Nome: " << s1.getNome() << ", preco: " << s1.getPreco() << ", dias: " << s1.getDias() << endl;
 	return out;
 }
 
+/**
+*Overload do operador == do servico.
+*/
 bool Servico::operator==(const Servico s1)
 {
 	if (nome == s1.getNome() && dias == s1.getDias() && preco == s1.getPreco())
@@ -70,6 +90,10 @@ bool Servico::operator==(const Servico s1)
   #     VEICULO     #
   ###################
 */
+
+/**
+*Construtor da classe veiculo.
+*/
 Veiculo::Veiculo(int year, int month, string comb)
 {
 	ano = year;
@@ -80,11 +104,17 @@ Veiculo::Veiculo(int year, int month, string comb)
 	next_id++;
 }
 
+/**
+*Retorna o 'id' do veiculo.
+*/
 int Veiculo::getID() const
 {
 	return id;
 }
 
+/**
+*Faz display da informacao do veiculo.
+*/
 void Veiculo::getInfo() const
 {
 	bool tudoPronto = true;
@@ -103,63 +133,56 @@ void Veiculo::getInfo() const
 		cout << " A SER REPARADO";
 }
 
+/**
+*Associa o funcionario 'f1' ao veiculo.
+*/
 void Veiculo::setFuncionario(Funcionario *f1)
 {
 	f = f1;
 }
 
+/**
+*Retorna verdade caso todos os servicos do veiculo estajam terminados, caso contrario, retorna falso.
+*/
 bool Veiculo::estaPronto()
 {
     for(unsigned int i = 0; i < servicos.size(); i++)
     {
         if(!servicos[i].estaTerminado())
-        {
             return false;
-        }
     }
 
     return true;
 }
 
-float Veiculo::ofereceDesconto()
-{
-	float desconto = 0;
-
-	if (servicos.size() == 9)		//só ao 10º serviço é que se oferecem descontos. O desconto é 25% da média do preço de todos os serviços que o veiculo ja efectuou
-	{
-		for (unsigned int i = 0; i < servicos.size(); i++)
-			desconto += servicos[i].getPreco();
-
-		desconto = (desconto / (float) 9.0) * (float) 0.25;
-        servicos[8].desconto(desconto);
-	}
-
-	return desconto;
-}
-
+/**
+*Faz passar 'n' dias para todos os servicos do veiculo.
+*/
 void Veiculo::passaDias(int n)
 {
 	for (unsigned int i = 0; i < servicos.size(); i++)
-	{
 		servicos[i].passaDias(n);
-	}
 }
 
-void Veiculo::apresenta() const //JUST FOR DEBUGGING
-{
-	cout << f->getNome() << endl;
-}
-
+/**
+*Adiciona o servico 's1' ao vector de servicos do veiculo.
+*/
 void Veiculo::adicionaServico(Servico s1)
 {
 	servicos.push_back(s1);
 }
 
+/**
+*Retorna o vector de servicos do veiculo.
+*/
 vector<Servico> Veiculo::getServicos() const
 {
 	return servicos;
 }
 
+/**
+*Caso o servico 's1' nao esteja acabado no veiculo, esse servico nao pode ser elimanado (funcao usada para eliminar o servico 's1' da oficina).
+*/
 bool Veiculo::veiculoUsaServico(Servico s1)
 {
 	for (unsigned int i = 0; i < servicos.size(); i++)		//Caso o servico que se quer eliminar nao esteja acabado num veiculo, não se pode eliminar
@@ -176,12 +199,19 @@ bool Veiculo::veiculoUsaServico(Servico s1)
   #    AUTOMOVEL    #
   ###################
 */
+
+/**
+*Construtor da class derivada 'Automovel' (deriva de 'Veiculo').
+*/
 Automovel::Automovel(int year, int month, string comb, int seats) :
 Veiculo(year, month, comb)
 {
 	lugares = seats;
 }
 
+/**
+*Faz display da informacao do automovel.
+*/
 void Automovel::getInfo() const
 {
 	Veiculo::getInfo();
@@ -193,8 +223,15 @@ void Automovel::getInfo() const
   #   MOTORIZADA    #
   ###################
 */
+
+/**
+*Construtor da class derivada 'Motorizada' (deriva de 'Veiculo').
+*/
 Motorizada::Motorizada(int year, int month, string comb, int cilindr) : Veiculo(year, month, comb), cilindrada(cilindr) {}
 
+/**
+*Faz display da informacao da motorizada.
+*/
 void Motorizada::getInfo() const
 {
 	Veiculo::getInfo();
@@ -205,8 +242,15 @@ void Motorizada::getInfo() const
   #     CAMIAO      #
   ###################
 */
+
+/**
+*Construtor da class derivada 'Camiao' (deriva de 'Veiculo').
+*/
 Camiao::Camiao(int year, int month, string comb, int tar) : Veiculo(year, month, comb), tara(tar) {}
 
+/**
+*Faz display da informacao do camiao.
+*/
 void Camiao::getInfo() const
 {
 	Veiculo::getInfo();
@@ -218,8 +262,15 @@ void Camiao::getInfo() const
   #    AUTOCARRO    #
   ###################
 */
+
+/**
+*Construtor da class derivada 'Autocarro' (deriva de 'Veiculo').
+*/
 Autocarro::Autocarro(int year, int month, string comb, int max_lugares) : Veiculo(year, month, comb), lugares(max_lugares) {}
 
+/**
+*Faz display da informacao do autocarro.
+*/
 void Autocarro::getInfo() const
 {
 	Veiculo::getInfo();
@@ -230,8 +281,15 @@ void Autocarro::getInfo() const
   #      ERROS      #
   ###################
 */
+
+/**
+*Contrutor da classe VeiculoNaoExistente.
+*/
 VeiculoNaoExistente::VeiculoNaoExistente(int i) : id(i) {}
 
+/**
+*Retorna o 'id' do veiculo.
+*/
 int VeiculoNaoExistente::getID() const
 {
     return id;

@@ -14,6 +14,9 @@ void setcolor(unsigned int color);
 
 void setcolor(unsigned int color, unsigned int background_color);
 
+/**
+*HEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+*/
 int makeMenu (string titulo, vector <string> opcoes, string frase, int tamanho);
 
 void pause();

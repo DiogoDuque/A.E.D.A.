@@ -22,7 +22,6 @@ public:
 	int getDias() const;
 	void passaDias(int n);
     bool estaTerminado() const;
-    void desconto(float d);
 	bool operator==(const Servico s1);
 };
 
@@ -36,11 +35,9 @@ public:
 	virtual void getInfo() const;
 	void setFuncionario(Funcionario *f1);
 	bool estaPronto();
-	float ofereceDesconto();
 	void passaDias(int n);
 	void adicionaServico(Servico s1);
 	vector<Servico> getServicos() const;
-	void apresenta() const; //DEBUGGING
 	bool veiculoUsaServico(Servico s1);
 protected:
 	static int next_id;
@@ -79,7 +76,7 @@ public:
 	void getInfo() const;
 
 private:
-	int tara; //tara
+	int tara;
 };
 
 class Autocarro : public Veiculo

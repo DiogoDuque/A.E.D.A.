@@ -7,6 +7,9 @@
 
 using namespace std;
 
+/**
+*Construtor para a classe 'Oficina'.
+*/
 Oficina::Oficina(string myNomeOficina)
 {
 	nomeOficina = myNomeOficina;
@@ -25,53 +28,80 @@ Oficina::Oficina(string myNomeOficina)
 	}
 }
 
+/**
+*Retorna o nome da oficina.
+*/
 string Oficina::getNome() const
 {
 	return nomeOficina;
 }
 
+/**
+*Retorna os veiculos da oficina.
+*/
 vector<Veiculo*> &Oficina::getVeiculos()
 {
 	return veiculos;
 }
 
+/**
+*Retorna os clientes da oficina.
+*/
 vector<Cliente> &Oficina::getClientes()
 {
 	return clientes;
 }
 
+/**
+*Retorna os funcionarios da oficina.
+*/
 vector<Funcionario*> Oficina::getFuncionarios() const
 {
 	return funcionarios;
 }
 
+/**
+*Retorna os servicos da oficina.
+*/
 vector<Servico> Oficina::getServicos() const
 {
 	return servicos;
 }
 
+/**
+*Adiciona o veiculo 'v' ao vector 'veiculos' da oficina.
+*/
 void Oficina::adicionaVeiculo(Veiculo *v)
 {
 	veiculos.push_back(v);
 }
 
+/**
+*Adiciona o funcionario 'f' ao vector 'funcionarios' da oficina.
+*/
 void Oficina::adicionaFuncionario(Funcionario *f)
 {
 	funcionarios.push_back(f);
 }
 
+/**
+*Adiciona o cliente 'c1' ao vector 'clientes' da oficina.
+*/
 void Oficina::adicionaCliente(Cliente cl)
 {
 	clientes.push_back(cl);
 }
 
+/**
+*Adiciona o servico 's1' ao vector 'servicos' da oficina.
+*/
 void Oficina::adicionaServico(Servico s1)
 {
 	servicos.push_back(s1);
 }
 
 /**
-*Retorna true caso o veículo exista e seja possível de ser removido, caso contrário retorna false
+*Retorna true caso o veículo exista e seja possível de ser removido, caso contrário retorna false.
 */
 void Oficina::removeVeiculo(Veiculo *v)
 {
@@ -92,7 +122,7 @@ void Oficina::removeVeiculo(Veiculo *v)
 }
 
 /**
-*Função que remove funcionarios, e se tiverem veiculos associados, passa esse veiculos para o funcionario com menos veiculos
+*Remove o funcionario 'f1', e se 'f1' tiver veiculos associados, passa esse veiculos para o funcionario com menos veiculos (o funcionario que esta menos ocupado).
 */
 void Oficina::removeFuncionario(Funcionario *f1)
 {
@@ -105,7 +135,7 @@ void Oficina::removeFuncionario(Funcionario *f1)
 			if (funcionarios[i]->getVeiculos().size() != 0)		//se o funcionario tiver veiculos a seu cargo, passa-los para outros funcionarios
 			{
 				for (unsigned int j = 0; j < funcionarios[i]->getVeiculos().size(); j++)
-					funcionarios[funcionarioComMenosVeiculos(i)]->acrescentaVeiculos(funcionarios[i]->getVeiculos()[j]);
+					funcionarios[funcionarioComMenosVeiculos()]->acrescentaVeiculos(funcionarios[i]->getVeiculos()[j]);
 			}
 
 			funcionarios.erase(funcionarios.begin() + i);
@@ -121,6 +151,9 @@ void Oficina::removeFuncionario(Funcionario *f1)
 	}
 }
 
+/**
+*Remove o cliente 'c1' do vector 'clientes' da oficina (caso este exista). Se nao existir, lanca uma excecao.
+*/
 void Oficina::removeCliente(Cliente cl)
 {
 	for (unsigned int i = 0; i < clientes.size(); i++)
@@ -128,14 +161,16 @@ void Oficina::removeCliente(Cliente cl)
 		if (clientes[i].getNumRegisto() == cl.getNumRegisto())
 		{
 			clientes.erase(clientes.begin() + i);
-			break;
+			return;
 		}
 	}
-
 
 	throw(ClienteNaoExistente(cl.getNome()));
 }
 
+/**
+*Remove o servico que esta na posicao 'pos' do vector 'servicos' da oficina. No entanto, so da para remover caso o servico nao esteja a ser efectuado em nenhum veiculo, ou seja, so elimina o servico se nao houver veiculos que estao a ser reparados com aquele servico.
+*/
 bool Oficina::removeServico(int pos)
 {
 	bool podeEliminar = true;
@@ -155,15 +190,10 @@ bool Oficina::removeServico(int pos)
 		return false;
 }
 
-Funcionario* Oficina::getFuncionarioMenosVeiculos() const
-{
-	return funcionarios[funcionarioComMenosVeiculos(-1)];
-}
-
 /**
-*Devolve o indice do funcionario com menos veiculos (exceto o funcionario que queremos remover)
+*Retorna o indice do funcionario com menos veiculos.
 */
-int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
+int Oficina::funcionarioComMenosVeiculos() const
 {
 	int indice = -1;
 	unsigned int numVeiculos = 1000;
@@ -180,15 +210,18 @@ int Oficina::funcionarioComMenosVeiculos(int indiceNaoUsar) const
 	return indice;
 }
 
+/**
+*Substrai 'n' dias a todos os servicos de todos os veiculos.
+*/
 void Oficina::passaDias(int n)
 {
 	for (unsigned int i = 0; i < veiculos.size(); i++)
 		veiculos[i]->passaDias(n);
 }
 
-
-//FALTA UMA FUNCAO AQUI!!!!
-
+/**
+*Associa o veiculo 'v1' ao cliente 'c1'. Se o cliente 'c1' nao existe, lanca uma excecao.
+*/
 void Oficina::associaVeiculoCliente(Veiculo* v1, Cliente c1)
 {
 	for (unsigned int i = 0; i < clientes.size(); i++)
@@ -203,6 +236,9 @@ void Oficina::associaVeiculoCliente(Veiculo* v1, Cliente c1)
 	throw(ClienteNaoExistente(c1.getNome()));
 }
 
+/**
+*Faz o display dos funcionarios da empresa e dos veiculos que cada um tem associados.
+*/
 void Oficina::showInfo() const
 {
     if(funcionarios.size()==0)
@@ -226,17 +262,26 @@ void Oficina::showInfo() const
 	}
 }
 
+/**
+*Funcao de comparacao de funcionarios (usada no sort).
+*/
 bool compFunc(Funcionario * &f1, Funcionario * &f2)
 {
 	return (f1->getNome() < f2->getNome());
 }
 
+/**
+*Display da informacao dos funcionarios.
+*/
 void Oficina::showInfoFuncionarios() const
 {
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
 		cout << "   " << i + 1 << ". " << *funcionarios[i] << endl;;
 }
 
+/**
+*Faz uma lista ordenada (de acordo com a funcao de ordenacao) dos funcionarios.
+*/
 void Oficina::listaFunc()
 {
 	if (funcionarios.size() == 0)
@@ -249,11 +294,17 @@ void Oficina::listaFunc()
 	showInfoFuncionarios();
 }
 
+/**
+*Funcao de comparacao de veiculos (usado no sort).
+*/
 bool compVeiculos(Veiculo * &v1, Veiculo * &v2)
 {
 	return (v1->getID() < v2->getID());
 }
 
+/**
+*Display da informacao dos veiculos
+*/
 void Oficina::showInfoVeiculos() const
 {
 	for (unsigned int i = 0; i < veiculos.size(); i++)
@@ -264,6 +315,9 @@ void Oficina::showInfoVeiculos() const
 	}
 }
 
+/**
+*Faz uma lista ordenada (de acordo com a funcao de ordenacao) dos veiculos.
+*/
 void Oficina::listaVeiculos()
 {
 	if (veiculos.size() == 0)
@@ -277,6 +331,9 @@ void Oficina::listaVeiculos()
 
 }
 
+/**
+*Remove a associacao dos veiculos que ja estao tratados aos funcionarios.
+*/
 void Oficina::removeVeiculosTratados()
 {
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
@@ -289,11 +346,17 @@ void Oficina::removeVeiculosTratados()
 	}
 }
 
+/**
+*Funcao de comparacao de clientes (usado no sort).
+*/
 bool compClientes(const Cliente &c1, const Cliente &c2)
 {
 	return (c1.getNome() < c2.getNome());
 }
 
+/**
+*Faz o display da informacao dos clientes.
+*/
 void Oficina::showInfoClientes() const
 {
 	for (unsigned int i = 0; i < clientes.size(); i++)
@@ -303,6 +366,9 @@ void Oficina::showInfoClientes() const
 	}
 }
 
+/**
+*Faz uma lista ordenada (de acordo com a funcao de ordenacao) dos clientes.
+*/
 void Oficina::listaClientes()
 {
 	if (clientes.size() == 0)
@@ -315,6 +381,9 @@ void Oficina::listaClientes()
 	showInfoClientes();
 }
 
+/**
+*Funcao de comparacao dos servicos.
+*/
 bool compServicos(const Servico &s1, const Servico &s2)
 {
 	if (s1.getPreco() < s2.getPreco())
@@ -335,12 +404,18 @@ bool compServicos(const Servico &s1, const Servico &s2)
 	return false;
 }
 
+/**
+*Faz o display da informacao dos servicos.
+*/
 void Oficina::showInfoServicos() const
 {
 	for (unsigned int i = 0; i < servicos.size(); i++)
 		cout << "   " << servicos[i] << endl;
 }
 
+/**
+*Faz uma lista ordenada (de acordo com a funcao de comparacao) dos servicos.
+*/
 void Oficina::listaServicos()
 {
 	if (servicos.size() == 0)

@@ -7,10 +7,6 @@
 #include <iostream>
 
 using namespace std;
-/*
-- podemos tentar adaptar a oficina para ela ter um numero maximo de veiculos de cada tipo
-- nao sei de que fazer o operator
-*/
 
 class Oficina
 {
@@ -30,8 +26,7 @@ public:
 	void removeFuncionario(Funcionario *f1);
 	bool removeServico(int pos);
 	void removeVeiculosTratados();
-	Funcionario* getFuncionarioMenosVeiculos() const;
-	int funcionarioComMenosVeiculos(int indiceNaoUsar) const;
+	int funcionarioComMenosVeiculos() const;
 	void passaDias(int n);
 	void associaVeiculoCliente(Veiculo *v1, Cliente c1);
 	void showInfo() const;
@@ -51,6 +46,9 @@ private:
 	vector <Servico> servicos; //importar dum ficheiro
 };
 
+/**
+*Classe que funciona como uma excecao quando a oficina nao tem funcionarios.
+*/
 class OficinaNaoTemFuncionarios {};
 
 #endif
