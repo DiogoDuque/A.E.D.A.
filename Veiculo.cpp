@@ -117,20 +117,10 @@ int Veiculo::getID() const
 */
 void Veiculo::getInfo() const
 {
-	bool tudoPronto = true;
 
-	for (unsigned int i = 0; i < servicos.size(); i++)
-	{
-		if (!servicos[i].estaTerminado())
-			tudoPronto = false;
-	}
 
 	cout << "ID: " << id << ", ano: " << ano << ", mes: " << mes << ", combustivel: " << combustivel << ", status: ";
 
-	if (tudoPronto)
-		cout << " REPARADO";
-	else
-		cout << " A SER REPARADO";
 }
 
 /**
@@ -216,6 +206,23 @@ void Automovel::getInfo() const
 {
 	Veiculo::getInfo();
 	cout << ", numero de lugares: " << lugares;
+
+	cout << ", status: ";
+
+	bool tudoPronto = true;
+
+	for (unsigned int i = 0; i < servicos.size(); i++)
+	{
+		if (!servicos[i].estaTerminado())
+			tudoPronto = false;
+	}
+
+	if (tudoPronto)
+		cout << " REPARADO.";
+	else
+		cout << " A SER REPARADO.";
+
+	cout << endl << "   Total de servicos requeridos: " << servicos.size();
 }
 
 
@@ -235,6 +242,23 @@ Motorizada::Motorizada(int year, int month, string comb, int cilindr) : Veiculo(
 void Motorizada::getInfo() const
 {
 	Veiculo::getInfo();
+
+	cout << ", status: ";
+
+	bool tudoPronto = true;
+
+	for (unsigned int i = 0; i < servicos.size(); i++)
+	{
+		if (!servicos[i].estaTerminado())
+			tudoPronto = false;
+	}
+
+	if (tudoPronto)
+		cout << " REPARADO.";
+	else
+		cout << " A SER REPARADO.";
+
+	cout << endl << "   Total de servicos requeridos: " << servicos.size();
 }
 
 
@@ -255,6 +279,23 @@ void Camiao::getInfo() const
 {
 	Veiculo::getInfo();
 	cout << ", tara: " << tara;
+
+	cout << ", status: ";
+
+	bool tudoPronto = true;
+
+	for (unsigned int i = 0; i < servicos.size(); i++)
+	{
+		if (!servicos[i].estaTerminado())
+			tudoPronto = false;
+	}
+
+	if (tudoPronto)
+		cout << " REPARADO.";
+	else
+		cout << " A SER REPARADO.";
+
+	cout << endl << "   Total de servicos requeridos: " << servicos.size();
 }
 
 
@@ -275,6 +316,23 @@ void Autocarro::getInfo() const
 {
 	Veiculo::getInfo();
 	cout << ", capacidade: " << lugares;
+
+	cout << ", status: ";
+
+	bool tudoPronto = true;
+
+	for (unsigned int i = 0; i < servicos.size(); i++)
+	{
+		if (!servicos[i].estaTerminado())
+			tudoPronto = false;
+	}
+
+	if (tudoPronto)
+		cout << " REPARADO.";
+	else
+		cout << " A SER REPARADO.";
+
+	cout << endl << "   Total de servicos requeridos: " << servicos.size();
 }
 
 /*###################

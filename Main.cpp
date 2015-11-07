@@ -463,7 +463,7 @@ void menuManager(Oficina oficina1)
 					cout << "Introduza o nome do novo funcionario: ";
 					getline(cin, nomeFunc);
 
-					while (cin.fail())
+					while (cin.fail() || nomeFunc.empty())
 					{
 						cin.clear();
 						cin.ignore(1000, '\n');
@@ -642,7 +642,7 @@ void menuManager(Oficina oficina1)
 							cout << "Introduza o ano do veiculo: ";
 							cin >> ano;
 
-							while (cin.fail())
+							while (cin.fail() || ano < 1769 || ano > 2015)
 							{
 								cin.clear();
 								cin.ignore(1000, '\n');
@@ -654,7 +654,7 @@ void menuManager(Oficina oficina1)
 							cout << "   Introduza o mes: ";
 							cin >> mes;
 
-							while (cin.fail())
+							while (cin.fail() || mes > 12 || mes < 1)
 							{
 								cin.clear();
 								cin.ignore(1000, '\n');
@@ -888,7 +888,7 @@ void menuManager(Oficina oficina1)
 							cout << "Introduza o nome do cliente: ";
 							getline(cin, nome);
 
-							while (cin.fail())
+							while (cin.fail() || nome.empty())
 							{
 								cin.clear();
 								cin.ignore(1000, '\n');
@@ -948,7 +948,7 @@ void menuManager(Oficina oficina1)
 				   gotoxy(3, 3); cout << "Introduza o nome do nome servico: ";
 				   getline(cin, nome);
 
-				   while (cin.fail())
+				   while (cin.fail() || nome.empty())
 				   {
 					   cin.clear();
 					   cin.ignore(1000, '\n');

@@ -101,7 +101,7 @@ void Oficina::adicionaServico(Servico s1)
 }
 
 /**
-*Remove o veiculo 'v' do vector de veiculos da oficina. Caso o veiculos nao exista, lanca uma excecao.
+*Remove o veiculo 'v' do vector de veiculos da oficina, assim como do vector veiculos do cliente.
 */
 void Oficina::removeVeiculo(int posVeiculo)
 {
@@ -418,6 +418,9 @@ void Oficina::listaServicos()
 	showInfoServicos();
 }
 
+/**
+*Adiciona o servico na posicao 'posServico' do vector servicos da oficina ao veiculo na posicao 'posVeiculo' do vector veiculos do cliente na posicao 'posCliente' do vector clientes da oficina, ou seja, adiciona mais um servico a um veiculo.
+*/
 void Oficina::adicionaServicoVeiculo(int posCliente, int posVeiculo, int posServico)
 {
 	clientes[posCliente].adicionaServicoVeiculo(posVeiculo, servicos[posServico]);
@@ -427,6 +430,9 @@ void Oficina::adicionaServicoVeiculo(int posCliente, int posVeiculo, int posServ
 	funcionarios[indice]->acrescentaVeiculos(veiculos[posVeiculo]);
 }
 
+/**
+*Retorna 'falso' se existir algum funcionario a operar o veiculo na posicao 'posVeiculo' da oficina. Caso contrario retorna 'true'.
+*/
 bool Oficina::podeRemoverVeiculo(int posVeiculo) const
 {
 	for (unsigned int i = 0; i < funcionarios.size(); i++)
