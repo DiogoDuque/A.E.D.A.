@@ -101,24 +101,11 @@ void Oficina::adicionaServico(Servico s1)
 }
 
 /**
-*Retorna true caso o veículo exista e seja possível de ser removido, caso contrário retorna false.
+*Remove o veiculo 'v' do vector de veiculos da oficina. Caso o veiculos nao exista, lanca uma excecao.
 */
-void Oficina::removeVeiculo(Veiculo *v)
+void Oficina::removeVeiculo(int posVeiculo)
 {
-	bool eliminou = false;
-
-	for (unsigned int i = 0; i < veiculos.size(); i++)
-	{
-		if (veiculos[i] == v)
-		{
-			veiculos.erase(veiculos.begin() + i);
-			eliminou = true;
-			break;
-		}
-	}
-
-	if (!eliminou)
-		throw(VeiculoNaoExistente(v->getID()));
+	veiculos.erase(veiculos.begin() + posVeiculo);
 }
 
 /**
@@ -322,7 +309,7 @@ void Oficina::listaVeiculos()
 {
 	if (veiculos.size() == 0)
 	{
-		cout << "   Actualmente nao existem clientes registados...";
+		cout << "   Actualmente nao existem veiculos registados...";
 		return;
 	}
 

@@ -51,17 +51,6 @@ void clientesNaoRegistados(int n)
 	gotoxy(3, 6); waitForEnter();
 }
 
-void associarServicosVeiculos(Oficina oficina1, Veiculo *a1)
-{
-	vector<string> servicosString;
-	for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
-		servicosString.push_back(oficina1.getServicos()[i].getNome());
-
-	int temp = makeMenu("ESCOLHER SERVICO", servicosString, "", 0);
-
-	a1->adicionaServico(oficina1.getServicos()[temp]);
-}
-
 /**
 *Animação inicial. É executada apenas uma vez no inicio do programa.
 */
@@ -267,7 +256,7 @@ int mostraInfo(Oficina oficina1, string frase, int n, int pos)
 		for (unsigned int i = 0; i < oficina1.getClientes()[pos].getVeiculos().size(); i++)
 		{
 			gotoxy(3, 3 + i * 2);
-			cout << oficina1.getClientes()[pos].getVeiculos()[i];
+			oficina1.showInfoVeiculos();
 		}
 	}
 
@@ -354,6 +343,17 @@ int mostraInfo(Oficina oficina1, string frase, int n, int pos)
 
 }
 
+void associarServicosVeiculos(Oficina oficina1, Veiculo *a1)
+{
+	vector<string> servicosString;
+	for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
+		servicosString.push_back(oficina1.getServicos()[i].getNome());
+
+	//int temp = makeMenu("ESCOLHER SERVICO", servicosString, "", 0);
+	int posicao = mostraInfo(oficina1, "ESCOLHER SERVICO", 3, -1);
+	a1->adicionaServico(oficina1.getServicos()[posicao]);
+}
+
 void menuManager(Oficina oficina1)
 {
 	vector <int> options = { 0 }; //sera usado para se poder retroceder nos menus
@@ -387,20 +387,20 @@ void menuManager(Oficina oficina1)
 					else options.push_back(10 + temp);
 					break;
 		}
-		case 3: //GESTAO DE CLIENTES 15 - 16 - 17
+		case 3: //GESTAO DE CLIENTES 16 - 17 - 18
 		{
 					temp = makeMenu("GESTAO DE CLIENTES (prima ESC para retroceder)", { "Registar cliente", "Eliminar cliente", "Listar clientes" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(15 + temp);
+					else options.push_back(16 + temp);
 					break;
 		}
-		case 4:	//GESTAO DE SERVICOS 18 - 19 - 20
+		case 4:	//GESTAO DE SERVICOS 19 - 20 - 21
 		{
 					temp = makeMenu("GESTAO DE SERVICOS (prima ESC para retroceder)", { "Criar novo servico", "Eliminar servico", "Listar servicos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(18 + temp);
+					else options.push_back(19 + temp);
 					break;
 		}
 		case 5: //MOSTRAR INFO
@@ -531,31 +531,31 @@ void menuManager(Oficina oficina1)
 					if (temp == -1)
 						options.pop_back();
 					else
-						options.push_back(13 + temp);
+						options.push_back(14 + temp);
 					break;
 		}
 		case 11:	//Remover um veiculo
 		{
-					int temp = mostraInfo(oficina1, "REMOVER VEICULO", 2, -1);
-
-					if (temp == -1)
+					if (oficina1.getVeiculos().size() == 0)
+					{
+						gotoxy(3, 0); cout << "REMOVE VEICULO";
+						gotoxy(3, 2); cout << "Actualmente, nao ha veiculos na oficina...";
+						waitForEnter();
 						options.pop_back();
+					}
 					else
 					{
-						try
-						{
-							oficina1.removeVeiculo(oficina1.getVeiculos()[temp]);
-						}
-						catch (VeiculoNaoExistente x)
-						{
-							cout << "   O Veiculo '" << x.getID() << "' nao existe na oficina..." << endl;
-						}
+						int posVeiculo = mostraInfo(oficina1, "REMOVER VEICULO", 2, -1);
+
+						if (posVeiculo == -1)
+							options.pop_back();
+						else
+							oficina1.removeVeiculo(posVeiculo);
 					}
 
-					waitForEnter();
 					break;
 		}
-		case 12:
+		case 12:	//Adiciona um servico a um veiculo
 		{
 				   int posCliente = mostraInfo(oficina1, "ESCOLHA O CLIENTE", 0, -1);
 
@@ -564,6 +564,7 @@ void menuManager(Oficina oficina1)
 				   else
 				   {
 					   int posVeiculo = mostraInfo(oficina1, "SELECIONE O VEICULO A REPARAR", 4, posCliente);
+
 
 					   if (posVeiculo == -1)
 						   options.pop_back();
@@ -584,7 +585,7 @@ void menuManager(Oficina oficina1)
 				   break;
 
 		}
-		case 30:		//Listagem de veiculos
+		case 13:		//Listagem de veiculos
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE VEICULOS (por ID)" << endl << endl;
@@ -595,7 +596,7 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 13:		//Quando o cliente ja e antigo
+		case 14:		//Quando o cliente ja e antigo
 		{
 							if (oficina1.getClientes().size() == 0)
 							{
@@ -859,7 +860,7 @@ void menuManager(Oficina oficina1)
 							options.pop_back();
 							break;
 		}
-		case 14:		//Quando e a primeira vez que o cliente visita a oficina
+		case 15:		//Quando e a primeira vez que o cliente visita a oficina
 		{
 							clientesNaoRegistados(0);
 							options.pop_back();
@@ -867,7 +868,7 @@ void menuManager(Oficina oficina1)
 							break;
 		}
 
-		case 15:		//Registar cliente
+		case 16:		//Registar cliente
 		{
 							string nome;
 
@@ -896,7 +897,7 @@ void menuManager(Oficina oficina1)
 							options.pop_back();
 							break;
 		}
-		case 16:		//Remove cliente
+		case 17:		//Remove cliente
 		{
 							if (oficina1.getClientes().size() == 0)
 							{
@@ -917,7 +918,7 @@ void menuManager(Oficina oficina1)
 
 							break;
 		}
-		case 17:		//Lista clientes
+		case 18:		//Lista clientes
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE CLIENTES (por nome)" << endl << endl;
@@ -928,7 +929,7 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 18:		//Adicionar servicos
+		case 19:		//Adicionar servicos
 		{
 				   string nome;
 				   float preco;
@@ -980,7 +981,7 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 19:		//Remover servicos
+		case 20:		//Remover servicos
 		{
 				   if (oficina1.getServicos().size() == 0)
 				   {
@@ -1017,7 +1018,7 @@ void menuManager(Oficina oficina1)
 				   break;
 
 		}
-		case 20:		//Listagem de servicos
+		case 21:		//Listagem de servicos
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE SERVICOS (por preco)" << endl << endl;
