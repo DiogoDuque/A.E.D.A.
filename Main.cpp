@@ -428,6 +428,8 @@ void menuManager(Oficina oficina1)
 					  cin >> diasAvancar;
 				  }
 
+				  cin.ignore(1000, '\n');
+
 				  for (unsigned int i = 0; i < oficina1.getVeiculos().size(); i++)
 					  oficina1.getVeiculos()[i]->passaDias(diasAvancar);
 
@@ -612,8 +614,19 @@ void menuManager(Oficina oficina1)
 								cin >> mes;
 							}
 
+							cin.ignore(1000, '\n');		//Elimina o 'ENTER' que fica no buffer
+
 							cout << "   Introduza o tipo de combustivel: ";
 							getline(cin, combustivel);
+
+							while (cin.fail())
+							{
+								cin.clear();
+								cin.ignore(1000, '\n');
+
+								cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+								getline(cin, combustivel);
+							}
 
 							clrscr();
 							gotoxy(3, 1);
@@ -690,6 +703,8 @@ void menuManager(Oficina oficina1)
 										  cin >> numLugares;
 									  }
 
+									  cin.ignore(1000, '\n');
+
 									  Veiculo *a1 = new Automovel(ano, mes, combustivel, numLugares);
 									  oficina1.adicionaVeiculo(a1);
 
@@ -719,6 +734,8 @@ void menuManager(Oficina oficina1)
 										  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
 										  cin >> cilindrada;
 									  }
+
+									  cin.ignore(1000, '\n');
 
 									  Veiculo *a1 = new Motorizada(ano, mes, combustivel, cilindrada);
 									  oficina1.adicionaVeiculo(a1);
@@ -750,6 +767,8 @@ void menuManager(Oficina oficina1)
 										  cin >> tara;
 									  }
 
+									  cin.ignore(1000, '\n');
+
 									  Veiculo *a1 = new Camiao(ano, mes, combustivel, tara);
 									  oficina1.adicionaVeiculo(a1);
 
@@ -779,6 +798,8 @@ void menuManager(Oficina oficina1)
 										  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
 										  cin >> numLugares;
 									  }
+
+									  cin.ignore(1000, '\n');
 
 									  Veiculo *a1 = new Autocarro(ano, mes, combustivel, numLugares);
 									  oficina1.adicionaVeiculo(a1);
