@@ -78,7 +78,7 @@ void intro()
 	carro.push_back("_`--(_)-------(_)'");
 
 	gotoxy(10, 20);
-	cout << "Projeto realizado por: *****";
+	cout << "Projeto realizado por: Daniel Fernandes, Diogo Duque e Jose Carlos";
 
 	//disp oficina
 	gotoxy(0, 5);
@@ -1046,8 +1046,9 @@ void menuManager(Oficina oficina1)
 
 int main()
 {
-	//intro();
+	intro();
 	clrscr();
+
 	string nomeOficina;
 	cout << "Nome da Oficina: ";
 	getline(cin, nomeOficina);

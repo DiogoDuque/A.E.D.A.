@@ -80,6 +80,9 @@ void Funcionario::removeVeiculo(int pos)
 	veiculos.erase(veiculos.begin() + pos);
 }
 
+/**
+*Retorna 'true' se existir um veiculo no vector 'veiculos' do funcionario que seja igual a 'v1'. Caso contrario retorna falso.
+*/
 bool Funcionario::verificaSeExiste(Veiculo *v1) const
 {
 	for (unsigned int i = 0; i < veiculos.size(); i++)
