@@ -10,9 +10,10 @@ class CartaoPontos
 public:
 	CartaoPontos();
 	int getPontos() const;
+	void addPontos(int pontos);
 private:
 	int pontos;
-	//Cliente *c;
+	bool ativado;
 };
 
 #endif

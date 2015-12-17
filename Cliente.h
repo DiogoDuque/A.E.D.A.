@@ -42,6 +42,7 @@ private:
 	vector<string> telefones;
 
 	bool estaInativo;
+	CartaoPontos cartao;
 
 };
 

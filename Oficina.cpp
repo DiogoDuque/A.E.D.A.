@@ -559,6 +559,7 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 void Oficina::actualizaInatividadeCliente(int posCliente)
 {
 	clientes[posCliente].setInatividade(false);
+	CartaoPontos cp1();
 
 	
 	hashClientes::iterator itr = clientesInativos.find(clientes[posCliente]);

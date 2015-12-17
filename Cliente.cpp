@@ -175,7 +175,7 @@ bool Cliente::operator ==(const Cliente & c1) const
 }
 
 
-void criaCartaoPontos()
+void Cliente::criaCartaoPontos()
 {
-
+	cartao.
 }
