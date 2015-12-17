@@ -21,7 +21,10 @@ public:
 	void addMail(string mail);
 	void addTelefone(string telefone);
 
-	bool operator<(const Cliente &c2);
+	//bool operator<(const Cliente &c2);
+	void showInfoClienteInativo() const;
+	void setInatividade(bool inatividade);
+	bool getInatividade() const;
 
 private:
 	static int clienteID;

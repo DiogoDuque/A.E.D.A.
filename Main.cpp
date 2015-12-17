@@ -387,20 +387,20 @@ void menuManager(Oficina oficina1)
 					else options.push_back(10 + temp);
 					break;
 		}
-		case 3: //GESTAO DE CLIENTES 16 - 17 - 18
+		case 3: //GESTAO DE CLIENTES 16 - 17 - 18 - 19
 		{
-					temp = makeMenu("GESTAO DE CLIENTES (prima ESC para retroceder)", { "Registar cliente", "Eliminar cliente", "Listar clientes" }, "", 0);
+					temp = makeMenu("GESTAO DE CLIENTES (prima ESC para retroceder)", { "Registar cliente", "Eliminar cliente", "Listar clientes", "Listar clientes inativos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(16 + temp);
 					break;
 		}
-		case 4:	//GESTAO DE SERVICOS 19 - 20 - 21
+		case 4:	//GESTAO DE SERVICOS 20 - 21 - 22
 		{
 					temp = makeMenu("GESTAO DE SERVICOS (prima ESC para retroceder)", { "Criar novo servico", "Eliminar servico", "Listar servicos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(19 + temp);
+					else options.push_back(20 + temp);
 					break;
 		}
 		case 5: //MOSTRAR INFO
@@ -938,7 +938,18 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 19:		//Adicionar servicos
+		case 19:
+		{
+				   clrscr();
+				   cout << "   LISTAGEM DE CLIENTES INATIVOS (por nome)" << endl << endl;
+
+				   oficina1.listaClientesInativos();
+
+				   waitForEnter();
+				   options.pop_back();
+				   break;
+		}
+		case 20:		//Adicionar servicos
 		{
 				   string nome;
 				   float preco;
@@ -990,7 +1001,7 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 20:		//Remover servicos
+		case 21:		//Remover servicos
 		{
 				   if (oficina1.getServicos().size() == 0)
 				   {
@@ -1027,7 +1038,7 @@ void menuManager(Oficina oficina1)
 				   break;
 
 		}
-		case 21:		//Listagem de servicos
+		case 22:		//Listagem de servicos
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE SERVICOS (por preco)" << endl << endl;
@@ -1060,6 +1071,8 @@ int main()
 		getline(cin, nomeOficina);
 	}
 
+	Oficina oficina1(nomeOficina);
+	
 	ifstream file("servicos.txt");
 	if (file.good())
 		file.close();
@@ -1068,7 +1081,35 @@ int main()
 		cout << "Foi impossivel importar o ficheiro de servicos.\nPor favor certifique-se que este esta no diretorio correto!\n\n";
 	}
 
-	Oficina oficina1(nomeOficina);
+	ifstream myFile;
+	myFile.open("clientes.txt");
+
+	while (!myFile.eof())
+	{
+		string nome, morada, mail, telefone, inatividade;
+
+		getline(myFile, nome);
+		getline(myFile, morada);
+		getline(myFile, mail);
+		getline(myFile, telefone);
+		getline(myFile, inatividade);
+
+		Cliente c1(nome);
+		c1.addMorada(morada);
+		c1.addMail(mail);
+		c1.addTelefone(telefone);
+
+		if (inatividade == "true")
+		{
+			c1.setInatividade(true);
+			oficina1.adicionaClienteInativo(c1);
+		}
+		else
+		{
+			c1.setInatividade(false);
+			oficina1.adicionaCliente(c1);
+		}
+	}
 
 	menuManager(oficina1);
 

@@ -64,6 +64,9 @@ public:
 	void listaServicos();
 
 	hashClientes getClientesInativos() const;
+	void listaClientesInativos();
+	void showInfoClientesInativos() const;
+	void adicionaClienteInativo(Cliente c);
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;

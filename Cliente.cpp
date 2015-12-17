@@ -11,6 +11,7 @@ Cliente::Cliente(string myNome)
 {
 	nome = myNome;
 	numRegisto = clienteID;
+	estaInativo = false;
 
 	clienteID++;
 }
@@ -104,10 +105,46 @@ void Cliente::addTelefone(string telefone)
 	telefones.push_back(telefone);
 }
 
-bool Cliente::operator<(const Cliente &c2)
+/**
+*Definicao do operador menor para cliente (usado na tabela de dispersao).
+*/
+/*bool Cliente::operator<(const Cliente &c2)
 {
 	if (nome > c2.getNome())
 		return true;
+	else
+	if (nome < c2.getNome())
+		return false;
+	else
+	if (numRegisto > c2.getNumRegisto())
+		return true;
 
 	return false;
+}*/
+
+/**
+*Display das informacoes importantes relativamente a um cliente que esta inativo
+*/
+void Cliente::showInfoClienteInativo() const
+{
+	if (!estaInativo)
+		return;
+
+	cout << nome << endl << "    " << morada << endl;
+
+	for (unsigned int i = 0; i < telefones.size(); i++)
+		cout << "    " << telefones[i] << endl;
+}
+
+/**
+*Muda o estado de inatividade do cliente de acordo com o argumento.
+*/
+void Cliente::setInatividade(bool inatividade)
+{
+	estaInativo = inatividade;
+}
+
+bool Cliente::getInatividade() const
+{
+	return estaInativo;
 }

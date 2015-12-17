@@ -451,3 +451,38 @@ hashClientes Oficina::getClientesInativos() const
 {
 	return clientesInativos;
 }
+
+void Oficina::showInfoClientesInativos() const
+{
+	hashClientes::iterator itr = clientesInativos.begin();
+
+	for (unsigned int i = 1; itr != clientesInativos.end(); i++, itr++)
+	{
+		cout << "   . ";
+		(*itr).showInfoClienteInativo();
+	}
+}
+
+/**
+*Faz uma listagem dos clientes inativos (ordenados por nome)
+*/
+void Oficina::listaClientesInativos()
+{
+	if (clientesInativos.empty())
+	{
+		cout << "   Actualmente nao existem clientes inativos...";
+		return;
+	}
+
+	for (unsigned int i = 0; i < clientesInativos.size(); i++)
+	{
+		cout << "  " << i + 1 << ". ";
+		showInfoClientesInativos();
+	}
+}
+
+void Oficina::adicionaClienteInativo(Cliente c)
+{
+	if (c.getInatividade())
+		clientesInativos.insert(c);
+}
