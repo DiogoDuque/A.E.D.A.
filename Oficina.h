@@ -4,6 +4,7 @@
 #include "Veiculo.h"
 #include "Funcionario.h"
 #include "Cliente.h"
+#include "CartaoPontos.h"
 #include <iostream>
 
 #include <unordered_set>
