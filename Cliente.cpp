@@ -88,3 +88,18 @@ void Cliente::adicionaServicoVeiculo(int posVeiculo, Servico s1)
 {
 	veiculos[posVeiculo]->adicionaServico(s1);
 }
+
+void Cliente::addMorada(string morada)
+{
+	this->morada = morada;
+}
+
+void Cliente::addMail(string mail)
+{
+	this->mail = mail;
+}
+
+void Cliente::addTelefone(string telefone)
+{
+	telefones.push_back(telefone);
+}

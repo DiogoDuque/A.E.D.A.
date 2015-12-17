@@ -6,7 +6,29 @@
 #include "Cliente.h"
 #include <iostream>
 
+#include <unordered_set>
+
 using namespace std;
+
+struct hCliente
+{
+	int operator()(const Cliente & c1) const
+	{
+		int v = 0;
+
+		for (unsigned int i = 0; i < c1.getNome().size(); i++)
+			v = v * 37 + c1.getNome()[i];
+
+		return v;
+	}
+
+	bool operator()(const Cliente & c1, const Cliente & c2) const
+	{
+		return (c1.getNumRegisto() == c2.getNumRegisto());
+	}
+};
+
+typedef tr1::unordered_set<Cliente, hCliente, hCliente> hashClientes;
 
 class Oficina
 {
@@ -40,12 +62,16 @@ public:
 	void listaVeiculos();
 	void listaClientes();
 	void listaServicos();
+
+	hashClientes getClientesInativos() const;
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;
 	vector <Funcionario*> funcionarios;
 	vector <Cliente> clientes;
 	vector <Servico> servicos; //importar dum ficheiro
+
+	hashClientes clientesInativos;
 };
 
 /**
