@@ -481,8 +481,77 @@ void Oficina::listaClientesInativos()
 	}
 }
 
+/**
+*Adiciona o cliente 'c' inativo a tabela de prioridades 'clientesInativos' de oficina
+*/
 void Oficina::adicionaClienteInativo(Cliente c)
 {
 	if (c.getInatividade())
 		clientesInativos.insert(c);
+}
+
+/**
+*Permite modificar elementos de um cliente, tais como o nome, morada, mail ou telefones
+*/
+void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
+{
+	hashClientes::iterator itr = clientesInativos.begin();
+
+	for (unsigned int i = 0; i < numCliente; i++)
+		itr++;
+
+	Cliente c1 = (*itr);
+	clientesInativos.erase(*itr);
+
+	switch (numMudar)
+	{
+	case 1:		//Mudar nome
+	{
+			  string novoNome;
+
+			  cout << "Introduza um novo nome: ";
+			  getline(cin, novoNome);
+
+			  c1.setNome(novoNome);
+			  break;
+	}
+	case 2:		//Mudar morada
+	{
+					string novaMorada;
+
+					cout << "Introduza uma nova morada: ";
+					getline(cin, novaMorada);
+
+					c1.setMorada(novaMorada);
+					break;
+	}
+	case 3:		//Mudar mail
+	{
+					string novoMail;
+
+					cout << "Introduza um novo mail: ";
+					getline(cin, novoMail);
+
+					c1.setMail(novoMail);
+					break;
+	}
+	case 4:		//Mudar telefone
+	{
+					int indiceTelefone;
+					string novoTelefone;
+
+					c1.showAllTelefones();
+					cout << "Introduza o indice do telefone que deseja mudar: ";
+					cin >> indiceTelefone;
+
+					cout << "Introduza o novo numero de telefone: ";
+					getline(cin, novoTelefone);
+
+					c1.setTelefone(novoTelefone, indiceTelefone);
+					break;
+	}
+	default: break;
+	}
+
+	clientesInativos.insert(c1);
 }

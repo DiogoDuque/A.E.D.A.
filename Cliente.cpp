@@ -62,10 +62,10 @@ ostream & operator<<(ostream &out, const Cliente &v1)
 /**
 *Overload do operador < de cliente.
 */
-bool Cliente::operator<(const Cliente& cl) const
+/*bool Cliente::operator<(const Cliente& cl) const
 {
     return (nome < cl.getNome());
-}
+}*/
 
 /**
 *Remove o veiculo 'v1' do vector veiculos do cliente.
@@ -90,25 +90,33 @@ void Cliente::adicionaServicoVeiculo(int posVeiculo, Servico s1)
 	veiculos[posVeiculo]->adicionaServico(s1);
 }
 
-void Cliente::addMorada(string morada)
+void Cliente::setNome(string nome)
+{
+	this->nome = nome;
+}
+
+void Cliente::setMorada(string morada)
 {
 	this->morada = morada;
 }
 
-void Cliente::addMail(string mail)
+void Cliente::setMail(string mail)
 {
 	this->mail = mail;
 }
 
-void Cliente::addTelefone(string telefone)
+void Cliente::setTelefone(string numTelefone, int indice)
 {
-	telefones.push_back(telefone);
+	if (telefones.empty())
+		telefones.push_back(numTelefone);
+	else
+		telefones[indice - 1] = numTelefone;
 }
 
 /**
 *Definicao do operador menor para cliente (usado na tabela de dispersao).
 */
-/*bool Cliente::operator<(const Cliente &c2)
+bool Cliente::operator<(const Cliente &c2) const
 {
 	if (nome > c2.getNome())
 		return true;
@@ -120,7 +128,7 @@ void Cliente::addTelefone(string telefone)
 		return true;
 
 	return false;
-}*/
+}
 
 /**
 *Display das informacoes importantes relativamente a um cliente que esta inativo
@@ -144,7 +152,19 @@ void Cliente::setInatividade(bool inatividade)
 	estaInativo = inatividade;
 }
 
+/**
+*Retorna o valor de verdade ou falsidade do estado de inatividade
+*/
 bool Cliente::getInatividade() const
 {
 	return estaInativo;
+}
+
+/**
+*Muda o estado de inatividade do cliente de acordo com o argumento.
+*/
+void Cliente::showAllTelefones() const
+{
+	for (unsigned int i = 0; i < telefones.size(); i++)
+		cout << i + 1 << ". " << telefones[i] << endl;	
 }

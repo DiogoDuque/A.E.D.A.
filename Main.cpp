@@ -945,8 +945,34 @@ void menuManager(Oficina oficina1)
 
 				   oficina1.listaClientesInativos();
 
-				   waitForEnter();
-				   options.pop_back();
+				   cout << "1. Efectuar alteracoes" << "   " << "0. Retroceder" << endl;
+
+				   int tecla;
+				   cin >> tecla;
+
+					switch (tecla)
+					{
+					case 1:
+					{
+							  int numCliente, numMudar;
+
+							  cout << "Introduza o numero (desta listagem) do cliente: ";
+							  cin >> numCliente;
+
+							  cout << "1. Mudar nome, 2. Mudar morada, 3. Mudar mail, 4. Mudar Telefones";
+							  cin >> numMudar;
+
+							  oficina1.actualizaClienteInativo(numCliente, numMudar);
+					}
+					case 0:
+					{
+							  options.pop_back();
+							  break;
+					}
+					}
+
+
+				   //waitForEnter();
 				   break;
 		}
 		case 20:		//Adicionar servicos
@@ -1084,7 +1110,49 @@ int main()
 	ifstream myFile;
 	myFile.open("clientes.txt");
 
-	while (!myFile.eof())
+
+
+
+
+	string nome, morada, mail, telefone, inatividade;
+
+	nome = "Joao";
+	morada = "Rua da Lapa";
+	mail = "joao@hotmail.com";
+	telefone = "917683726";
+
+	Cliente c1(nome);
+	c1.setMorada(morada);
+	c1.setMail(mail);
+	c1.setTelefone(telefone, 0);
+
+	c1.setInatividade(true);
+	oficina1.adicionaClienteInativo(c1);
+
+
+
+
+
+	string nome2, morada2, mail2, telefone2, inatividade2;
+
+	nome2 = "Maria";
+	morada2 = "Rua da circuncalacao";
+	mail2 = "maria@hotmail.com";
+	telefone2 = "93567526";
+
+	Cliente c2(nome2);
+	c2.setMorada(morada2);
+	c2.setMail(mail2);
+	c2.setTelefone(telefone2, 0);
+	
+	c2.setInatividade(true);
+	oficina1.adicionaClienteInativo(c2);
+
+	
+
+
+
+	/*while (!myFile.eof())
 	{
 		string nome, morada, mail, telefone, inatividade;
 
@@ -1099,6 +1167,9 @@ int main()
 		c1.addMail(mail);
 		c1.addTelefone(telefone);
 
+		cout << nome << endl << morada << endl << mail << endl << telefone << endl << inatividade;
+		waitForEnter();
+
 		if (inatividade == "true")
 		{
 			c1.setInatividade(true);
@@ -1109,7 +1180,7 @@ int main()
 			c1.setInatividade(false);
 			oficina1.adicionaCliente(c1);
 		}
-	}
+	}*/
 
 	menuManager(oficina1);
 

@@ -17,12 +17,14 @@ public:
 	void removeVeiculo(Veiculo *v1);
 	bool operator <(const Cliente& cl) const;
 	void adicionaServicoVeiculo(int posVeiculo, Servico s1);
-	void addMorada(string morada);
-	void addMail(string mail);
-	void addTelefone(string telefone);
-
+	
+	void setNome(string nome);
+	void setMorada(string morada);
+	void setMail(string mail);
+	void setTelefone(string telefone, int indice);
 	//bool operator<(const Cliente &c2);
 	void showInfoClienteInativo() const;
+	void showAllTelefones() const;
 	void setInatividade(bool inatividade);
 	bool getInatividade() const;
 
