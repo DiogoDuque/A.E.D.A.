@@ -21,6 +21,8 @@ public:
 	void addMail(string mail);
 	void addTelefone(string telefone);
 
+	bool operator<(const Cliente &c2);
+
 private:
 	static int clienteID;
 	string nome;

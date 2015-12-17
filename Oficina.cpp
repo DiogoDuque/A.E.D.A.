@@ -443,3 +443,11 @@ bool Oficina::podeRemoverVeiculo(int posVeiculo) const
 
 	return true;
 }
+
+/**
+*Retorna a tabela de dispersao dos clientes inativos
+*/
+hashClientes Oficina::getClientesInativos() const
+{
+	return clientesInativos;
+}

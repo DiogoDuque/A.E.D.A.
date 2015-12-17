@@ -103,3 +103,11 @@ void Cliente::addTelefone(string telefone)
 {
 	telefones.push_back(telefone);
 }
+
+bool Cliente::operator<(const Cliente &c2)
+{
+	if (nome > c2.getNome())
+		return true;
+
+	return false;
+}
