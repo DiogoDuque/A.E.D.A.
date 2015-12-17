@@ -68,6 +68,7 @@ public:
 	void showInfoClientesInativos() const;
 	void adicionaClienteInativo(Cliente c);
 	void actualizaClienteInativo(int numCliente, int numMudar);
+	void actualizaInatividadeCliente(int posCliente);
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;

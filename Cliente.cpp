@@ -168,3 +168,14 @@ void Cliente::showAllTelefones() const
 	for (unsigned int i = 0; i < telefones.size(); i++)
 		cout << i + 1 << ". " << telefones[i] << endl;	
 }
+
+bool Cliente::operator ==(const Cliente & c1) const
+{
+	return (numRegisto == c1.getNumRegisto());
+}
+
+
+void criaCartaoPontos()
+{
+
+}

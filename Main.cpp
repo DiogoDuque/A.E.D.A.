@@ -585,7 +585,10 @@ void menuManager(Oficina oficina1)
 						   if (posServico == -1)
 							   options.pop_back();
 						   else
+						   {
 							   oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
+							   oficina1.actualizaInatividadeCliente(posCliente);
+						   }
 					   }
 				   }
 

@@ -555,3 +555,14 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 
 	clientesInativos.insert(c1);
 }
+
+void Oficina::actualizaInatividadeCliente(int posCliente)
+{
+	clientes[posCliente].setInatividade(false);
+
+	
+	hashClientes::iterator itr = clientesInativos.find(clientes[posCliente]);
+	
+	if (itr != clientesInativos.end())
+		clientesInativos.erase(itr);
+}

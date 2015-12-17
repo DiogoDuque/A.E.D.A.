@@ -2,6 +2,7 @@
 #define Cliente_h
 
 #include "Veiculo.h"
+#include "CartaoPontos.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ public:
 	void addVeiculo(Veiculo *v1);
 	void removeVeiculo(Veiculo *v1);
 	bool operator <(const Cliente& cl) const;
+	bool operator ==(const Cliente & c1) const;
 	void adicionaServicoVeiculo(int posVeiculo, Servico s1);
 	
 	void setNome(string nome);
@@ -27,6 +29,7 @@ public:
 	void showAllTelefones() const;
 	void setInatividade(bool inatividade);
 	bool getInatividade() const;
+	void criaCartaoPontos();
 
 private:
 	static int clienteID;
@@ -39,6 +42,7 @@ private:
 	vector<string> telefones;
 
 	bool estaInativo;
+
 };
 
 ostream & operator<<(ostream &out, const Cliente &v1);
