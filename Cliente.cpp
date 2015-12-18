@@ -177,5 +177,5 @@ bool Cliente::operator ==(const Cliente & c1) const
 
 void Cliente::criaCartaoPontos()
 {
-	cartao.
+
 }
