@@ -12,6 +12,7 @@ Cliente::Cliente(string myNome)
 	nome = myNome;
 	numRegisto = clienteID;
 	estaInativo = false;
+	contagemDiasInativos = 0;
 
 	clienteID++;
 }
@@ -180,4 +181,27 @@ bool Cliente::operator ==(const Cliente & c1) const
 void Cliente::addTelefone(string novoTelefone)
 {
 	telefones.push_back(novoTelefone);
+}
+
+void Cliente::setInatividadeCartao(bool inatividade)
+{
+	cartao.setAtivacao(inatividade);
+}
+
+/**
+*Adiciona 'dias' a variavel 'contagemDiasUltimoServico'
+*/
+void Cliente::adicionaDiasInativos(int dias)
+{
+	contagemDiasInativos += dias;
+}
+
+void Cliente::resetContagemDiasInativos()
+{
+	contagemDiasInativos = 0;
+}
+
+int Cliente::getContagemDiasInativos() const
+{
+	return contagemDiasInativos;
 }

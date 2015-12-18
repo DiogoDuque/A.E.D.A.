@@ -30,6 +30,10 @@ public:
 	void setInatividade(bool inatividade);
 	bool getInatividade() const;
 	void addTelefone(string novoTelefone);
+	void setInatividadeCartao(bool inatividade);
+	void adicionaDiasInativos(int dias);
+	int getContagemDiasInativos() const;
+	void resetContagemDiasInativos();
 
 private:
 	static int clienteID;
@@ -42,6 +46,7 @@ private:
 	vector<string> telefones;
 
 	bool estaInativo;
+	int contagemDiasInativos;
 	CartaoPontos cartao;
 
 };

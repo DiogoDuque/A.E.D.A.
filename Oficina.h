@@ -75,6 +75,7 @@ public:
 	void actualizaInatividadeCliente(int posCliente);
 	void adicionaInformacao(int numCliente, int numMudar);
 	void pesquisaClienteInativo(string nomeCliente);
+	void avancaDiasParaClientes(int diasAvancar);
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;

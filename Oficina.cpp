@@ -606,13 +606,18 @@ void Oficina::adicionaInformacao(int numCliente, int numMudar)
 
 void Oficina::actualizaInatividadeCliente(int posCliente)
 {
-	clientes[posCliente].setInatividade(false);
-	CartaoPontos cp1();
-	
-	hashClientes::iterator itr = clientesInativos.find(clientes[posCliente]);
-	
-	if (itr != clientesInativos.end())
-		clientesInativos.erase(itr);
+	if (clientes[posCliente].getInatividade())
+	{
+		clientes[posCliente].setInatividade(false);
+		clientes[posCliente].setInatividadeCartao(false);
+
+		clientes[posCliente].resetContagemDiasInativos();
+
+		hashClientes::iterator itr = clientesInativos.find(clientes[posCliente]);
+
+		if (itr != clientesInativos.end())
+			clientesInativos.erase(itr);
+	}
 }
 
 void Oficina::pesquisaClienteInativo(string nomeCliente)
@@ -629,4 +634,18 @@ void Oficina::pesquisaClienteInativo(string nomeCliente)
 	}
 	else
 		cout << endl << "   O cliente '" << nomeCliente << "' nao foi encontrado!" << endl;
+}
+
+void Oficina::avancaDiasParaClientes(int diasAvancar)
+{
+	for (unsigned int i = 0; i < clientes.size(); i++)
+	{
+		clientes[i].adicionaDiasInativos(diasAvancar);
+
+		if (clientes[i].getContagemDiasInativos() > 365)
+		{
+			clientes[i].setInatividade(true);
+			clientesInativos.insert(clientes[i]);
+		}
+	}
 }

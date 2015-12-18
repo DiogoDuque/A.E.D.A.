@@ -11,10 +11,11 @@ public:
 	bool getEstado() const;
 	void mudaEstadoAtivacao();
 	void addPontos(int pontos);
-	void estadoInativo();
+	void setAtivacao(bool ativacao);
 private:
 	int pontos;
 	bool ativado;
+	int validade;		//Numero de dias restante
 };
 
 #endif

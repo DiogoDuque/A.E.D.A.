@@ -448,6 +448,8 @@ void menuManager(Oficina oficina1)
 
 				  oficina1.removeVeiculosTratados();
 
+				  oficina1.avancaDiasParaClientes(diasAvancar);
+
 				  waitForEnter();
 				  options.pop_back();
 				  break;
@@ -869,8 +871,11 @@ void menuManager(Oficina oficina1)
 							}
 							}
 
+							oficina1.actualizaInatividadeCliente(posCliente);
+
 							options.pop_back();
 							break;
+
 		}
 		case 15:		//Quando e a primeira vez que o cliente visita a oficina
 		{
@@ -1180,7 +1185,7 @@ int main()
 	c1.setInatividade(true);
 	oficina1.adicionaClienteInativo(c1);
 
-
+	oficina1.adicionaCliente(c1);
 
 
 
@@ -1198,6 +1203,8 @@ int main()
 	
 	c2.setInatividade(true);
 	oficina1.adicionaClienteInativo(c2);
+
+	oficina1.adicionaCliente(c2);
 
 	
 
