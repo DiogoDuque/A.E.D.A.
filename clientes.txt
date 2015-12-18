@@ -1,0 +1,10 @@
+Maria
+Rua da Circunvalacao
+maria18@hotmail.com
+934587019
+true
+Joao
+Rua da Lapa
+joao@hotmail.com
+913634521
+true
