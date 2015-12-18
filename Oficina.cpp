@@ -5,6 +5,9 @@
 #include <vector>
 #include <algorithm>
 
+#include <windows.h>		//usado para o 'ENTER'
+#include <cstdlib>			//usado para o 'ENTER'
+
 using namespace std;
 
 /**
@@ -486,6 +489,8 @@ void Oficina::adicionaClienteInativo(Cliente c)
 */
 void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 {
+	cin.ignore(1000, '\n');		//Tira o 'ENTER' do buffer
+
 	hashClientes::iterator itr = clientesInativos.begin();
 
 	for (unsigned int i = 0; i < numCliente; i++)
@@ -499,12 +504,15 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 	case 1:		//Mudar nome
 	{
 			  string novoNome;
-			  cin.ignore(1000, '\n');		//Tira o 'ENTER' do buffer
 
 			  cout << "Introduza um novo nome: ";
 			  getline(cin, novoNome);
 
 			  c1.setNome(novoNome);
+
+			  cout << endl << "O nome foi alterado com sucesso!" << endl << endl;
+			  Sleep(1000);
+
 			  break;
 	}
 	case 2:		//Mudar morada
@@ -515,6 +523,10 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 					getline(cin, novaMorada);
 
 					c1.setMorada(novaMorada);
+
+					cout << endl << "A morada foi alterado com sucesso!" << endl << endl;
+					Sleep(1000);
+
 					break;
 	}
 	case 3:		//Mudar mail
@@ -525,6 +537,10 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 					getline(cin, novoMail);
 
 					c1.setMail(novoMail);
+
+					cout << endl << "O mail foi alterado com sucesso!" << endl << endl;
+					Sleep(1000);
+
 					break;
 	}
 	case 4:		//Mudar telefone
@@ -536,10 +552,16 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 					cout << "Introduza o indice do telefone que deseja mudar: ";
 					cin >> indiceTelefone;
 
+					cin.ignore(1000, '\n');		//Tira o 'ENTER' do buffer
+
 					cout << "Introduza o novo numero de telefone: ";
 					getline(cin, novoTelefone);
 
 					c1.setTelefone(novoTelefone, indiceTelefone);
+
+					cout << endl << "O telefone foi alterado com sucesso!" << endl << endl;
+					Sleep(1000);
+
 					break;
 	}
 	default: break;

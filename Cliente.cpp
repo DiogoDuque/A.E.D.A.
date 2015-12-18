@@ -138,10 +138,12 @@ void Cliente::displayInformacaoClienteInativo() const
 	if (!estaInativo)
 		return;
 
-	cout << nome << endl << "    " << morada << endl << "   " << mail << endl;
+	cout << nome << endl << "\t" << morada << endl << "\t" << mail << endl;
 
 	for (unsigned int i = 0; i < telefones.size(); i++)
-		cout << "    " << telefones[i] << endl;
+		cout << "\t" << telefones[i] << endl;
+
+	cout << endl;
 }
 
 /**

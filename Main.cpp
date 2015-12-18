@@ -949,6 +949,7 @@ void menuManager(Oficina oficina1)
 				   oficina1.listaClientesInativos();
 
 				   cout << "1. Efectuar alteracoes" << "   " << "0. Retroceder" << endl;
+				   cout << "O que pretende fazer: ";
 
 				   int tecla;
 				   cin >> tecla;
@@ -959,11 +960,14 @@ void menuManager(Oficina oficina1)
 					{
 							  int numCliente, numMudar;
 
-							  cout << "Introduza o numero (desta listagem) do cliente: ";
+							  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
 							  cin >> numCliente;
 
-							  cout << "1. Mudar nome, 2. Mudar morada, 3. Mudar mail, 4. Mudar Telefones";
+							  cout << endl << "1. Mudar nome, 2. Mudar morada, 3. Mudar mail, 4. Mudar Telefones" << endl;
+							  cout << "O que pretende fazer: ";
 							  cin >> numMudar;
+
+							  cout << endl;
 
 							  oficina1.actualizaClienteInativo(numCliente - 1, numMudar);
 					}
