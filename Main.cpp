@@ -905,7 +905,20 @@ void menuManager(Oficina oficina1)
 								getline(cin, nome);
 							}
 
+							string morada, mail, telefone;
+
+							cout << "   Introduza a morada: ";
+							getline(cin, morada);
+							cout << "   Introduza o mail: ";
+							getline(cin, mail);
+							cout << "   Introduza um numero de telefone: ";
+							getline(cin, telefone);
+
 							Cliente c1(nome);
+							c1.setMorada(morada);
+							c1.setMail(mail);
+							c1.setTelefone(telefone, 0);
+
 							oficina1.adicionaCliente(c1);
 
 							cout << endl << "   O cliente '" << nome << "' foi adicionado com sucesso!";
