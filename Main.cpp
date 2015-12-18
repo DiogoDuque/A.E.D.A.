@@ -965,7 +965,7 @@ void menuManager(Oficina oficina1)
 							  cout << "1. Mudar nome, 2. Mudar morada, 3. Mudar mail, 4. Mudar Telefones";
 							  cin >> numMudar;
 
-							  oficina1.actualizaClienteInativo(numCliente, numMudar);
+							  oficina1.actualizaClienteInativo(numCliente - 1, numMudar);
 					}
 					case 0:
 					{

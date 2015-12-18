@@ -457,10 +457,7 @@ void Oficina::showInfoClientesInativos() const
 	hashClientes::iterator itr = clientesInativos.begin();
 
 	for (unsigned int i = 1; itr != clientesInativos.end(); i++, itr++)
-	{
-		cout << "   . ";
-		(*itr).showInfoClienteInativo();
-	}
+		(*itr).displayInformacaoClienteInativo();
 }
 
 /**
@@ -561,7 +558,6 @@ void Oficina::actualizaInatividadeCliente(int posCliente)
 {
 	clientes[posCliente].setInatividade(false);
 	CartaoPontos cp1();
-
 	
 	hashClientes::iterator itr = clientesInativos.find(clientes[posCliente]);
 	
