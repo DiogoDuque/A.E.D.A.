@@ -173,11 +173,11 @@ void Cliente::showAllTelefones() const
 
 bool Cliente::operator ==(const Cliente & c1) const
 {
-	return (numRegisto == c1.getNumRegisto());
+	return nome == c1.getNome();
+	//return (numRegisto == c1.getNumRegisto());
 }
 
-
-void Cliente::criaCartaoPontos()
+void Cliente::addTelefone(string novoTelefone)
 {
-
+	telefones.push_back(novoTelefone);
 }

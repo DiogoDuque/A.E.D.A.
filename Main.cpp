@@ -387,20 +387,20 @@ void menuManager(Oficina oficina1)
 					else options.push_back(10 + temp);
 					break;
 		}
-		case 3: //GESTAO DE CLIENTES 16 - 17 - 18 - 19
+		case 3: //GESTAO DE CLIENTES 16 - 17 - 18 - 19 - 20
 		{
-					temp = makeMenu("GESTAO DE CLIENTES (prima ESC para retroceder)", { "Registar cliente", "Eliminar cliente", "Listar clientes", "Listar clientes inativos" }, "", 0);
+					temp = makeMenu("GESTAO DE CLIENTES (prima ESC para retroceder)", { "Registar cliente", "Eliminar cliente", "Listar clientes", "Listar clientes inativos", "Pesquisar clientes inativos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(16 + temp);
 					break;
 		}
-		case 4:	//GESTAO DE SERVICOS 20 - 21 - 22
+		case 4:	//GESTAO DE SERVICOS 21 - 22 - 23
 		{
 					temp = makeMenu("GESTAO DE SERVICOS (prima ESC para retroceder)", { "Criar novo servico", "Eliminar servico", "Listar servicos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
-					else options.push_back(20 + temp);
+					else options.push_back(21 + temp);
 					break;
 		}
 		case 5: //MOSTRAR INFO
@@ -948,7 +948,7 @@ void menuManager(Oficina oficina1)
 
 				   oficina1.listaClientesInativos();
 
-				   cout << "1. Efectuar alteracoes" << "   " << "0. Retroceder" << endl;
+				   cout << "1. Actualizar informacoes\t2. Adicionar informacoes\t0. Retroceder" << endl;
 				   cout << "O que pretende fazer: ";
 
 				   int tecla;
@@ -963,26 +963,70 @@ void menuManager(Oficina oficina1)
 							  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
 							  cin >> numCliente;
 
-							  cout << endl << "1. Mudar nome, 2. Mudar morada, 3. Mudar mail, 4. Mudar Telefones" << endl;
+							  cout << endl << "1. Mudar nome, 2. Mudar morada, 3. Mudar mail, 4. Mudar Telefones, 0. Retroceder" << endl;
 							  cout << "O que pretende fazer: ";
 							  cin >> numMudar;
+
+							  if (numMudar == 0)
+							  {
+								  options.pop_back();
+								  break;
+							  }
 
 							  cout << endl;
 
 							  oficina1.actualizaClienteInativo(numCliente - 1, numMudar);
-					}
-					case 0:
-					{
-							  options.pop_back();
+
 							  break;
 					}
+					case 2:
+					{
+							  int numCliente, numMudar;
+
+							  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
+							  cin >> numCliente;
+
+							  cout << endl << "1. Adicionar telefone\t0. Retroceder" << endl;
+							  cout << "o que pretende fazer: ";
+							  cin >> numMudar;
+
+							  if (numMudar == 0)
+							  {
+								  options.pop_back();
+								  break;
+							  }
+
+							  cout << endl;
+
+							  oficina1.adicionaInformacao(numCliente - 1, numMudar);
+
+							  break;
+					}
+					case 0:
+							  break;
 					}
 
-
+					options.pop_back();
 				   //waitForEnter();
 				   break;
 		}
-		case 20:		//Adicionar servicos
+		case 20:
+		{
+				   clrscr();
+				   cout << "   PESQUISA DE CLIENTES INATIVOS" << endl << endl;
+
+				   string nomeCliente;
+
+				   cout << "   Introduza o nome do cliente: ";
+				   getline(cin, nomeCliente);
+
+				   oficina1.pesquisaClienteInativo(nomeCliente);
+
+				   waitForEnter();
+				   options.pop_back();
+				   break;
+		}
+		case 21:		//Adicionar servicos
 		{
 				   string nome;
 				   float preco;
@@ -1034,7 +1078,7 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 21:		//Remover servicos
+		case 22:		//Remover servicos
 		{
 				   if (oficina1.getServicos().size() == 0)
 				   {
@@ -1071,7 +1115,7 @@ void menuManager(Oficina oficina1)
 				   break;
 
 		}
-		case 22:		//Listagem de servicos
+		case 23:		//Listagem de servicos
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE SERVICOS (por preco)" << endl << endl;

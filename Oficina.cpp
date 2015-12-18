@@ -570,6 +570,40 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 	clientesInativos.insert(c1);
 }
 
+void Oficina::adicionaInformacao(int numCliente, int numMudar)
+{
+	cin.ignore(1000, '\n');		//Tira o 'ENTER' do buffer
+
+	hashClientes::iterator itr = clientesInativos.begin();
+
+	for (unsigned int i = 0; i < numCliente; i++)
+		itr++;
+
+	Cliente c1 = (*itr);
+	clientesInativos.erase(*itr);
+
+	switch (numMudar)
+	{
+	case 1:
+	{
+			  string novoTelefone;
+
+			  cout << "Introduza um numero de telefone para adicionar: ";
+			  getline(cin, novoTelefone);
+
+			  c1.addTelefone(novoTelefone);
+
+			  cout << endl << "O telefone foi adicionado com sucesso!" << endl << endl;
+			  Sleep(1000);
+
+			  break;
+	}
+	default: break;
+	}
+
+	clientesInativos.insert(c1);
+}
+
 void Oficina::actualizaInatividadeCliente(int posCliente)
 {
 	clientes[posCliente].setInatividade(false);
@@ -579,4 +613,20 @@ void Oficina::actualizaInatividadeCliente(int posCliente)
 	
 	if (itr != clientesInativos.end())
 		clientesInativos.erase(itr);
+}
+
+void Oficina::pesquisaClienteInativo(string nomeCliente)
+{
+	Cliente c1(nomeCliente);
+	hashClientes::iterator itr = clientesInativos.find(c1);
+
+	if (itr != clientesInativos.end())
+	{
+		cout << endl << "   O cliente '" << nomeCliente << "' foi encontrado!" << endl << endl << "     " ;
+
+		(*itr).displayInformacaoClienteInativo();
+		return;
+	}
+	else
+		cout << endl << "   O cliente '" << nomeCliente << "' nao foi encontrado!" << endl;
 }

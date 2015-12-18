@@ -16,8 +16,8 @@ public:
 	vector<Veiculo *> getVeiculos() const;
 	void addVeiculo(Veiculo *v1);
 	void removeVeiculo(Veiculo *v1);
-	bool operator <(const Cliente& cl) const;
-	bool operator ==(const Cliente & c1) const;
+	bool operator<(const Cliente& cl) const;
+	bool operator==(const Cliente & c1) const;
 	void adicionaServicoVeiculo(int posVeiculo, Servico s1);
 	
 	void setNome(string nome);
@@ -29,7 +29,7 @@ public:
 	void showAllTelefones() const;
 	void setInatividade(bool inatividade);
 	bool getInatividade() const;
-	void criaCartaoPontos();
+	void addTelefone(string novoTelefone);
 
 private:
 	static int clienteID;

@@ -25,6 +25,10 @@ struct hCliente
 
 	bool operator()(const Cliente & c1, const Cliente & c2) const
 	{
+		/*if (c1.getNome() > c2.getNome())
+			return true;
+
+		return false;*/
 		return (c1.getNome() == c2.getNome());
 	}
 };
@@ -69,6 +73,8 @@ public:
 	void adicionaClienteInativo(Cliente c);
 	void actualizaClienteInativo(int numCliente, int numMudar);
 	void actualizaInatividadeCliente(int posCliente);
+	void adicionaInformacao(int numCliente, int numMudar);
+	void pesquisaClienteInativo(string nomeCliente);
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;
