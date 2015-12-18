@@ -25,11 +25,11 @@ struct hCliente
 
 	bool operator()(const Cliente & c1, const Cliente & c2) const
 	{
-		return (c1.getNumRegisto() == c2.getNumRegisto());
+		return (c1.getNome() == c2.getNome());
 	}
 };
 
-typedef tr1::unordered_set<Cliente, hCliente, hCliente> hashClientes;
+typedef unordered_set<Cliente, hCliente, hCliente> hashClientes;
 
 class Oficina
 {

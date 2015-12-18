@@ -508,6 +508,7 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 	case 1:		//Mudar nome
 	{
 			  string novoNome;
+			  cin.ignore(1000, '\n');		//Tira o 'ENTER' do buffer
 
 			  cout << "Introduza um novo nome: ";
 			  getline(cin, novoNome);
