@@ -66,7 +66,6 @@ public:
 
 	hashClientes getClientesInativos() const;
 	void listaClientesInativos();
-	void showInfoClientesInativos() const;
 	void adicionaClienteInativo(Cliente c);
 	void actualizaClienteInativo(int numCliente, int numMudar);
 	void actualizaInatividadeCliente(int posCliente);
