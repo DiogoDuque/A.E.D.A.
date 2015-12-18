@@ -133,12 +133,12 @@ bool Cliente::operator<(const Cliente &c2) const
 /**
 *Display das informacoes importantes relativamente a um cliente que esta inativo
 */
-void Cliente::showInfoClienteInativo() const
+void Cliente::displayInformacaoClienteInativo() const
 {
 	if (!estaInativo)
 		return;
 
-	cout << nome << endl << "    " << morada << endl;
+	cout << nome << endl << "    " << morada << endl << "   " << mail << endl;
 
 	for (unsigned int i = 0; i < telefones.size(); i++)
 		cout << "    " << telefones[i] << endl;

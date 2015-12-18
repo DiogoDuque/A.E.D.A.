@@ -25,7 +25,7 @@ public:
 	void setMail(string mail);
 	void setTelefone(string telefone, int indice);
 	//bool operator<(const Cliente &c2);
-	void showInfoClienteInativo() const;
+	void displayInformacaoClienteInativo() const;
 	void showAllTelefones() const;
 	void setInatividade(bool inatividade);
 	bool getInatividade() const;
