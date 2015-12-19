@@ -17,6 +17,11 @@ bool CartaoPontos::getEstado() const
 	return ativado;
 }
 
+int CartaoPontos::getNServicos() const
+{
+	return nServicos;
+}
+
 Cliente* CartaoPontos::getCliente() const
 {
 	return cliente;
@@ -53,6 +58,6 @@ bool CartaoPontos::operator<(CartaoPontos* card)
 
 	if (nServicos < card->getNServicos())
 		return true;
-	if (nServicos > card->getNServicos())
+	//if (nServicos > card->getNServicos())
 		return false;
 }

@@ -13,6 +13,7 @@ public:
 	CartaoPontos(Cliente* c);
 	int getPontos() const;
 	bool getEstado() const;
+	int getNServicos() const;
 	Cliente* getCliente() const;
 	void mudaEstadoAtivacao();
 	void addPontos(int pontos);
