@@ -10,6 +10,7 @@ int Cliente::clienteID = 1;
 Cliente::Cliente(string myNome)
 {
 	nome = myNome;
+	CartaoPontos* cartao = new CartaoPontos(this);
 	numRegisto = clienteID;
 	estaInativo = false;
 	contagemDiasInativos = 0;
@@ -89,6 +90,7 @@ void Cliente::removeVeiculo(Veiculo *v1)
 void Cliente::adicionaServicoVeiculo(int posVeiculo, Servico s1)
 {
 	veiculos[posVeiculo]->adicionaServico(s1);
+	cartao->addPontos(s1.getPreco() / CONVERSION_RATE); //atualizar cartao de pontos
 }
 
 void Cliente::setNome(string nome)
@@ -163,6 +165,11 @@ bool Cliente::getInatividade() const
 	return estaInativo;
 }
 
+CartaoPontos* Cliente::getCartaoCliente() const
+{
+	return cartao;
+}
+
 /**
 *Muda o estado de inatividade do cliente de acordo com o argumento.
 */
@@ -185,7 +192,7 @@ void Cliente::addTelefone(string novoTelefone)
 
 void Cliente::setInatividadeCartao(bool inatividade)
 {
-	cartao.setAtivacao(inatividade);
+	cartao->setAtivacao(inatividade);
 }
 
 /**

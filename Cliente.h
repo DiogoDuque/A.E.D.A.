@@ -4,12 +4,15 @@
 #include "Veiculo.h"
 #include "CartaoPontos.h"
 
+#define CONVERSION_RATE (int)5 //por cada 5 euros, ganha 1 ponto
+class CartaoPontos;
+
 using namespace std;
 
 class Cliente
 {
 public:
-	Cliente(string nome);
+	Cliente(string myNome);
 
 	int getNumRegisto() const;
 	string getNome() const;
@@ -29,6 +32,7 @@ public:
 	void showAllTelefones() const;
 	void setInatividade(bool inatividade);
 	bool getInatividade() const;
+	CartaoPontos* getCartaoCliente() const;
 	void addTelefone(string novoTelefone);
 	void setInatividadeCartao(bool inatividade);
 	void adicionaDiasInativos(int dias);
@@ -47,7 +51,7 @@ private:
 
 	bool estaInativo;
 	int contagemDiasInativos;
-	CartaoPontos cartao;
+	CartaoPontos* cartao;
 
 };
 

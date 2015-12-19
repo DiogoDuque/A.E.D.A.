@@ -92,7 +92,8 @@ void Oficina::adicionaFuncionario(Funcionario *f)
 */
 void Oficina::adicionaCliente(Cliente cl)
 {
-	clientes.push_back(cl);
+	clientes.push_back(cl); //cliente adicionado ao vetor de clientes
+	cartoes.push(cl.getCartaoCliente()); //cartao adicionado à pr_queue de cartoes
 }
 
 /**

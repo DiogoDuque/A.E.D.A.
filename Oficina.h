@@ -6,7 +6,7 @@
 #include "Cliente.h"
 #include "CartaoPontos.h"
 #include <iostream>
-
+#include <queue>
 #include <unordered_set>
 
 using namespace std;
@@ -83,6 +83,7 @@ private:
 	vector <Cliente> clientes;
 	vector <Servico> servicos; //importar dum ficheiro
 
+	priority_queue<CartaoPontos*> cartoes;
 	hashClientes clientesInativos;
 };
 

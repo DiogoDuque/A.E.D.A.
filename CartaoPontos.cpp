@@ -2,7 +2,7 @@
 
 int VALIDADE = 365;
 
-CartaoPontos::CartaoPontos() : pontos(0), ativado(true), validade(VALIDADE)
+CartaoPontos::CartaoPontos(Cliente* c) : pontos(0), ativado(true), validade(VALIDADE), cliente(c), nServicos(0)
 {
 
 }
@@ -17,6 +17,11 @@ bool CartaoPontos::getEstado() const
 	return ativado;
 }
 
+Cliente* CartaoPontos::getCliente() const
+{
+	return cliente;
+}
+
 void CartaoPontos::mudaEstadoAtivacao()
 {
 	if (ativado)
@@ -28,6 +33,7 @@ void CartaoPontos::mudaEstadoAtivacao()
 void CartaoPontos::addPontos(int pontos)
 {
 	this->pontos += pontos;
+	nServicos++;
 }
 
 void CartaoPontos::setAtivacao(bool ativacao)
@@ -36,4 +42,17 @@ void CartaoPontos::setAtivacao(bool ativacao)
 
 	if (!ativado)
 		pontos = 0;
+}
+
+bool CartaoPontos::operator<(CartaoPontos* card)
+{
+	if (pontos < card->getPontos())
+		return true;
+	if (pontos > card->getPontos())
+		return false;
+
+	if (nServicos < card->getNServicos())
+		return true;
+	if (nServicos > card->getNServicos())
+		return false;
 }
