@@ -5,6 +5,8 @@
 #include "Funcionario.h"
 #include "Cliente.h"
 #include "CartaoPontos.h"
+#include "BST.h"
+#include "MarcacaoServico.h"
 #include <iostream>
 #include <queue>
 #include <unordered_set>
@@ -76,6 +78,13 @@ public:
 	void adicionaInformacao(int numCliente, int numMudar);
 	void pesquisaClienteInativo(string nomeCliente);
 	void avancaDiasParaClientes(int diasAvancar);
+
+    BST<MarcacaoServico*> getMarcacoes() const;
+    MarcacaoServico* getMarcacao(Servico* s, int ano, int mes, int dia, int hora, string nome);
+	void cancelaMarcacao(MarcacaoServico* m);
+	void remarcaMarcacao(MarcacaoServico* m, int dias);
+	void listaMarcacoes();
+
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;
@@ -85,6 +94,13 @@ private:
 
 	priority_queue<CartaoPontos*> cartoes;
 	hashClientes clientesInativos;
+
+	int diaAtual;
+	int mesAtual;
+	int anoAtual;
+	int horaAtual;
+
+    BST<MarcacaoServico*> marcacoes;
 };
 
 /**

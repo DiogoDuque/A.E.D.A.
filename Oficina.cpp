@@ -13,7 +13,7 @@ using namespace std;
 /**
 *Construtor para a classe 'Oficina'.
 */
-Oficina::Oficina(string myNomeOficina)
+Oficina::Oficina(string myNomeOficina) : diaAtual(1), mesAtual(1), anoAtual(2015), horaAtual(8), marcacoes(BST<MarcacaoServico*>(new MarcacaoServico(0, 0, 0, 0, new Servico("", 0, 0))))
 {
 	nomeOficina = myNomeOficina;
 
@@ -111,7 +111,7 @@ void Oficina::removeVeiculo(int posVeiculo)
 {
 	for (unsigned int i = 0; i < clientes.size(); i++)
 		clientes[i].removeVeiculo(veiculos[posVeiculo]);
-	
+
 	veiculos.erase(veiculos.begin() + posVeiculo);
 }
 
@@ -209,8 +209,65 @@ int Oficina::funcionarioComMenosVeiculos() const
 */
 void Oficina::passaDias(int n)
 {
-	for (unsigned int i = 0; i < veiculos.size(); i++)
-		veiculos[i]->passaDias(n);
+	BSTItrIn<MarcacaoServico*> i(marcacoes);
+
+    while(!i.isAtEnd())
+    {
+        int x = i.retrieve()->getDia() - diaAtual;
+        if(x >= 0)
+        {
+            i.retrieve()->getServico()->passaDias(x);
+        }
+
+        i.advance();
+    }
+
+    diaAtual += n;
+
+    if(mesAtual == 1 || mesAtual == 3 || mesAtual == 5 || mesAtual == 7 || mesAtual == 8 || mesAtual == 10 || mesAtual == 12)
+    {
+        if(diaAtual > 31)
+        {
+            diaAtual -= 31;
+
+            if(mesAtual == 12)
+            {
+                anoAtual++;
+                mesAtual = 1;
+            }
+            else
+            {
+                mesAtual++;
+            }
+        }
+    }
+    else if(mesAtual == 2)
+    {
+        if(anoAtual%4 == 0)
+        {
+            if(diaAtual > 29)
+            {
+                diaAtual -= 29;
+                mesAtual++;
+            }
+        }
+        else
+        {
+            if(diaAtual > 28)
+            {
+                diaAtual -= 28;
+                mesAtual++;
+            }
+        }
+    }
+    else
+    {
+        if(diaAtual > 30)
+        {
+            diaAtual -= 30;
+            mesAtual++;
+        }
+    }
 }
 
 /**
@@ -432,6 +489,7 @@ void Oficina::adicionaServicoVeiculo(int posCliente, int posVeiculo, int posServ
 	int indice = funcionarioComMenosVeiculos();
 	veiculos[posVeiculo]->setFuncionario(funcionarios[indice]);
 	funcionarios[indice]->acrescentaVeiculos(veiculos[posVeiculo]);
+	marcacoes.insert(new MarcacaoServico(diaAtual + 1, mesAtual, anoAtual, 8, &servicos[posServico]));
 }
 
 /**
@@ -649,4 +707,49 @@ void Oficina::avancaDiasParaClientes(int diasAvancar)
 			clientesInativos.insert(clientes[i]);
 		}
 	}
+}
+
+BST<MarcacaoServico*> Oficina::getMarcacoes() const
+{
+    return marcacoes;
+}
+
+MarcacaoServico* Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int hora, string nome)
+{
+    BSTItrIn<MarcacaoServico*> i(marcacoes);
+
+    while(!i.isAtEnd())
+    {
+        if(i.retrieve()->getNomeCliente() == nome && i.retrieve()->getAno() == ano && i.retrieve()->getMes() == mes && i.retrieve()->getDia() == dia && i.retrieve()->getHora() == hora && i.retrieve()->getServico() == s)
+        {
+            return i.retrieve();
+        }
+
+        i.advance();
+    }
+
+    return NULL;
+}
+
+void Oficina::cancelaMarcacao(MarcacaoServico* m)
+{
+    marcacoes.remove(m);
+}
+
+void Oficina::remarcaMarcacao(MarcacaoServico* m, int dias)
+{
+    m->adiaDias(dias);
+}
+
+void Oficina::listaMarcacoes()
+{
+    BSTItrIn<MarcacaoServico*> i(marcacoes);
+
+    int j = 0;
+
+    while(!i.isAtEnd())
+    {
+        cout << j << ". " << i.retrieve() << endl;
+        j++;
+    }
 }
