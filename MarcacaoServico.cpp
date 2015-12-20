@@ -1,6 +1,14 @@
 #include "MarcacaoServico.h"
 
+/**
+*Construtor da classe MarcacaoServico
+*/
+
 MarcacaoServico::MarcacaoServico(int d, int m, int a, int h, Servico* s) : dia(d), mes(m), ano(a), hora(h), servico(s) {}
+
+/**
+*Operador < da classe MarcacaoServico. Retorna true se a data da primeira marcacao for menor a data da segunda e utiliza ordem alfabetica do nome do cliente associado para resolver casos de empate
+*/
 
 bool MarcacaoServico::operator<(const MarcacaoServico& m) const
 {
@@ -27,35 +35,63 @@ bool MarcacaoServico::operator<(const MarcacaoServico& m) const
     return ano < m.getAno();
 }
 
+/**
+*Retorna o ano da marcacao
+*/
+
 int MarcacaoServico::getAno() const
 {
     return ano;
 }
+
+/**
+*Retorna o dia da marcacao
+*/
 
 int MarcacaoServico::getDia() const
 {
     return dia;
 }
 
+/**
+*Retorna a hora da marcacao
+*/
+
 int MarcacaoServico::getHora() const
 {
     return hora;
 }
+
+/**
+*Retorna o mes da marcacao
+*/
 
 int MarcacaoServico::getMes() const
 {
     return mes;
 }
 
+/**
+*Retorna o servico associado a marcacao
+*/
+
 Servico* MarcacaoServico::getServico() const
 {
     return servico;
 }
 
+/**
+*Retorna o nome do cliente associado a marcacao
+*/
+
 string MarcacaoServico::getNomeCliente() const
 {
     return nomeCliente;
 }
+
+/**
+*Adia a marcacao 'd' dias
+*/
 
 void MarcacaoServico::adiaDias(int d)
 {
@@ -106,6 +142,10 @@ void MarcacaoServico::adiaDias(int d)
         }
     }
 }
+
+/**
+*Operador de output para a classe MarcacaoServico
+*/
 
 ostream& operator<<(ostream& os, const MarcacaoServico& m)
 {

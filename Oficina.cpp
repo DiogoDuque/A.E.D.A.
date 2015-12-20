@@ -709,10 +709,18 @@ void Oficina::avancaDiasParaClientes(int diasAvancar)
 	}
 }
 
+/**
+*Retorna a arvore de marcacoes
+*/
+
 BST<MarcacaoServico*> Oficina::getMarcacoes() const
 {
     return marcacoes;
 }
+
+/**
+*Retorna uma marcacao dado o seu servico, a data, hora e o nome do cliente associado
+*/
 
 MarcacaoServico* Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int hora, string nome)
 {
@@ -731,15 +739,27 @@ MarcacaoServico* Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int
     return NULL;
 }
 
+/**
+*Cancela uma marcacao
+*/
+
 void Oficina::cancelaMarcacao(MarcacaoServico* m)
 {
     marcacoes.remove(m);
 }
 
+/**
+*Remarca uma dada marcacao para outra data
+*/
+
 void Oficina::remarcaMarcacao(MarcacaoServico* m, int dias)
 {
     m->adiaDias(dias);
 }
+
+/**
+*Lista todas as marcacoes por ordem crescente de data e, em caso de igualdade, por ordem alfabetica dos nomes dos clientes associados
+*/
 
 void Oficina::listaMarcacoes()
 {
