@@ -205,10 +205,46 @@ int Oficina::funcionarioComMenosVeiculos() const
 }
 
 /**
-*Substrai 'n' dias a todos os servicos de todos os veiculos.
+*Substrai 'n' dias a todos os servicos de todos os veiculos, à validade dos cartoes de pontos e das promocoes.
+*Tambem pode causar notificacoes de promocoes.
 */
 void Oficina::passaDias(int n)
 {
+	//gerar promocoes (possivelmente) ---- TO DO
+	srand(time(NULL));
+	if (rand() % 5 == 0) //gerar promo 1/5 das vezes que passam dias
+	{
+		int index = rand() % servicos.size();
+		promocoes.push_back(Promocao(servicos[index]));
+	}
+
+	//update das validades das promos
+	for (vector<Promocao>::iterator it = promocoes.begin(); it < promocoes.end(); it++)
+	{
+		int validade= it->passaDias(n);
+		if (validade == 0)
+		{
+			promocoes.erase(it);
+			it--;
+		}
+	}
+
+	//update das validades dos cartoes de pontos
+	vector<CartaoPontos*> temp;
+	while (!cartoes.empty())
+	{
+		CartaoPontos* card = cartoes.top();
+		cartoes.pop();
+		card->passaDias(n);
+		temp.push_back(card);
+
+	}
+	for (unsigned int i = 0; i < temp.size(); i++)
+	{
+		cartoes.push(temp[i]);
+	}
+
+	//
 	BSTItrIn<MarcacaoServico*> i(marcacoes);
 
     while(!i.isAtEnd())
@@ -552,7 +588,7 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 
 	hashClientes::iterator itr = clientesInativos.begin();
 
-	for (unsigned int i = 0; i < numCliente; i++)
+	for (int i = 0; i < numCliente; i++)
 		itr++;
 
 	Cliente c1 = (*itr);
@@ -635,7 +671,7 @@ void Oficina::adicionaInformacao(int numCliente, int numMudar)
 
 	hashClientes::iterator itr = clientesInativos.begin();
 
-	for (unsigned int i = 0; i < numCliente; i++)
+	for (int i = 0; i < numCliente; i++)
 		itr++;
 
 	Cliente c1 = (*itr);
@@ -772,4 +808,30 @@ void Oficina::listaMarcacoes()
         cout << j << ". " << i.retrieve() << endl;
         j++;
     }
+}
+
+/**
+*Retorna um vector com apontadores para os clientes que poderao, no momento, usufruir da promocao.
+*/
+vector<Cliente*> Oficina::getSorteados(Promocao promo) const
+{
+	vector<Cliente*> sorteados;
+	vector<Cliente*> paraRejeitar=promo.getRejeitados();
+
+	int max = promo.getNClientes();
+
+	//retirar clientes da queue para inserir no vetor
+	for (int i = 0; i < clientes.size(); i++)
+	{
+		if (sorteados.size() == max)
+			break;
+		//retirar da queue e por no rejeitados ou sorteados
+		
+
+	}
+
+	//reinserir clientes na queue
+
+
+	return sorteados;
 }

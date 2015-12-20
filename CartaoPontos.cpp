@@ -43,12 +43,20 @@ Cliente* CartaoPontos::getCliente() const
 /**
 *Adiciona um dado numero de pontos ao cartão de pontos.
 */
-void CartaoPontos::addPontos(int pontos)
+void CartaoPontos::addPontos(int pts)
 {
 	if (!ativado)
 		ativado = true;
-	this->pontos += pontos;
+	pontos += pts;
 	nServicos++;
+}
+
+/**
+*Subtrai um dado numero de pontos ao cartão de pontos.
+*/
+void CartaoPontos::subPontos(int pts)
+{
+	pontos -= pts;
 }
 
 /**
@@ -56,10 +64,17 @@ void CartaoPontos::addPontos(int pontos)
 */
 void CartaoPontos::setAtivacao(bool ativacao)
 {
-	ativado = ativacao;
+	if (ativacao == ativado)
+		return;
 
-	if (!ativado)
+	if (ativacao==false)
+	{
 		pontos = 0;
+		validade = 0;
+	}
+	else validade = VALIDADE;
+
+	ativado = ativacao;
 }
 
 /**
@@ -75,4 +90,16 @@ bool CartaoPontos::operator<(CartaoPontos* card)
 	if (nServicos < card->getNServicos())
 		return true;
 	else return false;
+}
+
+/**
+*Substrai n à validade do cartao, e pode modificar o estado de ativacao do cartao.
+*/
+void CartaoPontos::passaDias(int n)
+{
+	validade -= n;
+	if (validade < 0)
+	{
+		setAtivacao(false);
+	}
 }

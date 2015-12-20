@@ -7,6 +7,7 @@
 #include "CartaoPontos.h"
 #include "BST.h"
 #include "MarcacaoServico.h"
+#include "Promocao.h"
 #include <iostream>
 #include <queue>
 #include <unordered_set>
@@ -85,6 +86,8 @@ public:
 	void remarcaMarcacao(MarcacaoServico* m, int dias);
 	void listaMarcacoes();
 
+	vector<Cliente*> getSorteados(Promocao promo) const;
+
 private:
 	string nomeOficina;
 	vector <Veiculo*> veiculos;
@@ -101,6 +104,8 @@ private:
 	int horaAtual;
 
     BST<MarcacaoServico*> marcacoes;
+
+	vector <Promocao> promocoes;
 };
 
 /**

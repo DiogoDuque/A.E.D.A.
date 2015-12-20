@@ -17,9 +17,11 @@ public:
 	bool getEstado() const;
 	int getNServicos() const;
 	Cliente* getCliente() const;
-	void addPontos(int pontos);
+	void addPontos(int pts);
+	void subPontos(int pts);
 	void setAtivacao(bool ativacao);
 	bool operator<(CartaoPontos* card);
+	void passaDias(int n);
 private:
 	Cliente* cliente;
 	int pontos;
