@@ -93,21 +93,33 @@ void Cliente::adicionaServicoVeiculo(int posVeiculo, Servico s1)
 	cartao->addPontos(s1.getPreco() / CONVERSION_RATE); //atualizar cartao de pontos
 }
 
+/**
+*Define um novo nome.
+*/
 void Cliente::setNome(string nome)
 {
 	this->nome = nome;
 }
 
+/**
+*Define uma nova morada.
+*/
 void Cliente::setMorada(string morada)
 {
 	this->morada = morada;
 }
 
+/**
+*Define um novo mail.
+*/
 void Cliente::setMail(string mail)
 {
 	this->mail = mail;
 }
 
+/**
+*Define um novo telefone.
+*/
 void Cliente::setTelefone(string numTelefone, int indice)
 {
 	if (telefones.empty())
@@ -158,13 +170,16 @@ void Cliente::setInatividade(bool inatividade)
 }
 
 /**
-*Retorna o valor de verdade ou falsidade do estado de inatividade
+*Retorna o valor de verdade ou falsidade do estado de inatividade.
 */
 bool Cliente::getInatividade() const
 {
 	return estaInativo;
 }
 
+/**
+*Reorna um apontador para o cartao do cliente.
+*/
 CartaoPontos* Cliente::getCartaoCliente() const
 {
 	return cartao;
@@ -185,6 +200,9 @@ bool Cliente::operator ==(const Cliente & c1) const
 	//return (numRegisto == c1.getNumRegisto());
 }
 
+/**
+*Adiciona um novo telefone ao cliente.
+*/
 void Cliente::addTelefone(string novoTelefone)
 {
 	telefones.push_back(novoTelefone);
@@ -207,6 +225,7 @@ void Cliente::resetContagemDiasInativos()
 {
 	contagemDiasInativos = 0;
 }
+
 
 int Cliente::getContagemDiasInativos() const
 {
