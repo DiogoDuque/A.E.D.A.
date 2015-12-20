@@ -140,8 +140,8 @@ void Oficina::removeFuncionario(Funcionario *f1)
 
 	if (!eliminou)
 	{
-	    cout << "O funcionario com o ID  nao existe..." << endl;
-        throw(FuncionarioNaoExistente(f1->getID()));
+		cout << "O funcionario com o ID  nao existe..." << endl;
+		throw(FuncionarioNaoExistente(f1->getID()));
 	}
 }
 
@@ -211,7 +211,7 @@ int Oficina::funcionarioComMenosVeiculos() const
 void Oficina::passaDias(int n)
 {
 	//gerar promocoes (possivelmente) ---- TO DO
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	if (rand() % 5 == 0) //gerar promo 1/5 das vezes que passam dias
 	{
 		int index = rand() % servicos.size();
@@ -221,7 +221,7 @@ void Oficina::passaDias(int n)
 	//update das validades das promos
 	for (vector<Promocao>::iterator it = promocoes.begin(); it < promocoes.end(); it++)
 	{
-		int validade= it->passaDias(n);
+		int validade = it->passaDias(n);
 		if (validade == 0)
 		{
 			promocoes.erase(it);
@@ -247,63 +247,63 @@ void Oficina::passaDias(int n)
 	//
 	BSTItrIn<MarcacaoServico*> i(marcacoes);
 
-    while(!i.isAtEnd())
-    {
-        int x = i.retrieve()->getDia() - diaAtual;
-        if(x >= 0)
-        {
-            i.retrieve()->getServico()->passaDias(x);
-        }
+	while (!i.isAtEnd())
+	{
+		int x = i.retrieve()->getDia() - diaAtual;
+		if (x >= 0)
+		{
+			i.retrieve()->getServico()->passaDias(x);
+		}
 
-        i.advance();
-    }
+		i.advance();
+	}
 
-    diaAtual += n;
+	diaAtual += n;
 
-    if(mesAtual == 1 || mesAtual == 3 || mesAtual == 5 || mesAtual == 7 || mesAtual == 8 || mesAtual == 10 || mesAtual == 12)
-    {
-        if(diaAtual > 31)
-        {
-            diaAtual -= 31;
+	if (mesAtual == 1 || mesAtual == 3 || mesAtual == 5 || mesAtual == 7 || mesAtual == 8 || mesAtual == 10 || mesAtual == 12)
+	{
+		if (diaAtual > 31)
+		{
+			diaAtual -= 31;
 
-            if(mesAtual == 12)
-            {
-                anoAtual++;
-                mesAtual = 1;
-            }
-            else
-            {
-                mesAtual++;
-            }
-        }
-    }
-    else if(mesAtual == 2)
-    {
-        if(anoAtual%4 == 0)
-        {
-            if(diaAtual > 29)
-            {
-                diaAtual -= 29;
-                mesAtual++;
-            }
-        }
-        else
-        {
-            if(diaAtual > 28)
-            {
-                diaAtual -= 28;
-                mesAtual++;
-            }
-        }
-    }
-    else
-    {
-        if(diaAtual > 30)
-        {
-            diaAtual -= 30;
-            mesAtual++;
-        }
-    }
+			if (mesAtual == 12)
+			{
+				anoAtual++;
+				mesAtual = 1;
+			}
+			else
+			{
+				mesAtual++;
+			}
+		}
+	}
+	else if (mesAtual == 2)
+	{
+		if (anoAtual % 4 == 0)
+		{
+			if (diaAtual > 29)
+			{
+				diaAtual -= 29;
+				mesAtual++;
+			}
+		}
+		else
+		{
+			if (diaAtual > 28)
+			{
+				diaAtual -= 28;
+				mesAtual++;
+			}
+		}
+	}
+	else
+	{
+		if (diaAtual > 30)
+		{
+			diaAtual -= 30;
+			mesAtual++;
+		}
+	}
 }
 
 /**
@@ -328,16 +328,16 @@ void Oficina::associaVeiculoCliente(Veiculo* v1, Cliente c1)
 */
 void Oficina::showInfo() const
 {
-    if(funcionarios.size()==0)
-    {
-        throw(OficinaNaoTemFuncionarios());
-    }
+	if (funcionarios.size() == 0)
+	{
+		throw(OficinaNaoTemFuncionarios());
+	}
 
 	cout << "   FUNCIONARIOS EXISTENTES NA EMPRESA RESPONSAVEIS PELOS AUTOMOVEIS ACTUALMENTE:" << endl << endl;
 
 	for (unsigned int i = 0; i < funcionarios.size(); i++) //percorre a lista de funcionarios
 	{
-		cout << "   " << i+1 << ". " << funcionarios[i]->getNome() << endl;
+		cout << "   " << i + 1 << ". " << funcionarios[i]->getNome() << endl;
 		cout << "     Veiculos a seu cargo: " << endl;
 
 		for (unsigned int j = 0; j < funcionarios[i]->getVeiculos().size(); j++)
@@ -476,17 +476,17 @@ bool compServicos(const Servico &s1, const Servico &s2)
 	if (s1.getPreco() < s2.getPreco())
 		return true;
 	else
-	if (s1.getPreco() > s2.getPreco())
-		return false;
-	else
-	if (s1.getDias() < s2.getDias())
-		return true;
-	else
-	if (s1.getDias() > s2.getDias())
-		return false;
-	else
-	if (s1.getNome() < s2.getNome())
-		return true;
+		if (s1.getPreco() > s2.getPreco())
+			return false;
+		else
+			if (s1.getDias() < s2.getDias())
+				return true;
+			else
+				if (s1.getDias() > s2.getDias())
+					return false;
+				else
+					if (s1.getNome() < s2.getNome())
+						return true;
 
 	return false;
 }
@@ -598,66 +598,66 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 	{
 	case 1:		//Mudar nome
 	{
-			  string novoNome;
+		string novoNome;
 
-			  cout << "Introduza um novo nome: ";
-			  getline(cin, novoNome);
+		cout << "Introduza um novo nome: ";
+		getline(cin, novoNome);
 
-			  c1.setNome(novoNome);
+		c1.setNome(novoNome);
 
-			  cout << endl << "O nome foi alterado com sucesso!" << endl << endl;
-			  Sleep(1000);
+		cout << endl << "O nome foi alterado com sucesso!" << endl << endl;
+		Sleep(1000);
 
-			  break;
+		break;
 	}
 	case 2:		//Mudar morada
 	{
-					string novaMorada;
+		string novaMorada;
 
-					cout << "Introduza uma nova morada: ";
-					getline(cin, novaMorada);
+		cout << "Introduza uma nova morada: ";
+		getline(cin, novaMorada);
 
-					c1.setMorada(novaMorada);
+		c1.setMorada(novaMorada);
 
-					cout << endl << "A morada foi alterado com sucesso!" << endl << endl;
-					Sleep(1000);
+		cout << endl << "A morada foi alterado com sucesso!" << endl << endl;
+		Sleep(1000);
 
-					break;
+		break;
 	}
 	case 3:		//Mudar mail
 	{
-					string novoMail;
+		string novoMail;
 
-					cout << "Introduza um novo mail: ";
-					getline(cin, novoMail);
+		cout << "Introduza um novo mail: ";
+		getline(cin, novoMail);
 
-					c1.setMail(novoMail);
+		c1.setMail(novoMail);
 
-					cout << endl << "O mail foi alterado com sucesso!" << endl << endl;
-					Sleep(1000);
+		cout << endl << "O mail foi alterado com sucesso!" << endl << endl;
+		Sleep(1000);
 
-					break;
+		break;
 	}
 	case 4:		//Mudar telefone
 	{
-					int indiceTelefone;
-					string novoTelefone;
+		int indiceTelefone;
+		string novoTelefone;
 
-					c1.showAllTelefones();
-					cout << "Introduza o indice do telefone que deseja mudar: ";
-					cin >> indiceTelefone;
+		c1.showAllTelefones();
+		cout << "Introduza o indice do telefone que deseja mudar: ";
+		cin >> indiceTelefone;
 
-					cin.ignore(1000, '\n');		//Tira o 'ENTER' do buffer
+		cin.ignore(1000, '\n');		//Tira o 'ENTER' do buffer
 
-					cout << "Introduza o novo numero de telefone: ";
-					getline(cin, novoTelefone);
+		cout << "Introduza o novo numero de telefone: ";
+		getline(cin, novoTelefone);
 
-					c1.setTelefone(novoTelefone, indiceTelefone);
+		c1.setTelefone(novoTelefone, indiceTelefone);
 
-					cout << endl << "O telefone foi alterado com sucesso!" << endl << endl;
-					Sleep(1000);
+		cout << endl << "O telefone foi alterado com sucesso!" << endl << endl;
+		Sleep(1000);
 
-					break;
+		break;
 	}
 	default: break;
 	}
@@ -681,17 +681,17 @@ void Oficina::adicionaInformacao(int numCliente, int numMudar)
 	{
 	case 1:
 	{
-			  string novoTelefone;
+		string novoTelefone;
 
-			  cout << "Introduza um numero de telefone para adicionar: ";
-			  getline(cin, novoTelefone);
+		cout << "Introduza um numero de telefone para adicionar: ";
+		getline(cin, novoTelefone);
 
-			  c1.addTelefone(novoTelefone);
+		c1.addTelefone(novoTelefone);
 
-			  cout << endl << "O telefone foi adicionado com sucesso!" << endl << endl;
-			  Sleep(1000);
+		cout << endl << "O telefone foi adicionado com sucesso!" << endl << endl;
+		Sleep(1000);
 
-			  break;
+		break;
 	}
 	default: break;
 	}
@@ -722,7 +722,7 @@ void Oficina::pesquisaClienteInativo(string nomeCliente)
 
 	if (itr != clientesInativos.end())
 	{
-		cout << endl << "   O cliente '" << nomeCliente << "' foi encontrado!" << endl << endl << "     " ;
+		cout << endl << "   O cliente '" << nomeCliente << "' foi encontrado!" << endl << endl << "     ";
 
 		(*itr).displayInformacaoClienteInativo();
 		return;
@@ -751,7 +751,7 @@ void Oficina::avancaDiasParaClientes(int diasAvancar)
 
 BST<MarcacaoServico*> Oficina::getMarcacoes() const
 {
-    return marcacoes;
+	return marcacoes;
 }
 
 /**
@@ -760,19 +760,19 @@ BST<MarcacaoServico*> Oficina::getMarcacoes() const
 
 MarcacaoServico* Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int hora, string nome)
 {
-    BSTItrIn<MarcacaoServico*> i(marcacoes);
+	BSTItrIn<MarcacaoServico*> i(marcacoes);
 
-    while(!i.isAtEnd())
-    {
-        if(i.retrieve()->getNomeCliente() == nome && i.retrieve()->getAno() == ano && i.retrieve()->getMes() == mes && i.retrieve()->getDia() == dia && i.retrieve()->getHora() == hora && i.retrieve()->getServico() == s)
-        {
-            return i.retrieve();
-        }
+	while (!i.isAtEnd())
+	{
+		if (i.retrieve()->getNomeCliente() == nome && i.retrieve()->getAno() == ano && i.retrieve()->getMes() == mes && i.retrieve()->getDia() == dia && i.retrieve()->getHora() == hora && i.retrieve()->getServico() == s)
+		{
+			return i.retrieve();
+		}
 
-        i.advance();
-    }
+		i.advance();
+	}
 
-    return NULL;
+	return NULL;
 }
 
 /**
@@ -781,7 +781,7 @@ MarcacaoServico* Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int
 
 void Oficina::cancelaMarcacao(MarcacaoServico* m)
 {
-    marcacoes.remove(m);
+	marcacoes.remove(m);
 }
 
 /**
@@ -790,7 +790,7 @@ void Oficina::cancelaMarcacao(MarcacaoServico* m)
 
 void Oficina::remarcaMarcacao(MarcacaoServico* m, int dias)
 {
-    m->adiaDias(dias);
+	m->adiaDias(dias);
 }
 
 /**
@@ -799,39 +799,79 @@ void Oficina::remarcaMarcacao(MarcacaoServico* m, int dias)
 
 void Oficina::listaMarcacoes()
 {
-    BSTItrIn<MarcacaoServico*> i(marcacoes);
+	BSTItrIn<MarcacaoServico*> i(marcacoes);
 
-    int j = 0;
+	int j = 0;
 
-    while(!i.isAtEnd())
-    {
-        cout << j << ". " << i.retrieve() << endl;
-        j++;
-    }
+	while (!i.isAtEnd())
+	{
+		cout << j << ". " << i.retrieve() << endl;
+		j++;
+	}
 }
 
 /**
 *Retorna um vector com apontadores para os clientes que poderao, no momento, usufruir da promocao.
 */
-vector<Cliente*> Oficina::getSorteados(Promocao promo) const
+vector<Cliente*> Oficina::getSorteados(Promocao promo)
 {
 	vector<Cliente*> sorteados;
-	vector<Cliente*> paraRejeitar=promo.getRejeitados();
+	vector<Cliente*> rejeitados;
 
 	int max = promo.getNClientes();
 
-	//retirar clientes da queue para inserir no vetor
-	for (int i = 0; i < clientes.size(); i++)
+	//retirar clientes da queue de cartoes para inserir no vetor
+	while (!cartoes.empty())
 	{
-		if (sorteados.size() == max)
+		if (sorteados.size() == max) //verifica nr maximo de sorteados
 			break;
+
+		CartaoPontos* card = cartoes.top();
+		cartoes.pop();
+		if (promo.getPontos() > card->getPontos()) //verifica se tem pontos suficientes
+		{
+			cartoes.push(card);
+			break;
+		}
+
 		//retirar da queue e por no rejeitados ou sorteados
-		
+		bool rejeitado = false;
+		for (unsigned int i = 0; i < promo.getRejeitados().size(); i++)
+		{
+			if (card->getCliente() == promo.getRejeitados()[i])
+			{
+				rejeitado = true;
+				break;
+			}
+		}
+
+		if (rejeitado)
+			rejeitados.push_back(card->getCliente());
+		else sorteados.push_back(card->getCliente());
 
 	}
 
 	//reinserir clientes na queue
-
+	for (unsigned int i = 0; i < sorteados.size(); i++)
+		cartoes.push(sorteados[i]->getCartaoCliente());
+	for (unsigned int i = 0; i < rejeitados.size(); i++)
+		cartoes.push(rejeitados[i]->getCartaoCliente());
 
 	return sorteados;
+}
+
+/**
+*Remove uma promocao do vector de promocoes
+*/
+void Oficina::removePromocao(Promocao promo)
+{
+	for (int i = 0; i < promocoes.size(); i++)
+	{
+		if (promo == promocoes[i])
+		{
+			promocoes.erase(promocoes.begin() + i);
+			break;
+		}
+	}
+
 }

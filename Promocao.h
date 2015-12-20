@@ -19,6 +19,7 @@ public:
 	void addRejeitado(Cliente* cl) { rejeitados.push_back(cl); };
 	int passaDias(int n);
 	int validarPromo(Cliente* cliente);
+	bool operator==(Promocao promo);
 
 private:
 	Servico servico;

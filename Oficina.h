@@ -37,6 +37,7 @@ struct hCliente
 };
 
 typedef unordered_set<Cliente, hCliente, hCliente> hashClientes;
+class Promocao;
 
 class Oficina
 {
@@ -86,7 +87,8 @@ public:
 	void remarcaMarcacao(MarcacaoServico* m, int dias);
 	void listaMarcacoes();
 
-	vector<Cliente*> getSorteados(Promocao promo) const;
+	vector<Cliente*> getSorteados(Promocao promo);
+	void removePromocao(Promocao promo);
 
 private:
 	string nomeOficina;
