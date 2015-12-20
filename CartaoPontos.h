@@ -3,6 +3,8 @@
 
 #include "Cliente.h"
 
+#define VALIDADE 365
+
 class Cliente;
 
 using namespace std;
@@ -15,7 +17,6 @@ public:
 	bool getEstado() const;
 	int getNServicos() const;
 	Cliente* getCliente() const;
-	void mudaEstadoAtivacao();
 	void addPontos(int pontos);
 	void setAtivacao(bool ativacao);
 	bool operator<(CartaoPontos* card);
