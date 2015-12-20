@@ -22,9 +22,9 @@ public:
 private:
 	Cliente* cliente;
 	int pontos;
-	int nServicos; //incrementado no addPontos()
+	int nServicos; //nr de servicos; incrementado no addPontos()
 	bool ativado;
-	int validade;		//Numero de dias restante
+	int validade;	//Numero de dias restantes
 };
 
 #endif

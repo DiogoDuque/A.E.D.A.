@@ -27,6 +27,9 @@ Cliente* CartaoPontos::getCliente() const
 	return cliente;
 }
 
+/**
+*
+*/
 void CartaoPontos::mudaEstadoAtivacao()
 {
 	if (ativado)
@@ -35,12 +38,19 @@ void CartaoPontos::mudaEstadoAtivacao()
 		ativado = true;
 }
 
+
+/**
+*Adiciona um dado numero de pontos ao cartão de pontos.
+*/
 void CartaoPontos::addPontos(int pontos)
 {
 	this->pontos += pontos;
 	nServicos++;
 }
 
+/**
+*Caso um cliente seja desativado(ativacao=false), esta função repõe os seus pontos a zero. permite tambem reativação do cliente(ativacao=true).
+*/
 void CartaoPontos::setAtivacao(bool ativacao)
 {
 	ativado = ativacao;
@@ -58,6 +68,5 @@ bool CartaoPontos::operator<(CartaoPontos* card)
 
 	if (nServicos < card->getNServicos())
 		return true;
-	//if (nServicos > card->getNServicos())
-		return false;
+	else return false;
 }
