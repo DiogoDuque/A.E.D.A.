@@ -365,9 +365,15 @@ void menuManager(Oficina oficina1)
 		case 0: //MENU PRINCIPAL 1-6
 		{
 					temp = makeMenu(oficina1.getNome(), { "Gestao de funcionarios", "Gestao de veiculos",
-						"Gestao de clientes", "Gestao de servicos", "Mostrar informacao acerca da oficina", "Avancar no tempo" }, "", 0);
+						"Gestao de clientes", "Gestao de servicos", "Mostrar informacao acerca da oficina", "Avancar no tempo", "Marcacoes", "Promocoes" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
+					else
+					if (temp == 6)
+						options.push_back(24);
+					else
+					if (temp == 7)
+						options.push_back(28);
 					else options.push_back(1 + temp);
 					break;
 		}
@@ -1142,6 +1148,159 @@ void menuManager(Oficina oficina1)
 
 				   waitForEnter();
 				   options.pop_back();
+				   break;
+		}
+		case 24:		//Sub-menu das marcacoes
+		{
+				   clrscr();
+				   int temp2 = makeMenu("MARCACOES (prima ESC para retroceder)", { "Cancelar marcacoes", "Remarcar marcacoes", "Listar marcacoes" }, "", 0);
+
+				   if (temp2 == -1)
+					   options.pop_back();
+				   else options.push_back(25 + temp2);
+
+				   break;
+		}
+		case 25:		//Marcacoes --> cancelar marcacoes
+		{
+				   clrscr();
+				   cout << "   CANCELAR MARCACOES" << endl << endl;
+
+				   /*
+				   *				   *
+				   *				   *
+				   *				   *
+
+				   *				   *
+				   *
+				   *
+				   *DANIEL, ISTO É O SITIO PARA O CANCELAMENTO DE MARCACOES
+				   *				   *
+				   *				   *
+				   *				   *
+
+				   *				   *
+				   *				   *
+				   *				   *
+				   *
+				   */
+
+				   break;
+		}
+		case 26:		//Marcacoes --> remarcar marcacoes
+		{
+				   clrscr();
+				   cout << "   REMARCAR MARCACOES" << endl << endl;
+
+				   /*
+				   *
+				   *				   *
+				   *				   *
+
+				   *				   *
+				   *				   *
+				   *
+				   *DANIEL, ISTO É O SITIO PARA O REMARCAMENTO DE MARCACOES
+				   *				   *
+				   *				   *
+				   *				   *
+
+				   *				   *
+				   *				   *
+				   *
+				   */
+
+				   break;
+		}
+		case 27:		//Marcacoes --> listar marcacoes
+		{
+				   clrscr();
+				   cout << "   LISTAGEM DE MARCACOES" << endl << endl;
+
+				   /*
+				   *				   *
+				   *				   *
+				   *				   *
+				   *				   *
+				   *				   *
+
+				   *				   *
+				   *				   *
+				   *
+				   *
+				   *DANIEL, ISTO É O SITIO PARA A LISTAGEM DE MARCACOES
+				   *				   *
+
+				   */
+
+				   break;
+		}
+		case 28:
+		{
+				   clrscr();
+				   cout << "   PROMOCOES DISPONIVEIS" << endl << endl;
+
+				   /**
+				   *
+				   *
+				   **
+				   *
+				   **
+				   *
+				   **
+				   *DUQUE, AQUI FAZES A APRESENTACAO DAS PROMOCOES DISPONIVEIS
+				   **
+				   *
+				   **
+				   *
+				   **
+				   *
+				   *
+				   
+				   */
+
+				   clrscr();
+
+					  /**
+					  *
+					   *
+					   **
+					   *
+					   **
+					   *
+					   **
+					   *DUQUE, AQUI FAZES A APRESENTACAO DOS CLIENTES QUE TEM DIREITO A PROMOCAO QUE ESCOLHES TE(LIGA ME QUANDO CHEGARES AQUI)
+					   **
+					   *
+					   **
+					   *
+					   **
+					   *
+					   *
+
+					   */
+
+				   clrscr();
+
+				   /**
+				   *
+				   *
+				   **
+				   *
+				   **
+				   *
+				   **
+				   *DUQUE, AQUI FAZES A APRESENTACAO DOS CLIENTES QUE TEM DIREITO A PROMOCAO QUE ESCOLHES TE(LIGA ME QUANDO CHEGARES AQUI)
+				   **
+				   *
+				   **
+				   *
+				   **
+				   *
+				   *
+
+				   */
+
 				   break;
 		}
 		default:
