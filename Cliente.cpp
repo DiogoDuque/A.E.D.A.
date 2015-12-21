@@ -10,7 +10,7 @@ int Cliente::clienteID = 1;
 Cliente::Cliente(string myNome)
 {
 	nome = myNome;
-	CartaoPontos* cartao = new CartaoPontos(this);
+	cartao = new CartaoPontos(this);
 	numRegisto = clienteID;
 	estaInativo = false;
 	contagemDiasInativos = 0;

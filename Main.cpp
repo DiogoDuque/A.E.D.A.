@@ -965,7 +965,7 @@ void menuManager(Oficina oficina1)
 				   options.pop_back();
 				   break;
 		}
-		case 19:
+		case 19:		//Clientes --> listagem dos inativos
 		{
 				   clrscr();
 				   cout << "   LISTAGEM DE CLIENTES INATIVOS (por nome)" << endl << endl;
@@ -1034,7 +1034,7 @@ void menuManager(Oficina oficina1)
 				   //waitForEnter();
 				   break;
 		}
-		case 20:
+		case 20:		//Clientes --> pesquisa dos inativos
 		{
 				   clrscr();
 				   cout << "   PESQUISA DE CLIENTES INATIVOS" << endl << endl;
