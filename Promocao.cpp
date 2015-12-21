@@ -39,7 +39,7 @@ int Promocao::validarPromo(Cliente* cliente)
 
 bool Promocao::operator==(Promocao promo)
 {
-	if (nClientes != promo.getNClientes() || promo.getPontos() != pontos || servico != promo.getServico() || desconto != promo.getDesconto() || rejeitados != promo.getRejeitados())
+	if (nClientes != promo.getNClientes() || promo.getPontos() != pontos || /*servico != promo.getServico() ||*/ desconto != promo.getDesconto() || rejeitados != promo.getRejeitados())
 		return false;
 	return true;
 }
