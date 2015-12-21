@@ -23,6 +23,7 @@ public:
 	void passaDias(int n);
     bool estaTerminado() const;
 	bool operator==(const Servico s1);
+	bool operator!=(const Servico s1);
 };
 
 ostream & operator<<(ostream &out, Servico s1);

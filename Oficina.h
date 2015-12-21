@@ -85,6 +85,7 @@ public:
 
 	vector<Cliente*> getSorteados(Promocao promo);
 	void removePromocao(Promocao promo);
+	vector<string> getListaPromocoes();
 
 private:
 	string nomeOficina;

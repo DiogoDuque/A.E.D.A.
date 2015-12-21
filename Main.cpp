@@ -1235,29 +1235,18 @@ void menuManager(Oficina oficina1)
 
 				   break;
 		}
-		case 28:
+		case 28: /*********************************************DUQUE*********************/
 		{
 				   clrscr();
 				   cout << "   PROMOCOES DISPONIVEIS" << endl << endl;
 
-				   /**
-				   *
-				   *
-				   **
-				   *
-				   **
-				   *
-				   **
-				   *DUQUE, AQUI FAZES A APRESENTACAO DAS PROMOCOES DISPONIVEIS
-				   **
-				   *
-				   **
-				   *
-				   **
-				   *
-				   *
-				   
-				   */
+				   //DUQUE, AQUI FAZES A APRESENTACAO DAS PROMOCOES DISPONIVEIS
+				   int promoIndex = makeMenu("Promocoes disponiveis", oficina1.getListaPromocoes(), ?, ?); /*ZEEEEEEEEEEEEEEEEEEEEE*/
+				   if (promoIndex == -1)
+				   {
+					   //SAIR DAQUI ------->>>>>> ZEEEEEEEEEEEEEEEEEEEE
+					   break;
+				   }
 
 				   clrscr();
 

@@ -865,7 +865,7 @@ vector<Cliente*> Oficina::getSorteados(Promocao promo)
 */
 void Oficina::removePromocao(Promocao promo)
 {
-	for (int i = 0; i < promocoes.size(); i++)
+	for (unsigned int i = 0; i < promocoes.size(); i++)
 	{
 		if (promo == promocoes[i])
 		{
@@ -874,4 +874,14 @@ void Oficina::removePromocao(Promocao promo)
 		}
 	}
 
+}
+
+vector<string> Oficina::getListaPromocoes()
+{
+	vector<string> promos;
+	for (unsigned int i = 0; i < promocoes.size(); i++)
+	{
+		promos.push_back(promocoes[i].getServico().getNome());
+	}
+	return promos;
 }
