@@ -84,6 +84,11 @@ public:
 	void listaMarcacoes();
 	MarcacaoServico* getMarcacao(string nome, int id);
 	void listaMarcacoesDeCliente(string nome);
+	void adicionaMarcacao(MarcacaoServico* m);
+	int getAnoAtual() const;
+	int getDiaAtual() const;
+	int getMesAtual() const;
+	int getHoraAtual() const;
 
 	vector<Cliente*> getSorteados(Promocao promo);
 	void removePromocao(Promocao promo);

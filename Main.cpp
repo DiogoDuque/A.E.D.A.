@@ -343,7 +343,7 @@ int mostraInfo(Oficina oficina1, string frase, int n, int pos)
 
 }
 
-void associarServicosVeiculos(Oficina oficina1, Veiculo *a1)
+void associarServicosVeiculos(Oficina oficina1, Veiculo *a1, int posCliente)
 {
 	vector<string> servicosString;
 	for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
@@ -352,6 +352,7 @@ void associarServicosVeiculos(Oficina oficina1, Veiculo *a1)
 	//int temp = makeMenu("ESCOLHER SERVICO", servicosString, "", 0);
 	int posicao = mostraInfo(oficina1, "ESCOLHER SERVICO", 3, -1);
 	a1->adicionaServico(oficina1.getServicos()[posicao]);
+    oficina1.adicionaMarcacao(new MarcacaoServico(oficina1.getDiaAtual() + 1, oficina1.getMesAtual(), oficina1.getAnoAtual(), 8, &(oficina1.getServicos()[posicao]), oficina1.getClientes()[posCliente].getNome(), a1->getID()));
 }
 
 void menuManager(Oficina oficina1)
@@ -772,7 +773,7 @@ void menuManager(Oficina oficina1)
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
-									  associarServicosVeiculos(oficina1, a1);
+									  associarServicosVeiculos(oficina1, a1, posCliente);
 
 									  clrscr();
 									  anim_automovel();
@@ -804,7 +805,7 @@ void menuManager(Oficina oficina1)
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
-									  associarServicosVeiculos(oficina1, a1);
+									  associarServicosVeiculos(oficina1, a1, posCliente);
 
 									  clrscr();
 									  anim_mota();
@@ -836,7 +837,7 @@ void menuManager(Oficina oficina1)
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
-									  associarServicosVeiculos(oficina1, a1);
+									  associarServicosVeiculos(oficina1, a1, posCliente);
 
 									  clrscr();
 									  anim_camiao();
@@ -868,7 +869,7 @@ void menuManager(Oficina oficina1)
 									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
 									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 									  oficina1.getClientes()[posCliente].addVeiculo(a1);
-									  associarServicosVeiculos(oficina1, a1);
+									  associarServicosVeiculos(oficina1, a1, posCliente);
 
 									  clrscr();
 									  anim_autocarro();

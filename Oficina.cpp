@@ -852,6 +852,8 @@ void Oficina::listaMarcacoes()
 	{
 		cout << j << ". " << i.retrieve() << endl;
 		j++;
+
+		i.advance();
 	}
 
 	if(j == 1)
@@ -878,6 +880,7 @@ MarcacaoServico* Oficina::getMarcacao(string nome, int id)
         }
 
 		j++;
+		i.advance();
 	}
 
 	return NULL;
@@ -900,12 +903,59 @@ void Oficina::listaMarcacoesDeCliente(string nome)
 		    cout << j << ". " << i.retrieve() << endl;
             j++;
 		}
+
+		i.advance();
 	}
 
 	if(j == 1)
     {
         cout << "Este cliente nao tem marcacoes" << endl;
     }
+}
+
+/**
+*Adiciona uma marcacao a arvore
+*/
+
+void Oficina::adicionaMarcacao(MarcacaoServico* m)
+{
+    marcacoes.insert(m);
+}
+
+/**
+*Retorna o ano atual
+*/
+
+int Oficina::getAnoAtual() const
+{
+    return anoAtual;
+}
+
+/**
+*Retorna o dia atual
+*/
+
+int Oficina::getDiaAtual() const
+{
+    return diaAtual;
+}
+
+/**
+*Retorna o mes atual
+*/
+
+int Oficina::getMesAtual() const
+{
+    return mesAtual;
+}
+
+/**
+*Retorna a hora atual
+*/
+
+int Oficina::getHoraAtual() const
+{
+    return horaAtual;
 }
 
 /**
