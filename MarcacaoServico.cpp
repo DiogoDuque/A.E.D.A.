@@ -4,7 +4,7 @@
 *Construtor da classe MarcacaoServico
 */
 
-MarcacaoServico::MarcacaoServico(int d, int m, int a, int h, Servico* s) : dia(d), mes(m), ano(a), hora(h), servico(s) {}
+MarcacaoServico::MarcacaoServico(int d, int m, int a, int h, Servico* s, string nome, int id) : dia(d), mes(m), ano(a), hora(h), servico(s), nomeCliente(nome), idVeiculo(id) {}
 
 /**
 *Operador < da classe MarcacaoServico. Retorna true se a data da primeira marcacao for menor a data da segunda e utiliza ordem alfabetica do nome do cliente associado para resolver casos de empate
@@ -33,6 +33,15 @@ bool MarcacaoServico::operator<(const MarcacaoServico& m) const
     }
 
     return ano < m.getAno();
+}
+
+/**
+*Retorna o id do veiculo associado a marcacao
+*/
+
+int MarcacaoServico::getIDVeiculo() const
+{
+    return idVeiculo;
 }
 
 /**
@@ -149,7 +158,7 @@ void MarcacaoServico::adiaDias(int d)
 
 ostream& operator<<(ostream& os, const MarcacaoServico& m)
 {
-    os << m.getNomeCliente() << "   " << m.getServico()->getNome() << "  " << m.getServico()->getPreco() << " " << m.getDia() << "/" << m.getMes() << "/" << m.getAno() << "  " << m.getHora() << "   " << m.getServico()->getDias();
+    os << m.getNomeCliente() << "   " << m.getIDVeiculo() << "    " << m.getServico()->getNome() << "  " << m.getServico()->getPreco() << " " << m.getDia() << "/" << m.getMes() << "/" << m.getAno() << "  " << m.getHora() << "   " << m.getServico()->getDias();
 
     return os;
 }

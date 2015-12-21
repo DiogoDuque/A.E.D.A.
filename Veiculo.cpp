@@ -184,6 +184,11 @@ bool Veiculo::veiculoUsaServico(Servico s1)
 	return false;
 }
 
+void Veiculo::removeServico(int i)
+{
+    servicos.erase(servicos.begin() + i);
+}
+
 
 /*###################
   #    AUTOMOVEL    #

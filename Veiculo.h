@@ -40,6 +40,7 @@ public:
 	void adicionaServico(Servico s1);
 	vector<Servico> getServicos() const;
 	bool veiculoUsaServico(Servico s1);
+	void removeServico(int i);
 protected:
 	static int next_id;
     int id;

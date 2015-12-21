@@ -82,6 +82,8 @@ public:
 	void cancelaMarcacao(MarcacaoServico* m);
 	void remarcaMarcacao(MarcacaoServico* m, int dias);
 	void listaMarcacoes();
+	MarcacaoServico* getMarcacao(string nome, int id);
+	void listaMarcacoesDeCliente(string nome);
 
 	vector<Cliente*> getSorteados(Promocao promo);
 	void removePromocao(Promocao promo);

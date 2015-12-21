@@ -40,12 +40,12 @@ void clientesNaoRegistados(int n)
 {
 	gotoxy(3, 0); cout << "ATENCAO!";
 	gotoxy(3, 2);
-	
+
 	if (n == 0)
 		 cout << "Para registar veiculos tem primeiro de se registar na base de dados.";
 	if (n == 1)
 		cout << "Para registar veiculos tem primeiro de haver clientes...";
-	
+
 	gotoxy(3, 4); cout << "Por favor, volte ao menu principal e selecione a opcao 'GESTAO DE CLIENTES'";
 
 	gotoxy(3, 6); waitForEnter();
@@ -223,7 +223,7 @@ int mostraInfo(Oficina oficina1, string frase, int n, int pos)
 
 	gotoxy(3, 0);
 	cout << frase;
-	
+
 	if (n == 0)
 	for (unsigned int i = 0; i < oficina1.getClientes().size(); i++)
 	{
@@ -237,7 +237,7 @@ int mostraInfo(Oficina oficina1, string frase, int n, int pos)
 		gotoxy(3, 3 + i * 2);
 		cout << *oficina1.getFuncionarios()[i];
 	}
-	
+
 	if (n == 2)
 	{
 		cout << endl << endl;
@@ -484,7 +484,7 @@ void menuManager(Oficina oficina1)
 					oficina1.adicionaFuncionario(f1);
 
 					cout << endl << "   O funcionario '" << nomeFunc << "' foi adicionado com sucesso!" << endl;
-					
+
 					waitForEnter();
 					options.pop_back();
 					break;
@@ -557,7 +557,7 @@ void menuManager(Oficina oficina1)
 					{
 
 						int posVeiculo = mostraInfo(oficina1, "REMOVER VEICULO", 2, -1);
-						
+
 						if (posVeiculo == -1)
 							options.pop_back();
 						else
@@ -1166,24 +1166,22 @@ void menuManager(Oficina oficina1)
 				   clrscr();
 				   cout << "   CANCELAR MARCACOES" << endl << endl;
 
-				   /*
-				   *				   *
-				   *				   *
-				   *				   *
+                   cout << "Introduza o nome do cliente" << endl;
 
-				   *				   *
-				   *
-				   *
-				   *DANIEL, ISTO É O SITIO PARA O CANCELAMENTO DE MARCACOES
-				   *				   *
-				   *				   *
-				   *				   *
+                   string nomeCliente;
+                   cin >> nomeCliente;
 
-				   *				   *
-				   *				   *
-				   *				   *
-				   *
-				   */
+                   oficina1.listaMarcacoesDeCliente(nomeCliente);
+
+                   cout << "Introduza o numero da marcacao que pretende cancelar" << endl;
+
+                   int id;
+                   cin >> id;
+
+                   oficina1.cancelaMarcacao(oficina1.getMarcacao(nomeCliente, id));
+
+                   waitForEnter();
+                   options.pop_back();
 
 				   break;
 		}
@@ -1192,23 +1190,27 @@ void menuManager(Oficina oficina1)
 				   clrscr();
 				   cout << "   REMARCAR MARCACOES" << endl << endl;
 
-				   /*
-				   *
-				   *				   *
-				   *				   *
+                   cout << "Introduza o nome do cliente" << endl;
 
-				   *				   *
-				   *				   *
-				   *
-				   *DANIEL, ISTO É O SITIO PARA O REMARCAMENTO DE MARCACOES
-				   *				   *
-				   *				   *
-				   *				   *
+                   string nomeCliente;
+                   cin >> nomeCliente;
 
-				   *				   *
-				   *				   *
-				   *
-				   */
+                   oficina1.listaMarcacoesDeCliente(nomeCliente);
+
+                   cout << "Introduza o numero da marcacao que pretende remarcar" << endl;
+
+                   int id;
+                   cin >> id;
+
+                   cout << "Quantos dias pretende adiar a marcacao?" << endl;
+
+                   int dias;
+                   cin >> dias;
+
+                   oficina1.remarcaMarcacao(oficina1.getMarcacao(nomeCliente, id), dias);
+
+                   waitForEnter();
+                   options.pop_back();
 
 				   break;
 		}
@@ -1217,21 +1219,10 @@ void menuManager(Oficina oficina1)
 				   clrscr();
 				   cout << "   LISTAGEM DE MARCACOES" << endl << endl;
 
-				   /*
-				   *				   *
-				   *				   *
-				   *				   *
-				   *				   *
-				   *				   *
+				   oficina1.listaMarcacoes();
 
-				   *				   *
-				   *				   *
-				   *
-				   *
-				   *DANIEL, ISTO É O SITIO PARA A LISTAGEM DE MARCACOES
-				   *				   *
-
-				   */
+				   waitForEnter();
+				   options.pop_back();
 
 				   break;
 		}
@@ -1315,7 +1306,7 @@ int main()
 	}
 
 	Oficina oficina1(nomeOficina);
-	
+
 	ifstream file("servicos.txt");
 	if (file.good())
 		file.close();
@@ -1361,13 +1352,13 @@ int main()
 	c2.setMorada(morada2);
 	c2.setMail(mail2);
 	c2.setTelefone(telefone2, 0);
-	
+
 	c2.setInatividade(true);
 	oficina1.adicionaClienteInativo(c2);
 
 	oficina1.adicionaCliente(c2);
 
-	
+
 
 
 

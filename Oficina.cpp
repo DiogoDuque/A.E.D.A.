@@ -13,7 +13,7 @@ using namespace std;
 /**
 *Construtor para a classe 'Oficina'.
 */
-Oficina::Oficina(string myNomeOficina) : diaAtual(1), mesAtual(1), anoAtual(2015), horaAtual(8), marcacoes(BST<MarcacaoServico*>(new MarcacaoServico(0, 0, 0, 0, new Servico("", 0, 0))))
+Oficina::Oficina(string myNomeOficina) : diaAtual(1), mesAtual(1), anoAtual(2015), horaAtual(8), marcacoes(BST<MarcacaoServico*>(new MarcacaoServico(0, 0, 0, 0, new Servico("", 0, 0), "", 0)))
 {
 	nomeOficina = myNomeOficina;
 
@@ -525,7 +525,7 @@ void Oficina::adicionaServicoVeiculo(int posCliente, int posVeiculo, int posServ
 	int indice = funcionarioComMenosVeiculos();
 	veiculos[posVeiculo]->setFuncionario(funcionarios[indice]);
 	funcionarios[indice]->acrescentaVeiculos(veiculos[posVeiculo]);
-	marcacoes.insert(new MarcacaoServico(diaAtual + 1, mesAtual, anoAtual, 8, &servicos[posServico]));
+	marcacoes.insert(new MarcacaoServico(diaAtual + 1, mesAtual, anoAtual, 8, &servicos[posServico], clientes[posCliente].getNome(), veiculos[posVeiculo]->getID()));
 }
 
 /**
@@ -781,7 +781,44 @@ MarcacaoServico* Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int
 
 void Oficina::cancelaMarcacao(MarcacaoServico* m)
 {
+    if(m == NULL)
+    {
+        cout << "Introduza um numero valido" << endl;
+        return;
+    }
+
+    string nome = m->getNomeCliente();
+    int id = m->getIDVeiculo();
+    string nomeServico = m->getServico()->getNome();
+
+    for(unsigned int i = 0; i < clientes.size(); i++)
+    {
+        if(nome == clientes[i].getNome())
+        {
+            for(unsigned int j = 0; j < clientes[i].getVeiculos().size(); j++)
+            {
+                if(clientes[i].getVeiculos()[j]->getID() == id)
+                {
+                    for(int k = 0; k < clientes[i].getVeiculos()[j]->getServicos().size(); k++)
+                    {
+                        if(clientes[i].getVeiculos()[j]->getServicos()[k].getNome() == nomeServico)
+                        {
+                            clientes[i].getVeiculos()[j]->removeServico(k);
+                            break;
+                        }
+                    }
+
+                    break;
+                }
+            }
+
+            break;
+        }
+    }
+
 	marcacoes.remove(m);
+
+	cout << "O cancelamento da sua marcacao foi efetuado com sucesso" << endl;
 }
 
 /**
@@ -790,7 +827,15 @@ void Oficina::cancelaMarcacao(MarcacaoServico* m)
 
 void Oficina::remarcaMarcacao(MarcacaoServico* m, int dias)
 {
+    if(m == NULL)
+    {
+        cout << "Introduza um numero valido" << endl;
+        return;
+    }
+
 	m->adiaDias(dias);
+
+    cout << "A sua remarcacao foi efetuada com sucesso" << endl;
 }
 
 /**
@@ -801,13 +846,66 @@ void Oficina::listaMarcacoes()
 {
 	BSTItrIn<MarcacaoServico*> i(marcacoes);
 
-	int j = 0;
+	int j = 1;
 
 	while (!i.isAtEnd())
 	{
 		cout << j << ". " << i.retrieve() << endl;
 		j++;
 	}
+
+	if(j == 1)
+    {
+        cout << "Nao ha de momento marcacoes" << endl;
+    }
+}
+
+/**
+*Retorna uma marcacao a partir de um nome e um numero
+*/
+
+MarcacaoServico* Oficina::getMarcacao(string nome, int id)
+{
+    BSTItrIn<MarcacaoServico*> i(marcacoes);
+
+	int j = 1;
+
+	while (!i.isAtEnd())
+	{
+        if(i.retrieve()->getNomeCliente() == nome && j == id)
+        {
+            return i.retrieve();
+        }
+
+		j++;
+	}
+
+	return NULL;
+}
+
+/**
+*Lista marcacoes de um dado cliente
+*/
+
+void Oficina::listaMarcacoesDeCliente(string nome)
+{
+    BSTItrIn<MarcacaoServico*> i(marcacoes);
+
+	int j = 1;
+
+	while (!i.isAtEnd())
+	{
+	    if(i.retrieve()->getNomeCliente() == nome)
+		{
+		    cout << j << ". " << i.retrieve() << endl;
+            j++;
+		}
+	}
+
+	if(j == 1)
+    {
+        cout << "Este cliente nao tem marcacoes" << endl;
+    }
 }
 
 /**
