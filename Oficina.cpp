@@ -1011,10 +1011,10 @@ vector<Cliente*> Oficina::getSorteados(Promocao promo)
 
 		CartaoPontos* card = cartoes.top();
 		cartoes.pop();
-		if (promo.getPontos() > card->getPontos()) //verifica se tem pontos suficientes
+		if (promo.getPontos() > card->getPontos()) //verifica se cartoes restantes tem pontos suficientes
 		{
 			cartoes.push(card);
-			//break;
+			break;
 		}
 
 		//retirar da queue e por no rejeitados ou sorteados
@@ -1067,7 +1067,10 @@ vector<string> Oficina::getListaPromocoes()
 	vector<string> promos;
 	for (unsigned int i = 0; i < promocoes.size(); i++)
 	{
-		promos.push_back(promocoes[i].getServico().getNome());
+		string promoInfo = promocoes[i].getServico().getNome() + " com desconto de " + to_string(promocoes[i].getDesconto()) +
+			". Disponivel para " + to_string(promocoes[i].getNClientes()) + " clientes durante mais " + 
+			to_string(promocoes[i].getValidade()) + " dias.";
+		promos.push_back(promoInfo);
 	}
 	return promos;
 }

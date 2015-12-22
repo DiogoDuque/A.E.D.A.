@@ -207,7 +207,7 @@ void Cliente::addTelefone(string novoTelefone)
 */
 void Cliente::setInatividadeCartao(bool inatividade)
 {
-	cartao->setAtivacao(inatividade);
+	cartao->setAtivacao(!inatividade);
 }
 
 /**

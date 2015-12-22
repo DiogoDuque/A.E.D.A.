@@ -14,6 +14,7 @@ public:
 	int getNClientes() const { return nClientes; };
 	int getPontos() const { return pontos; };
 	float getDesconto() const { return desconto; };
+	int getValidade() const { return validade; };
 	Servico getServico() const { return servico; };
 	vector<Cliente*> getRejeitados() const { return rejeitados; };
 	void addRejeitado(Cliente* cl) { rejeitados.push_back(cl); };
