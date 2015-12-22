@@ -256,7 +256,7 @@ int mostraInfo(Oficina oficina1, string frase, int n, int pos)
 		for (unsigned int i = 0; i < oficina1.getClientes()[pos].getVeiculos().size(); i++)
 		{
 			gotoxy(3, 3 + i * 2);
-			oficina1.showInfoVeiculos();
+			oficina1.getClientes()[pos].getVeiculos()[i]->getInfo() ;//cout << oficina1.showInfoVeiculos();
 		}
 	}
 
@@ -333,6 +333,15 @@ int mostraInfo(Oficina oficina1, string frase, int n, int pos)
 						 }
 					 }
 
+					 if (n == 4)
+					 {
+						 if (posicao < oficina1.getClientes()[pos].getVeiculos().size() - 1)
+						 {
+							 gotoxy(0, 3 + posicao * 2);
+							 cout << "   ";
+							 posicao++;
+						 }
+					 }
 					 break;
 		}
 		default:
