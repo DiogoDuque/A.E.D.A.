@@ -206,14 +206,14 @@ void MarcacaoServico::adiaDias(int d)
 
 ostream& operator<<(ostream& os, const MarcacaoServico& m)
 {
-	os << m.getNomeCliente() << "   " << m.getIDVeiculo() << "    ";
+	os << m.getNomeCliente() << "   ID do Veiculo: " << m.getIDVeiculo() << "    ";
 	os << m.getServico()->getNome();
-	os << "  " << m.getServico()->getPreco();
-	os << " " << m.getDia();
+	os << "  Preco: " << m.getServico()->getPreco();
+	os << " Data: " << m.getDia();
 	os << "/" << m.getMes();
 	os << "/" << m.getAno();
-	os << "  " << m.getHora();
-	os << "   " << m.getServico()->getDias();
+	os << "  Hora: " << m.getHora();
+	os << "   Duracao: " << m.getServico()->getDias();
 
     return os;
 }
