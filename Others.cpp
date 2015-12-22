@@ -10,6 +10,9 @@
 
 using namespace std;
 
+/**
+*Apaga a informacao que esta a ser mostrada na consola.
+*/
 void clrscr()
 {
 	COORD coordScreen = { 0, 0 }; // upper left corner
@@ -27,6 +30,9 @@ void clrscr()
 	SetConsoleCursorPosition(hCon, coordScreen);
 }
 
+/**
+*Permite escrever na posicao (x, y) da consola.
+*/
 void gotoxy(int x, int y)
 {
 	COORD coord;
@@ -48,6 +54,9 @@ void setcolor(unsigned int color, unsigned int background_color)
 		SetConsoleTextAttribute(hCon, color | background_color * 16 + color);
 }
 
+/**
+*Cria um menu com um titulo, uma subtitulo e varias opcoes (o parametro 'tamanho' serve para o calculo de linhas).
+*/
 int makeMenu(string titulo, vector <string> opcoes, string frase, int tamanho)
 {
 	clrscr();
@@ -104,6 +113,9 @@ int makeMenu(string titulo, vector <string> opcoes, string frase, int tamanho)
 	}
 }
 
+/**
+*Permite pausar a consola e esperar por input.
+*/
 void pause()
 {
 	cout << "\nPrima qualquer tecla para continuar...";

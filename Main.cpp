@@ -986,7 +986,7 @@ void menuManager(Oficina oficina1)
 		case 19:		//Clientes --> listagem dos inativos
 		{
 							clrscr();
-							cout << "   LISTAGEM DE CLIENTES INATIVOS (por nome)" << endl << endl;
+							cout << "   LISTAGEM DE CLIENTES INATIVOS" << endl << endl;
 
 							oficina1.listaClientesInativos();
 
@@ -1246,80 +1246,82 @@ void menuManager(Oficina oficina1)
 		}
 		case 28: /*********************************************DUQUE*********************/
 		{
-					/* while (true)
-					 {
-						 //apresentacao das promocoes disponiveis
-						 if (oficina1.getListaPromocoes().size() == 0)
-						 {
-							 cout << "Nao existem promocoes de momento. Volte noutra altura...\n";
-							 waitForEnter();
-							 break;
-						 }
-						 int promoIndex = makeMenu("Promocoes disponiveis", oficina1.getListaPromocoes(), "", 0);
-						 if (promoIndex == -1)
-							 break;
+					 /*while (true)
+					  {
+					  //apresentacao das promocoes disponiveis
+					  if (oficina1.getListaPromocoes().size() == 0)
+					  {
+					  cout << "Nao existem promocoes de momento. Volte noutra altura...\n";
+					  waitForEnter();
+					  break;
+					  }
+					  int promoIndex = makeMenu("Promocoes disponiveis", oficina1.getListaPromocoes(), "", 0);
+					  if (promoIndex == -1)
+					  break;
 
-						 //clientes que tem direito à promo
-						 if (oficina1.getSorteadosString(oficina1.getPromoIndex(promoIndex)).size() == 0)
-						 {
-							 cout << "Nao existem clientes com pontos suficientes! Volte noutra altura...\n";
-							 waitForEnter();
-							 break;
-						 }
-						 string s = "Clientes com acesso à promocao no servico \"" + oficina1.getListaPromocoes()[promoIndex] + "\"";
-						 int clienteIndex = makeMenu(s, oficina1.getSorteadosString(oficina1.getPromoIndex(promoIndex)), "", 0);
-						 if (clienteIndex == -1)
-							 continue;
+					  //clientes que tem direito à promo
+					  if (oficina1.getSorteadosString(oficina1.getPromoIndex(promoIndex)).size() == 0)
+					  {
+					  cout << "Nao existem clientes com pontos suficientes! Volte noutra altura...\n";
+					  waitForEnter();
+					  break;
+					  }
+					  string s = "Clientes com acesso à promocao no servico \"" + oficina1.getListaPromocoes()[promoIndex] + "\"";
+					  int clienteIndex = makeMenu(s, oficina1.getSorteadosString(oficina1.getPromoIndex(promoIndex)), "", 0);
+					  if (clienteIndex == -1)
+					  continue;
 
-						 //cliente tem que fazer uma escolha
-						 int choice = makeMenu("Que deseja fazer com o servico?", vector<string> {"Aceitar", "Rejeitar"}, "", 0);
-						 if (choice == 0) //realizar servico
-						 {
-							 //descobrir index do Cliente no vector de tds os clientes
-							 Cliente * cl = oficina1.getSorteados(oficina1.getPromoIndex(promoIndex))[clienteIndex];
-							 int posCliente;
-							 for (int i = 0; i < oficina1.getClientes.size(); i++)
-							 {
-								 if (cl == oficina1.getClientes.size()[i])
-									 posCliente = i;
-							 }
+					  //cliente tem que fazer uma escolha
+					  int choice = makeMenu("Que deseja fazer com o servico?", vector<string> {"Aceitar", "Rejeitar"}, "", 0);
+					  if (choice == 0) //realizar servico
+					  {
+					  //descobrir index do Cliente no vector de tds os clientes
+					  Cliente * cl = oficina1.getSorteados(oficina1.getPromoIndex(promoIndex))[clienteIndex];
+					  int posCliente;
+					  for (int i = 0; i < oficina1.getClientes.size(); i++)
+					  {
+					  if (cl == oficina1.getClientes.size()[i])
+					  posCliente = i;
+					  }
 
-							 //descobrir index do servico
-							 Servico serv = oficina1.getPromoIndex(promoIndex).getServico();
-							 int posServico;
-							 for (int i = 0; i < oficina1.getServicos.size(); i++)
-							 {
-								 if (serv == oficina1.getServicos.size()[i])
-									 posServico = i;
-							 }
+					  //descobrir index do servico
+					  Servico serv = oficina1.getPromoIndex(promoIndex).getServico();
+					  int posServico;
+					  for (int i = 0; i < oficina1.getServicos.size(); i++)
+					  {
+					  if (serv == oficina1.getServicos.size()[i])
+					  posServico = i;
+					  }
 
-							 //mostrar veiculos para escolha
-							 vector <Veiculo*> veics = cl->getVeiculos();
-							 clrscr();
-							 cout << "Escolha um veiculo: \n\n";
-							 for (int i = 0; i < veics.size(); i++)
-								 cout << i + 1 << ". " << veics[i] << endl;
-							 cout << "\n Veiculo: ";
-							 int posVeiculo;
-							 cin >> posVeiculo;
+					  //mostrar veiculos para escolha
+					  vector <Veiculo*> veics = cl->getVeiculos();
+					  clrscr();
+					  cout << "Escolha um veiculo: \n\n";
+					  for (int i = 0; i < veics.size(); i++)
+					  cout << i + 1 << ". " << veics[i] << endl;
+					  cout << "\n Veiculo: ";
+					  int posVeiculo;
+					  cin >> posVeiculo;
 
-							 //aplicar
-							 oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
-							 oficina1.actualizaInatividadeCliente(posCliente);
-							 oficina1.getPromoIndex(promoIndex).validarPromo(cl);
+					  //aplicar
+					  oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
+					  oficina1.actualizaInatividadeCliente(posCliente);
+					  oficina1.getPromoIndex(promoIndex).validarPromo(cl);
 
-						 }
-						 if (choice == 1) //rejeitar
-						 {
-							 oficina1.getPromoIndex(promoIndex).addRejeitado(oficina1.getSorteados(oficina1.getPromoIndex(promoIndex))[clienteIndex]);
-						 }
-						 break;
-					 }
-					 clrscr();
-					 cout << "Saindo da zona das promoces...\n";
-					 waitForEnter();
-					 options.pop_back();
-					 break;*/
+					  }
+					  if (choice == 1) //rejeitar
+					  {
+					  oficina1.getPromoIndex(promoIndex).addRejeitado(oficina1.getSorteados(oficina1.getPromoIndex(promoIndex))[clienteIndex]);
+					  }
+					  break;
+					  }
+					  clrscr();
+					  cout << "Saindo da zona das promoces...\n";
+					  waitForEnter();
+					  options.pop_back();
+					  break;
+					  }
+					  }*/
 		}
 		}
 	}

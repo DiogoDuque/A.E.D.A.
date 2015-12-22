@@ -62,14 +62,6 @@ ostream & operator<<(ostream &out, const Cliente &v1)
 }
 
 /**
-*Overload do operador < de cliente.
-*/
-/*bool Cliente::operator<(const Cliente& cl) const
-{
-    return (nome < cl.getNome());
-}*/
-
-/**
 *Remove o veiculo 'v1' do vector veiculos do cliente.
 */
 void Cliente::removeVeiculo(Veiculo *v1)
@@ -129,7 +121,7 @@ void Cliente::setTelefone(string numTelefone, int indice)
 }
 
 /**
-*Definicao do operador menor para cliente (usado na tabela de dispersao).
+*Definicao do operador menor para cliente.
 */
 bool Cliente::operator<(const Cliente &c2) const
 {
@@ -194,10 +186,12 @@ void Cliente::showAllTelefones() const
 		cout << i + 1 << ". " << telefones[i] << endl;	
 }
 
+/**
+*Overload do operador de igualdade para Cliente.
+*/
 bool Cliente::operator ==(const Cliente & c1) const
 {
-	return nome == c1.getNome();
-	//return (numRegisto == c1.getNumRegisto());
+	return (numRegisto == c1.getNumRegisto());
 }
 
 /**
@@ -208,6 +202,9 @@ void Cliente::addTelefone(string novoTelefone)
 	telefones.push_back(novoTelefone);
 }
 
+/**
+*Muda a inatividade do cartao do cliente espefificada no parametro.
+*/
 void Cliente::setInatividadeCartao(bool inatividade)
 {
 	cartao->setAtivacao(inatividade);
@@ -221,12 +218,17 @@ void Cliente::adicionaDiasInativos(int dias)
 	contagemDiasInativos += dias;
 }
 
+/**
+*Coloca a variavel 'contagemDiasInativos' a zero.
+*/
 void Cliente::resetContagemDiasInativos()
 {
 	contagemDiasInativos = 0;
 }
 
-
+/**
+*Retorna a variavel 'contagemDiasInativos'.
+*/
 int Cliente::getContagemDiasInativos() const
 {
 	return contagemDiasInativos;

@@ -2,7 +2,9 @@
 
 using namespace std;
 
-
+/**
+*Construtor de promocao.
+*/
 Promocao::Promocao(Servico servico1) :servico(servico1)
 {
 	srand((unsigned int)time(NULL));
@@ -37,6 +39,9 @@ int Promocao::validarPromo(Cliente* cliente)
 	return nClientes;
 }
 
+/**
+*Overload do operador de igualdade para promocao.
+*/
 bool Promocao::operator==(Promocao promo)
 {
 	if (nClientes != promo.getNClientes() || promo.getPontos() != pontos || !(servico == promo.getServico()) || desconto != promo.getDesconto() || rejeitados != promo.getRejeitados())

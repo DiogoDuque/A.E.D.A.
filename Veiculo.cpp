@@ -184,6 +184,9 @@ bool Veiculo::veiculoUsaServico(Servico s1)
 	return false;
 }
 
+/**
+*Remove o servico na posicao 'i'.
+*/
 void Veiculo::removeServico(int i)
 {
     servicos.erase(servicos.begin() + i);

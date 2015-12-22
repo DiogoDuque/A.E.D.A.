@@ -551,7 +551,7 @@ hashClientes Oficina::getClientesInativos() const
 }
 
 /**
-*Faz uma listagem dos clientes inativos (ordenados por nome)
+*Faz uma listagem dos clientes inativos.
 */
 void Oficina::listaClientesInativos()
 {
@@ -665,6 +665,9 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 	clientesInativos.insert(c1);
 }
 
+/**
+*Permite adicionar elementos a um cliente (neste caso novos telefones).
+*/
 void Oficina::adicionaInformacao(int numCliente, int numMudar)
 {
 	cin.ignore(1000, '\n');		//Tira o 'ENTER' do buffer
@@ -699,6 +702,9 @@ void Oficina::adicionaInformacao(int numCliente, int numMudar)
 	clientesInativos.insert(c1);
 }
 
+/**
+*Atualiza a inatividade do cliente (a posição do cliente é dada no parametro) para false (ou seja, deixa de ser inativo), e elimina esse cliente da tabela de dispersão.
+*/
 void Oficina::actualizaInatividadeCliente(int posCliente)
 {
 	if (clientes[posCliente].getInatividade())
@@ -715,6 +721,9 @@ void Oficina::actualizaInatividadeCliente(int posCliente)
 	}
 }
 
+/**
+*Faz uso dos iteradores para procurar o cliente de nome 'nomeCliente'.
+*/
 void Oficina::pesquisaClienteInativo(string nomeCliente)
 {
 	Cliente c1(nomeCliente);
@@ -731,6 +740,9 @@ void Oficina::pesquisaClienteInativo(string nomeCliente)
 		cout << endl << "   O cliente '" << nomeCliente << "' nao foi encontrado!" << endl;
 }
 
+/**
+*Pesquisa no vetor de clientes ativos aqueles que têm mais de 365 dias de inatividade. Caso isso se verifique, o cliente e inserido na tabela de dispersao dos clientes inativos.
+*/
 void Oficina::avancaDiasParaClientes(int diasAvancar)
 {
 	for (unsigned int i = 0; i < clientes.size(); i++)
