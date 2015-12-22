@@ -1,4 +1,5 @@
 #include "Promocao.h"
+#include <cmath>
 
 using namespace std;
 

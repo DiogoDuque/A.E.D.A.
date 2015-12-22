@@ -456,7 +456,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 6:		//Avancar dias
 		{
-						
+
 						int diasAvancar;
 
 						clrscr();
@@ -475,7 +475,7 @@ void menuManager(Oficina oficina1)
 
 						cin.ignore(1000, '\n');
 						oficina1.passaDias(diasAvancar);
-						
+
 						cout << "   ."; Sleep(500); cout << " ."; Sleep(500); cout << " ."; Sleep(500);
 						cout << endl << endl << "   Passaram-se " << diasAvancar << " dias na oficina '" << oficina1.getNome() << "'";
 
@@ -865,7 +865,7 @@ void menuManager(Oficina oficina1)
 											oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 											oficina1.getClientes()[posCliente].addVeiculo(a1);
 											associarServicosVeiculos(&oficina1, a1, posCliente);
-											
+
 
 											clrscr();
 											anim_camiao();
@@ -1223,7 +1223,13 @@ void menuManager(Oficina oficina1)
 							string nomeCliente;
 							cin >> nomeCliente;
 
-							oficina1.listaMarcacoesDeCliente(nomeCliente);
+							if(!oficina1.listaMarcacoesDeCliente(nomeCliente))
+                            {
+                                cin.get();
+                                waitForEnter();
+                                options.pop_back();
+                                break;
+                            }
 
 							cout << "Introduza o numero da marcacao que pretende remarcar" << endl;
 

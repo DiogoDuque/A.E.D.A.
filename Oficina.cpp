@@ -13,7 +13,7 @@ using namespace std;
 /**
 *Construtor para a classe 'Oficina'.
 */
-Oficina::Oficina(string myNomeOficina) : diaAtual(1), mesAtual(1), anoAtual(2015), horaAtual(8), marcacoes(BST<MarcacaoServico*>(new MarcacaoServico(0, 0, 0, 0, new Servico("", 0, 0), "", 0)))
+Oficina::Oficina(string myNomeOficina) : diaAtual(1), mesAtual(1), anoAtual(2015), horaAtual(8), marcacoes(BST<MarcacaoServico>(MarcacaoServico(0, 0, 0, 0, new Servico("", 0, 0), "", 0)))
 {
 	nomeOficina = myNomeOficina;
 
@@ -245,18 +245,39 @@ void Oficina::passaDias(int n)
 	}
 
 	//
-	BSTItrIn<MarcacaoServico*> i(marcacoes);
+	BSTItrIn<MarcacaoServico> i(marcacoes);
 
 	while (!i.isAtEnd())
 	{
-		int x = i.retrieve()->getDia() - diaAtual;
+		int x = n - (i.retrieve().getDia() - diaAtual);
 		if (x >= 0)
 		{
-			i.retrieve()->getServico()->passaDias(x);
+			i.retrieve().getServico()->passaDias(x);
 		}
 
 		i.advance();
 	}
+
+    bool acabou = true;
+
+    while(acabou)
+    {
+        acabou = false;
+
+        BSTItrIn<MarcacaoServico> it(marcacoes);
+
+        while(!it.isAtEnd())
+        {
+            if(it.retrieve().getServico()->estaTerminado())
+            {
+                marcacoes.remove(it.retrieve());
+                acabou = true;
+                break;
+            }
+
+            it.advance();
+        }
+    }
 
 	diaAtual += n;
 
@@ -352,7 +373,7 @@ void Oficina::showInfo() const
 /**
 *Funcao de comparacao de funcionarios (usada no sort).
 */
-bool compFunc(Funcionario * &f1, Funcionario * &f2)
+bool compFunc(Funcionario * f1, Funcionario * f2)
 {
 	return (f1->getNome() < f2->getNome());
 }
@@ -384,7 +405,7 @@ void Oficina::listaFunc()
 /**
 *Funcao de comparacao de veiculos (usado no sort).
 */
-bool compVeiculos(Veiculo * &v1, Veiculo * &v2)
+bool compVeiculos(Veiculo * v1, Veiculo * v2)
 {
 	return (v1->getID() < v2->getID());
 }
@@ -525,7 +546,7 @@ void Oficina::adicionaServicoVeiculo(int posCliente, int posVeiculo, int posServ
 	int indice = funcionarioComMenosVeiculos();
 	veiculos[posVeiculo]->setFuncionario(funcionarios[indice]);
 	funcionarios[indice]->acrescentaVeiculos(veiculos[posVeiculo]);
-	marcacoes.insert(new MarcacaoServico(diaAtual + 1, mesAtual, anoAtual, 8, &servicos[posServico], clientes[posCliente].getNome(), veiculos[posVeiculo]->getID()));
+	marcacoes.insert(MarcacaoServico(diaAtual + 1, mesAtual, anoAtual, 8, &servicos[posServico], clientes[posCliente].getNome(), veiculos[posVeiculo]->getID()));
 }
 
 /**
@@ -761,7 +782,7 @@ void Oficina::avancaDiasParaClientes(int diasAvancar)
 *Retorna a arvore de marcacoes
 */
 
-BST<MarcacaoServico*> Oficina::getMarcacoes() const
+BST<MarcacaoServico> Oficina::getMarcacoes() const
 {
 	return marcacoes;
 }
@@ -769,13 +790,13 @@ BST<MarcacaoServico*> Oficina::getMarcacoes() const
 /**
 *Retorna uma marcacao dado o seu servico, a data, hora e o nome do cliente associado
 */
-MarcacaoServico* Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int hora, string nome)
+MarcacaoServico& Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int hora, string nome)
 {
-	BSTItrIn<MarcacaoServico*> i(marcacoes);
+	BSTItrIn<MarcacaoServico> i(marcacoes);
 
 	while (!i.isAtEnd())
 	{
-		if (i.retrieve()->getNomeCliente() == nome && i.retrieve()->getAno() == ano && i.retrieve()->getMes() == mes && i.retrieve()->getDia() == dia && i.retrieve()->getHora() == hora && i.retrieve()->getServico() == s)
+		if (i.retrieve().getNomeCliente() == nome && i.retrieve().getAno() == ano && i.retrieve().getMes() == mes && i.retrieve().getDia() == dia && i.retrieve().getHora() == hora && i.retrieve().getServico() == s)
 		{
 			return i.retrieve();
 		}
@@ -783,23 +804,25 @@ MarcacaoServico* Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int
 		i.advance();
 	}
 
-	return NULL;
+	MarcacaoServico m(0, 0, 0, 0, new Servico("", 0, 0), "", 0);
+
+	return m;
 }
 
 /**
 *Cancela uma marcacao
 */
-void Oficina::cancelaMarcacao(MarcacaoServico* m)
+void Oficina::cancelaMarcacao(MarcacaoServico& m)
 {
-    if(m == NULL)
+    if(m.getAno() == 0)
     {
         cout << "Introduza um numero valido" << endl;
         return;
     }
 
-    string nome = m->getNomeCliente();
-    int id = m->getIDVeiculo();
-    string nomeServico = m->getServico()->getNome();
+    string nome = m.getNomeCliente();
+    int id = m.getIDVeiculo();
+    string nomeServico = m.getServico()->getNome();
 
     for(unsigned int i = 0; i < clientes.size(); i++)
     {
@@ -834,16 +857,17 @@ void Oficina::cancelaMarcacao(MarcacaoServico* m)
 /**
 *Remarca uma dada marcacao para outra data
 */
-void Oficina::remarcaMarcacao(MarcacaoServico* m, int dias)
+void Oficina::remarcaMarcacao(MarcacaoServico& m, int dias)
 {
-    if(m == NULL)
+    if(m.getAno() == 0)
     {
         cout << "Introduza um numero valido" << endl;
         return;
     }
+    MarcacaoServico x = m;
 	marcacoes.remove(m);
-	m->adiaDias(dias);
-	marcacoes.insert(m);
+	x.adiaDias(dias);
+	marcacoes.insert(x);
 
     cout << "A sua remarcacao foi efetuada com sucesso" << endl;
 }
@@ -853,13 +877,13 @@ void Oficina::remarcaMarcacao(MarcacaoServico* m, int dias)
 */
 void Oficina::listaMarcacoes()
 {
-	BSTItrIn<MarcacaoServico*> i(marcacoes);
+	BSTItrIn<MarcacaoServico> i(marcacoes);
 
 	int j = 1;
 
 	while (!i.isAtEnd())
 	{
-		cout << j << ". " << *(i.retrieve()) << endl;
+		cout << j << ". " << i.retrieve() << endl;
 		j++;
 
 		i.advance();
@@ -874,15 +898,15 @@ void Oficina::listaMarcacoes()
 /**
 *Retorna uma marcacao a partir de um nome e um numero
 */
-MarcacaoServico* Oficina::getMarcacao(string nome, int id)
+MarcacaoServico& Oficina::getMarcacao(string nome, int id)
 {
-    BSTItrIn<MarcacaoServico*> i(marcacoes);
+    BSTItrIn<MarcacaoServico> i(marcacoes);
 
 	int j = 1;
 
 	while (!i.isAtEnd())
 	{
-		if (i.retrieve()->getNomeCliente() == nome)
+		if (i.retrieve().getNomeCliente() == nome)
 		{
 			if (j == id)
 			{
@@ -895,23 +919,25 @@ MarcacaoServico* Oficina::getMarcacao(string nome, int id)
 		i.advance();
 	}
 
-	return NULL;
+	MarcacaoServico m(0, 0, 0, 0, new Servico("", 0, 0), "", 0);
+
+	return m;
 }
 
 /**
 *Lista marcacoes de um dado cliente
 */
-void Oficina::listaMarcacoesDeCliente(string nome)
+bool Oficina::listaMarcacoesDeCliente(string nome)
 {
-    BSTItrIn<MarcacaoServico*> i(marcacoes);
+    BSTItrIn<MarcacaoServico> i(marcacoes);
 
 	int j = 1;
 
 	while (!i.isAtEnd())
 	{
-	    if(i.retrieve()->getNomeCliente() == nome)
+	    if(i.retrieve().getNomeCliente() == nome)
 		{
-		    cout << j << ". " << *(i.retrieve()) << endl;
+		    cout << j << ". " << i.retrieve() << endl;
             j++;
 		}
 
@@ -920,14 +946,17 @@ void Oficina::listaMarcacoesDeCliente(string nome)
 
 	if(j == 1)
     {
-        cout << "Este cliente nao tem marcacoes" << endl;
+        cout << "Este cliente nao tem marcacoes ou nao esta registado" << endl;
+        return false;
     }
+
+    return true;
 }
 
 /**
 *Adiciona uma marcacao a arvore
 */
-void Oficina::adicionaMarcacao(MarcacaoServico* m)
+void Oficina::adicionaMarcacao(MarcacaoServico& m)
 {
     marcacoes.insert(m);
 }

@@ -56,7 +56,7 @@ public:
 	bool removeServico(int pos);
 	void removeVeiculosTratados();
 	int funcionarioComMenosVeiculos() const;
-	void passaDias(int n);	
+	void passaDias(int n);
 	void associaVeiculoCliente(Veiculo *v1, Cliente c1);
 	void showInfo() const;
 	void showInfoFuncionarios() const;
@@ -77,14 +77,14 @@ public:
 	void pesquisaClienteInativo(string nomeCliente);
 	void avancaDiasParaClientes(int diasAvancar);
 
-    BST<MarcacaoServico*> getMarcacoes() const;
-    MarcacaoServico* getMarcacao(Servico* s, int ano, int mes, int dia, int hora, string nome);
-	void cancelaMarcacao(MarcacaoServico* m);
-	void remarcaMarcacao(MarcacaoServico* m, int dias);
+    BST<MarcacaoServico> getMarcacoes() const;
+    MarcacaoServico& getMarcacao(Servico* s, int ano, int mes, int dia, int hora, string nome);
+	void cancelaMarcacao(MarcacaoServico& m);
+	void remarcaMarcacao(MarcacaoServico& m, int dias);
 	void listaMarcacoes();
-	MarcacaoServico* getMarcacao(string nome, int id);
-	void listaMarcacoesDeCliente(string nome);
-	void adicionaMarcacao(MarcacaoServico* m);
+	MarcacaoServico& getMarcacao(string nome, int id);
+	bool listaMarcacoesDeCliente(string nome);
+	void adicionaMarcacao(MarcacaoServico& m);
 	int getAnoAtual() const;
 	int getDiaAtual() const;
 	int getMesAtual() const;
@@ -111,7 +111,7 @@ private:
 	int anoAtual;
 	int horaAtual;
 
-    BST<MarcacaoServico*> marcacoes;
+    BST<MarcacaoServico> marcacoes;
 
 	vector <Promocao> promocoes;
 };
