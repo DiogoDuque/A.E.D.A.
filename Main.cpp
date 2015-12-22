@@ -360,7 +360,7 @@ void associarServicosVeiculos(Oficina *oficina1, Veiculo *a1, int posCliente)
 
 	//int temp = makeMenu("ESCOLHER SERVICO", servicosString, "", 0);
 	int posicao = mostraInfo(*oficina1, "ESCOLHER SERVICO", 3, -1);
-
+	oficina1->getClientes()[posCliente].getCartaoCliente()->addPontos(oficina1->getServicos()[posicao].getPreco() / CONVERSION_RATE);
 	unsigned int i = 0;
 	for (; i < oficina1->getVeiculos().size(); i++)
 	{
@@ -369,6 +369,7 @@ void associarServicosVeiculos(Oficina *oficina1, Veiculo *a1, int posCliente)
 	}
 
 	oficina1->adicionaServicoVeiculo(posCliente, i, posicao);
+
 
 	//a1->adicionaServico(oficina1->getServicos()[posicao]);
 
@@ -620,7 +621,7 @@ void menuManager(Oficina oficina1)
 									options.pop_back();
 								else
 								{
-									oficina1.getClientes()[posCliente].getCartaoCliente()->addPontos(oficina1.getServicos()[posServico].getPreco() / CONVERSION_RATE);
+									oficina1.getClientes()[posCliente].getCartaoCliente()->addPontos(oficina1.getServicos()[posCliente].getPreco() / CONVERSION_RATE);
 									oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
 									oficina1.actualizaInatividadeCliente(posCliente);
 								}
@@ -864,6 +865,7 @@ void menuManager(Oficina oficina1)
 											oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
 											oficina1.getClientes()[posCliente].addVeiculo(a1);
 											associarServicosVeiculos(&oficina1, a1, posCliente);
+											
 
 											clrscr();
 											anim_camiao();
@@ -903,7 +905,6 @@ void menuManager(Oficina oficina1)
 											break;
 							}
 							}
-
 							oficina1.actualizaInatividadeCliente(posCliente);
 
 							options.pop_back();

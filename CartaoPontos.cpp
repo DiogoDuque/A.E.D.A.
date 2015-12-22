@@ -3,7 +3,7 @@
 /**
 *Construtor do Cartão de Pontos.
 */
-CartaoPontos::CartaoPontos(Cliente* c) : pontos(0), ativado(true), validade(VALIDADE), cliente(c), nServicos(0)
+CartaoPontos::CartaoPontos(Cliente* c) : pontos(0), ativado(false), validade(0), cliente(c), nServicos(0)
 {
 
 }
