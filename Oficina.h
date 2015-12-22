@@ -93,6 +93,7 @@ public:
 	vector<Cliente*> getSorteados(Promocao promo);
 	void removePromocao(Promocao promo);
 	vector<string> getListaPromocoes();
+	vector<string> Oficina::getSorteadosString(Promocao promo);
 
 private:
 	string nomeOficina;

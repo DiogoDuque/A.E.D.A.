@@ -343,16 +343,19 @@ int mostraInfo(Oficina oficina1, string frase, int n, int pos)
 
 }
 
-void associarServicosVeiculos(Oficina oficina1, Veiculo *a1, int posCliente)
+void associarServicosVeiculos(Oficina *oficina1, Veiculo *a1, int posCliente)
 {
 	vector<string> servicosString;
-	for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
-		servicosString.push_back(oficina1.getServicos()[i].getNome());
+	for (unsigned int i = 0; i < oficina1->getServicos().size(); i++)
+		servicosString.push_back(oficina1->getServicos()[i].getNome());
 
 	//int temp = makeMenu("ESCOLHER SERVICO", servicosString, "", 0);
-	int posicao = mostraInfo(oficina1, "ESCOLHER SERVICO", 3, -1);
-	a1->adicionaServico(oficina1.getServicos()[posicao]);
-    oficina1.adicionaMarcacao(new MarcacaoServico(oficina1.getDiaAtual() + 1, oficina1.getMesAtual(), oficina1.getAnoAtual(), 8, &(oficina1.getServicos()[posicao]), oficina1.getClientes()[posCliente].getNome(), a1->getID()));
+	int posicao = mostraInfo(*oficina1, "ESCOLHER SERVICO", 3, -1);
+	a1->adicionaServico(oficina1->getServicos()[posicao]);
+
+	cout << oficina1->getDiaAtual() + 1 << " / " << oficina1->getMesAtual() << " / " << oficina1->getAnoAtual() << oficina1->getServicos()[posicao] << endl << oficina1->getClientes()[posCliente].getNome() << endl << a1->getID();
+
+    oficina1->adicionaMarcacao(new MarcacaoServico(oficina1->getDiaAtual() + 1, oficina1->getMesAtual(), oficina1->getAnoAtual(), 8, &(oficina1->getServicos()[posicao]), oficina1->getClientes()[posCliente].getNome(), a1->getID()));
 }
 
 void menuManager(Oficina oficina1)
@@ -388,7 +391,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 2: //GESTAO DE VEICULOS (10 - 13 - 14) 11 12 13
 		{
-					temp = makeMenu("GESTAO DE VEICULOS (prima ESC para retroceder)", { "Dar entrada a um veiculo", "Dar saida a um veiculo", "Acrescentar servico a veiculo ja existente" ,"Listar Veiculos" }, "", 0);
+					temp = makeMenu("GESTAO DE VEICULOS (prima ESC para retroceder)", { "Dar entrada a um veiculo", "Dar saida a um veiculo", "Acrescentar servico a veiculo ja existente", "Listar Veiculos" }, "", 0);
 					if (temp == -1)
 						options.pop_back();
 					else options.push_back(10 + temp);
@@ -429,37 +432,37 @@ void menuManager(Oficina oficina1)
 		}
 		case 6:		//Avancar dias
 		{
-				  int diasAvancar;
+						int diasAvancar;
 
-				  clrscr();
-				  gotoxy(3, 0); cout << "AVANCAR DIAS NA OFICINA";
-				  gotoxy(3, 2); cout << "Quantos dias deseja avancar: ";
-				  cin >> diasAvancar;
+						clrscr();
+						gotoxy(3, 0); cout << "AVANCAR DIAS NA OFICINA";
+						gotoxy(3, 2); cout << "Quantos dias deseja avancar: ";
+						cin >> diasAvancar;
 
-				  while (cin.fail() || diasAvancar <= 0)
-				  {
-					  cin.clear();
-					  cin.ignore(1000, '\n');
+						while (cin.fail() || diasAvancar <= 0)
+						{
+							cin.clear();
+							cin.ignore(1000, '\n');
 
-					  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
-					  cin >> diasAvancar;
-				  }
+							cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+							cin >> diasAvancar;
+						}
 
-				  cin.ignore(1000, '\n');
+						cin.ignore(1000, '\n');
 
-				  for (unsigned int i = 0; i < oficina1.getVeiculos().size(); i++)
-					  oficina1.getVeiculos()[i]->passaDias(diasAvancar);
+						for (unsigned int i = 0; i < oficina1.getVeiculos().size(); i++)
+							oficina1.getVeiculos()[i]->passaDias(diasAvancar);
 
-				  cout << "   ."; Sleep(500); cout << " ."; Sleep(500); cout << " ."; Sleep(500);
-				  cout << endl << endl << "   Passaram-se " << diasAvancar << " dias na oficina '" << oficina1.getNome() << "'";
+						cout << "   ."; Sleep(500); cout << " ."; Sleep(500); cout << " ."; Sleep(500);
+						cout << endl << endl << "   Passaram-se " << diasAvancar << " dias na oficina '" << oficina1.getNome() << "'";
 
-				  oficina1.removeVeiculosTratados();
+						oficina1.removeVeiculosTratados();
 
-				  oficina1.avancaDiasParaClientes(diasAvancar);
+						oficina1.avancaDiasParaClientes(diasAvancar);
 
-				  waitForEnter();
-				  options.pop_back();
-				  break;
+						waitForEnter();
+						options.pop_back();
+						break;
 		}
 		case 7: //FUNC - ADD
 		{
@@ -522,100 +525,100 @@ void menuManager(Oficina oficina1)
 		}
 		case 9:	//FUNC - Listar
 		{
-				  clrscr();
-				  cout << "   LISTAGEM DE FUNCIONARIOS (por nome)" << endl << endl;
+					clrscr();
+					cout << "   LISTAGEM DE FUNCIONARIOS (por nome)" << endl << endl;
 
-				  oficina1.listaFunc();
+					oficina1.listaFunc();
 
-				  waitForEnter();
-				  options.pop_back();
-				  break;
+					waitForEnter();
+					options.pop_back();
+					break;
 		}
 		case 10: //VEIC - ADD
 		{
-					int temp;
+					 int temp;
 
-					temp = makeMenu("ADICIONAR VEICULO", { "SIM", "NAO" }, "O cliente ja se encontra registado na nossa base de dados?", 1);
+					 temp = makeMenu("ADICIONAR VEICULO", { "SIM", "NAO" }, "O cliente ja se encontra registado na nossa base de dados?", 1);
 
-					if (temp == -1)
-						options.pop_back();
-					else
-						options.push_back(14 + temp);
-					break;
+					 if (temp == -1)
+						 options.pop_back();
+					 else
+						 options.push_back(14 + temp);
+					 break;
 		}
 		case 11:	//Remover um veiculo
 		{
-					clrscr();
+						clrscr();
 
-					if (oficina1.getVeiculos().size() == 0)
-					{
-						gotoxy(3, 0); cout << "REMOVE VEICULO";
-						gotoxy(3, 2); cout << "Actualmente, nao ha veiculos na oficina...";
-						waitForEnter();
-						options.pop_back();
-					}
-					else
-					{
-
-						int posVeiculo = mostraInfo(oficina1, "REMOVER VEICULO", 2, -1);
-
-						if (posVeiculo == -1)
-							options.pop_back();
-						else
-						if (!oficina1.podeRemoverVeiculo(posVeiculo))
+						if (oficina1.getVeiculos().size() == 0)
 						{
-							clrscr();
-							cout << "   ATENCAO!" << endl << endl;
-							cout << "   O veiculo que esta a tentar remover esta a ser reparado! Aguarde ate a reparacao estar completa...";
+							gotoxy(3, 0); cout << "REMOVE VEICULO";
+							gotoxy(3, 2); cout << "Actualmente, nao ha veiculos na oficina...";
 							waitForEnter();
+							options.pop_back();
 						}
 						else
-							oficina1.removeVeiculo(posVeiculo);
-					}
+						{
 
-					break;
+							int posVeiculo = mostraInfo(oficina1, "REMOVER VEICULO", 2, -1);
+
+							if (posVeiculo == -1)
+								options.pop_back();
+							else
+							if (!oficina1.podeRemoverVeiculo(posVeiculo))
+							{
+								clrscr();
+								cout << "   ATENCAO!" << endl << endl;
+								cout << "   O veiculo que esta a tentar remover esta a ser reparado! Aguarde ate a reparacao estar completa...";
+								waitForEnter();
+							}
+							else
+								oficina1.removeVeiculo(posVeiculo);
+						}
+
+						break;
 		}
 		case 12:	//Adiciona um servico a um veiculo
 		{
-				   int posCliente = mostraInfo(oficina1, "ESCOLHA O CLIENTE", 0, -1);
+						int posCliente = mostraInfo(oficina1, "ESCOLHA O CLIENTE", 0, -1);
 
-				   if (posCliente == -1)
-					   options.pop_back();
-				   else
-				   {
-					   int posVeiculo = mostraInfo(oficina1, "SELECIONE O VEICULO A REPARAR", 4, posCliente);
+						if (posCliente == -1)
+							options.pop_back();
+						else
+						{
+							int posVeiculo = mostraInfo(oficina1, "SELECIONE O VEICULO A REPARAR", 4, posCliente);
 
-					   if (posVeiculo == -1)
-						   options.pop_back();
-					   else
-					   {
-						   int posServico = mostraInfo(oficina1, "SELECIONE O SERVICO", 3, -1);
+							if (posVeiculo == -1)
+								options.pop_back();
+							else
+							{
+								int posServico = mostraInfo(oficina1, "SELECIONE O SERVICO", 3, -1);
 
-						   if (posServico == -1)
-							   options.pop_back();
-						   else
-						   {
-							   oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
-							   oficina1.actualizaInatividadeCliente(posCliente);
-						   }
-					   }
-				   }
+								if (posServico == -1)
+									options.pop_back();
+								else
+								{
+									oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
+									oficina1.actualizaInatividadeCliente(posCliente);
+								}
+							}
+						}
 
-				   waitForEnter();
-				   options.pop_back();
-				   break;
+						waitForEnter();
+						options.pop_back();
+						break;
 
 		}
 		case 13:		//Listagem de veiculos
 		{
-				   clrscr();
-				   cout << "   LISTAGEM DE VEICULOS (por ID)" << endl << endl;
+							clrscr();
+							cout << "   LISTAGEM DE VEICULOS (por ID)" << endl << endl;
 
-				   oficina1.listaVeiculos();
+							oficina1.listaVeiculos();
 
-				   waitForEnter();
-				   options.pop_back();
-				   break;
+							waitForEnter();
+							options.pop_back();
+							break;
 		}
 		case 14:		//Quando o cliente ja e antigo
 		{
@@ -750,131 +753,131 @@ void menuManager(Oficina oficina1)
 							{
 							case 0:		//Automovel
 							{
-									  int numLugares;
+											int numLugares;
 
-									  cout << "Introduza o numero de lugares: ";
-									  cin >> numLugares;
+											cout << "Introduza o numero de lugares: ";
+											cin >> numLugares;
 
-									  while (cin.fail())
-									  {
-										  cin.clear();
-										  cin.ignore(1000, '\n');
+											while (cin.fail())
+											{
+												cin.clear();
+												cin.ignore(1000, '\n');
 
-										  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
-										  cin >> numLugares;
-									  }
+												cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+												cin >> numLugares;
+											}
 
-									  cin.ignore(1000, '\n');
+											cin.ignore(1000, '\n');
 
-									  Veiculo *a1 = new Automovel(ano, mes, combustivel, numLugares);
-									  oficina1.adicionaVeiculo(a1);
+											Veiculo *a1 = new Automovel(ano, mes, combustivel, numLugares);
+											oficina1.adicionaVeiculo(a1);
 
-									  int indice = oficina1.funcionarioComMenosVeiculos();
-									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-									  oficina1.getClientes()[posCliente].addVeiculo(a1);
-									  associarServicosVeiculos(oficina1, a1, posCliente);
+											int indice = oficina1.funcionarioComMenosVeiculos();
+											a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+											oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+											oficina1.getClientes()[posCliente].addVeiculo(a1);
+											associarServicosVeiculos(&oficina1, a1, posCliente);
 
-									  clrscr();
-									  anim_automovel();
-									  waitForEnter();
-									  break;
+											clrscr();
+											anim_automovel();
+											waitForEnter();
+											break;
 							}
 							case 1:		//Mota
 							{
-									  int cilindrada;
+											int cilindrada;
 
-									  cout << "   Introduza a cilindrada: ";
-									  cin >> cilindrada;
+											cout << "   Introduza a cilindrada: ";
+											cin >> cilindrada;
 
-									  while (cin.fail())
-									  {
-										  cin.clear();
-										  cin.ignore(1000, '\n');
+											while (cin.fail())
+											{
+												cin.clear();
+												cin.ignore(1000, '\n');
 
-										  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
-										  cin >> cilindrada;
-									  }
+												cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+												cin >> cilindrada;
+											}
 
-									  cin.ignore(1000, '\n');
+											cin.ignore(1000, '\n');
 
-									  Veiculo *a1 = new Motorizada(ano, mes, combustivel, cilindrada);
-									  oficina1.adicionaVeiculo(a1);
+											Veiculo *a1 = new Motorizada(ano, mes, combustivel, cilindrada);
+											oficina1.adicionaVeiculo(a1);
 
-									  int indice = oficina1.funcionarioComMenosVeiculos();
-									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-									  oficina1.getClientes()[posCliente].addVeiculo(a1);
-									  associarServicosVeiculos(oficina1, a1, posCliente);
+											int indice = oficina1.funcionarioComMenosVeiculos();
+											a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+											oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+											oficina1.getClientes()[posCliente].addVeiculo(a1);
+											associarServicosVeiculos(&oficina1, a1, posCliente);
 
-									  clrscr();
-									  anim_mota();
-									  waitForEnter();
-									  break;
+											clrscr();
+											anim_mota();
+											waitForEnter();
+											break;
 							}
 							case 2:		//Camiao
 							{
-									  int tara;
+											int tara;
 
-									  cout << "Introduza a tara: ";
-									  cin >> tara;
+											cout << "Introduza a tara: ";
+											cin >> tara;
 
-									  while (cin.fail())
-									  {
-										  cin.clear();
-										  cin.ignore(1000, '\n');
+											while (cin.fail())
+											{
+												cin.clear();
+												cin.ignore(1000, '\n');
 
-										  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
-										  cin >> tara;
-									  }
+												cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+												cin >> tara;
+											}
 
-									  cin.ignore(1000, '\n');
+											cin.ignore(1000, '\n');
 
-									  Veiculo *a1 = new Camiao(ano, mes, combustivel, tara);
-									  oficina1.adicionaVeiculo(a1);
+											Veiculo *a1 = new Camiao(ano, mes, combustivel, tara);
+											oficina1.adicionaVeiculo(a1);
 
-									  int indice = oficina1.funcionarioComMenosVeiculos();
-									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-									  oficina1.getClientes()[posCliente].addVeiculo(a1);
-									  associarServicosVeiculos(oficina1, a1, posCliente);
+											int indice = oficina1.funcionarioComMenosVeiculos();
+											a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+											oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+											oficina1.getClientes()[posCliente].addVeiculo(a1);
+											associarServicosVeiculos(&oficina1, a1, posCliente);
 
-									  clrscr();
-									  anim_camiao();
-									  waitForEnter();
-									  break;
+											clrscr();
+											anim_camiao();
+											waitForEnter();
+											break;
 							}
 							case 3:		//Autocarro
 							{
-									  int numLugares;
+											int numLugares;
 
-									  cout << "Introduza o numero de lugares: ";
-									  cin >> numLugares;
+											cout << "Introduza o numero de lugares: ";
+											cin >> numLugares;
 
-									  while (cin.fail())
-									  {
-										  cin.clear();
-										  cin.ignore(1000, '\n');
+											while (cin.fail())
+											{
+												cin.clear();
+												cin.ignore(1000, '\n');
 
-										  cout << "   Introduziu um valor inapropriado. Tente novamente: ";
-										  cin >> numLugares;
-									  }
+												cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+												cin >> numLugares;
+											}
 
-									  cin.ignore(1000, '\n');
+											cin.ignore(1000, '\n');
 
-									  Veiculo *a1 = new Autocarro(ano, mes, combustivel, numLugares);
-									  oficina1.adicionaVeiculo(a1);
+											Veiculo *a1 = new Autocarro(ano, mes, combustivel, numLugares);
+											oficina1.adicionaVeiculo(a1);
 
-									  int indice = oficina1.funcionarioComMenosVeiculos();
-									  a1->setFuncionario(oficina1.getFuncionarios()[indice]);
-									  oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
-									  oficina1.getClientes()[posCliente].addVeiculo(a1);
-									  associarServicosVeiculos(oficina1, a1, posCliente);
+											int indice = oficina1.funcionarioComMenosVeiculos();
+											a1->setFuncionario(oficina1.getFuncionarios()[indice]);
+											oficina1.getFuncionarios()[indice]->acrescentaVeiculos(a1);
+											oficina1.getClientes()[posCliente].addVeiculo(a1);
+											associarServicosVeiculos(&oficina1, a1, posCliente);
 
-									  clrscr();
-									  anim_autocarro();
-									  waitForEnter();
-									  break;
+											clrscr();
+											anim_autocarro();
+											waitForEnter();
+											break;
 							}
 							}
 
@@ -957,335 +960,353 @@ void menuManager(Oficina oficina1)
 		}
 		case 18:		//Lista clientes
 		{
-				   clrscr();
-				   cout << "   LISTAGEM DE CLIENTES (por nome)" << endl << endl;
+							clrscr();
+							cout << "   LISTAGEM DE CLIENTES (por nome)" << endl << endl;
 
-				   oficina1.listaClientes();
+							oficina1.listaClientes();
 
-				   waitForEnter();
-				   options.pop_back();
-				   break;
+							waitForEnter();
+							options.pop_back();
+							break;
 		}
 		case 19:		//Clientes --> listagem dos inativos
 		{
-				   clrscr();
-				   cout << "   LISTAGEM DE CLIENTES INATIVOS (por nome)" << endl << endl;
+							clrscr();
+							cout << "   LISTAGEM DE CLIENTES INATIVOS (por nome)" << endl << endl;
 
-				   oficina1.listaClientesInativos();
+							oficina1.listaClientesInativos();
 
-				   cout << "1. Actualizar informacoes\t2. Adicionar informacoes\t0. Retroceder" << endl;
-				   cout << "O que pretende fazer: ";
+							cout << "1. Actualizar informacoes\t2. Adicionar informacoes\t0. Retroceder" << endl;
+							cout << "O que pretende fazer: ";
 
-				   int tecla;
-				   cin >> tecla;
+							int tecla;
+							cin >> tecla;
 
-					switch (tecla)
-					{
-					case 1:
-					{
-							  int numCliente, numMudar;
+							switch (tecla)
+							{
+							case 1:
+							{
+									  int numCliente, numMudar;
 
-							  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
-							  cin >> numCliente;
+									  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
+									  cin >> numCliente;
 
-							  cout << endl << "1. Mudar nome, 2. Mudar morada, 3. Mudar mail, 4. Mudar Telefones, 0. Retroceder" << endl;
-							  cout << "O que pretende fazer: ";
-							  cin >> numMudar;
+									  cout << endl << "1. Mudar nome, 2. Mudar morada, 3. Mudar mail, 4. Mudar Telefones, 0. Retroceder" << endl;
+									  cout << "O que pretende fazer: ";
+									  cin >> numMudar;
 
-							  if (numMudar == 0)
-							  {
-								  options.pop_back();
-								  break;
-							  }
+									  if (numMudar == 0)
+									  {
+										  options.pop_back();
+										  break;
+									  }
 
-							  cout << endl;
+									  cout << endl;
 
-							  oficina1.actualizaClienteInativo(numCliente - 1, numMudar);
+									  oficina1.actualizaClienteInativo(numCliente - 1, numMudar);
 
-							  break;
-					}
-					case 2:
-					{
-							  int numCliente, numMudar;
+									  break;
+							}
+							case 2:
+							{
+									  int numCliente, numMudar;
 
-							  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
-							  cin >> numCliente;
+									  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
+									  cin >> numCliente;
 
-							  cout << endl << "1. Adicionar telefone\t0. Retroceder" << endl;
-							  cout << "o que pretende fazer: ";
-							  cin >> numMudar;
+									  cout << endl << "1. Adicionar telefone\t0. Retroceder" << endl;
+									  cout << "o que pretende fazer: ";
+									  cin >> numMudar;
 
-							  if (numMudar == 0)
-							  {
-								  options.pop_back();
-								  break;
-							  }
+									  if (numMudar == 0)
+									  {
+										  options.pop_back();
+										  break;
+									  }
 
-							  cout << endl;
+									  cout << endl;
 
-							  oficina1.adicionaInformacao(numCliente - 1, numMudar);
+									  oficina1.adicionaInformacao(numCliente - 1, numMudar);
 
-							  break;
-					}
-					case 0:
-							  break;
-					}
+									  break;
+							}
+							case 0:
+								break;
+							}
 
-					options.pop_back();
-				   //waitForEnter();
-				   break;
+							options.pop_back();
+							//waitForEnter();
+							break;
 		}
 		case 20:		//Clientes --> pesquisa dos inativos
 		{
-				   clrscr();
-				   cout << "   PESQUISA DE CLIENTES INATIVOS" << endl << endl;
+							clrscr();
+							cout << "   PESQUISA DE CLIENTES INATIVOS" << endl << endl;
 
-				   string nomeCliente;
+							string nomeCliente;
 
-				   cout << "   Introduza o nome do cliente: ";
-				   getline(cin, nomeCliente);
+							cout << "   Introduza o nome do cliente: ";
+							getline(cin, nomeCliente);
 
-				   oficina1.pesquisaClienteInativo(nomeCliente);
+							oficina1.pesquisaClienteInativo(nomeCliente);
 
-				   waitForEnter();
-				   options.pop_back();
-				   break;
+							waitForEnter();
+							options.pop_back();
+							break;
 		}
 		case 21:		//Adicionar servicos
 		{
-				   string nome;
-				   float preco;
-				   int dias;
+							string nome;
+							float preco;
+							int dias;
 
-				   gotoxy(3, 0); cout << "REGISTAR NOVO SERVICO";
-				   gotoxy(3, 3); cout << "Introduza o nome do nome servico: ";
-				   getline(cin, nome);
+							gotoxy(3, 0); cout << "REGISTAR NOVO SERVICO";
+							gotoxy(3, 3); cout << "Introduza o nome do nome servico: ";
+							getline(cin, nome);
 
-				   while (cin.fail() || nome.empty())
-				   {
-					   cin.clear();
-					   cin.ignore(1000, '\n');
+							while (cin.fail() || nome.empty())
+							{
+								cin.clear();
+								cin.ignore(1000, '\n');
 
-					   cout << "   Introduziu um nome inapropriado. Tente novamente: ";
-					   getline(cin, nome);
-				   }
+								cout << "   Introduziu um nome inapropriado. Tente novamente: ";
+								getline(cin, nome);
+							}
 
-				   cout << "   Introduza o preco: ";
-				   cin >> preco;
+							cout << "   Introduza o preco: ";
+							cin >> preco;
 
-				   while (cin.fail())
-				   {
-					   cin.clear();
-					   cin.ignore(1000, '\n');
+							while (cin.fail())
+							{
+								cin.clear();
+								cin.ignore(1000, '\n');
 
-					   cout << "   Introduziu um valor inapropriado. Tente novamente: ";
-					   cin >> preco;
-				   }
+								cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+								cin >> preco;
+							}
 
-				   cout << "   Introduza o tempo que demora a realizar o servico: ";
-				   cin >> dias;
+							cout << "   Introduza o tempo que demora a realizar o servico: ";
+							cin >> dias;
 
-				   while (cin.fail())
-				   {
-					   cin.clear();
-					   cin.ignore(1000, '\n');
+							while (cin.fail())
+							{
+								cin.clear();
+								cin.ignore(1000, '\n');
 
-					   cout << "   Introduziu um valor inapropriado. Tente novamente: ";
-					   cin >> dias;
-				   }
+								cout << "   Introduziu um valor inapropriado. Tente novamente: ";
+								cin >> dias;
+							}
 
-				   Servico s1(nome, preco, dias);
-				   oficina1.adicionaServico(s1);
+							Servico s1(nome, preco, dias);
+							oficina1.adicionaServico(s1);
 
-				   cout << "   O servico '" << nome << "' foi adicionado com sucesso!";
+							cout << "   O servico '" << nome << "' foi adicionado com sucesso!";
 
-				   waitForEnter();
-				   options.pop_back();
-				   break;
+							waitForEnter();
+							options.pop_back();
+							break;
 		}
 		case 22:		//Remover servicos
 		{
-				   if (oficina1.getServicos().size() == 0)
-				   {
-					   gotoxy(3, 0); cout << "REMOVE SERVICOS";
-					   gotoxy(3, 2); cout << "Actualmente, a oficina nao dispoe de quaisquer servicos...";
-					   waitForEnter();
-					   options.pop_back();
-				   }
-				   else
-				   {
-					   vector<string> servicos;
-					   for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
-						   servicos.push_back(oficina1.getServicos()[i].getNome());
+							if (oficina1.getServicos().size() == 0)
+							{
+								gotoxy(3, 0); cout << "REMOVE SERVICOS";
+								gotoxy(3, 2); cout << "Actualmente, a oficina nao dispoe de quaisquer servicos...";
+								waitForEnter();
+								options.pop_back();
+							}
+							else
+							{
+								vector<string> servicos;
+								for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
+									servicos.push_back(oficina1.getServicos()[i].getNome());
 
-					   int posicao = mostraInfo(oficina1, "REMOVE SERVICOS", 3, -1);
+								int posicao = mostraInfo(oficina1, "REMOVE SERVICOS", 3, -1);
 
-					   if (posicao == -1)
-					   {
-						   options.pop_back();
-						   break;
-					   }
-					   else
-					   {
-						   if (!oficina1.removeServico(posicao))
-						   {
-							   clrscr();
-							   cout << endl << endl << "   Nao se pode eliminar esse servico, visto que esse servico esta a decorrer para um veiculo";
+								if (posicao == -1)
+								{
+									options.pop_back();
+									break;
+								}
+								else
+								{
+									if (!oficina1.removeServico(posicao))
+									{
+										clrscr();
+										cout << endl << endl << "   Nao se pode eliminar esse servico, visto que esse servico esta a decorrer para um veiculo";
 
-						   }
-					   }
-				   }
+									}
+								}
+							}
 
-				   waitForEnter();
-				   break;
+							waitForEnter();
+							break;
 
 		}
 		case 23:		//Listagem de servicos
 		{
-				   clrscr();
-				   cout << "   LISTAGEM DE SERVICOS (por preco)" << endl << endl;
+							clrscr();
+							cout << "   LISTAGEM DE SERVICOS (por preco)" << endl << endl;
 
-				   oficina1.listaServicos();
+							oficina1.listaServicos();
 
-				   waitForEnter();
-				   options.pop_back();
-				   break;
+							waitForEnter();
+							options.pop_back();
+							break;
 		}
 		case 24:		//Sub-menu das marcacoes
 		{
-				   clrscr();
-				   int temp2 = makeMenu("MARCACOES (prima ESC para retroceder)", { "Cancelar marcacoes", "Remarcar marcacoes", "Listar marcacoes" }, "", 0);
+							clrscr();
+							int temp2 = makeMenu("MARCACOES (prima ESC para retroceder)", { "Cancelar marcacoes", "Remarcar marcacoes", "Listar marcacoes" }, "", 0);
 
-				   if (temp2 == -1)
-					   options.pop_back();
-				   else options.push_back(25 + temp2);
+							if (temp2 == -1)
+								options.pop_back();
+							else options.push_back(25 + temp2);
 
-				   break;
+							break;
 		}
 		case 25:		//Marcacoes --> cancelar marcacoes
 		{
-				   clrscr();
-				   cout << "   CANCELAR MARCACOES" << endl << endl;
+							clrscr();
+							cout << "   CANCELAR MARCACOES" << endl << endl;
 
-                   cout << "Introduza o nome do cliente" << endl;
+							cout << "Introduza o nome do cliente" << endl;
 
-                   string nomeCliente;
-                   cin >> nomeCliente;
+							string nomeCliente;
+							cin >> nomeCliente;
 
-                   oficina1.listaMarcacoesDeCliente(nomeCliente);
+							oficina1.listaMarcacoesDeCliente(nomeCliente);
 
-                   cout << "Introduza o numero da marcacao que pretende cancelar" << endl;
+							cout << "Introduza o numero da marcacao que pretende cancelar" << endl;
 
-                   int id;
-                   cin >> id;
+							int id;
+							cin >> id;
 
-                   oficina1.cancelaMarcacao(oficina1.getMarcacao(nomeCliente, id));
+							oficina1.cancelaMarcacao(oficina1.getMarcacao(nomeCliente, id));
 
-                   waitForEnter();
-                   options.pop_back();
+							waitForEnter();
+							options.pop_back();
 
-				   break;
+							break;
 		}
 		case 26:		//Marcacoes --> remarcar marcacoes
 		{
-				   clrscr();
-				   cout << "   REMARCAR MARCACOES" << endl << endl;
+							clrscr();
+							cout << "   REMARCAR MARCACOES" << endl << endl;
 
-                   cout << "Introduza o nome do cliente" << endl;
+							cout << "Introduza o nome do cliente" << endl;
 
-                   string nomeCliente;
-                   cin >> nomeCliente;
+							string nomeCliente;
+							cin >> nomeCliente;
 
-                   oficina1.listaMarcacoesDeCliente(nomeCliente);
+							oficina1.listaMarcacoesDeCliente(nomeCliente);
 
-                   cout << "Introduza o numero da marcacao que pretende remarcar" << endl;
+							cout << "Introduza o numero da marcacao que pretende remarcar" << endl;
 
-                   int id;
-                   cin >> id;
+							int id;
+							cin >> id;
 
-                   cout << "Quantos dias pretende adiar a marcacao?" << endl;
+							cout << "Quantos dias pretende adiar a marcacao?" << endl;
 
-                   int dias;
-                   cin >> dias;
+							int dias;
+							cin >> dias;
 
-                   oficina1.remarcaMarcacao(oficina1.getMarcacao(nomeCliente, id), dias);
+							oficina1.remarcaMarcacao(oficina1.getMarcacao(nomeCliente, id), dias);
 
-                   waitForEnter();
-                   options.pop_back();
+							waitForEnter();
+							options.pop_back();
 
-				   break;
+							break;
 		}
 		case 27:		//Marcacoes --> listar marcacoes
 		{
-				   clrscr();
-				   cout << "   LISTAGEM DE MARCACOES" << endl << endl;
+							clrscr();
+							cout << "   LISTAGEM DE MARCACOES" << endl << endl;
 
-				   oficina1.listaMarcacoes();
+							oficina1.listaMarcacoes();
 
-				   waitForEnter();
-				   options.pop_back();
+							waitForEnter();
+							options.pop_back();
 
-				   break;
+							break;
 		}
 		case 28: /*********************************************DUQUE*********************/
 		{
-				   clrscr();
-				   cout << "   PROMOCOES DISPONIVEIS" << endl << endl;
+					/* while (true)
+					 {
+						 //apresentacao das promocoes disponiveis
+						 if (oficina1.getListaPromocoes().size() == 0)
+						 {
+							 cout << "Nao existem promocoes de momento. Volte noutra altura...\n";
+							 waitForEnter();
+							 break;
+						 }
+						 int promoIndex = makeMenu("Promocoes disponiveis", oficina1.getListaPromocoes(), "", 0);
+						 if (promoIndex == -1)
+							 break;
 
-				   //DUQUE, AQUI FAZES A APRESENTACAO DAS PROMOCOES DISPONIVEIS
-				   int promoIndex = makeMenu("Promocoes disponiveis", oficina1.getListaPromocoes(), ?, ?); /*ZEEEEEEEEEEEEEEEEEEEEE*/
-				   if (promoIndex == -1)
-				   {
-					   //SAIR DAQUI ------->>>>>> ZEEEEEEEEEEEEEEEEEEEE
-					   break;
-				   }
+						 //clientes que tem direito à promo
+						 if (oficina1.getSorteadosString(oficina1.getPromoIndex(promoIndex)).size() == 0)
+						 {
+							 cout << "Nao existem clientes com pontos suficientes! Volte noutra altura...\n";
+							 waitForEnter();
+							 break;
+						 }
+						 string s = "Clientes com acesso à promocao no servico \"" + oficina1.getListaPromocoes()[promoIndex] + "\"";
+						 int clienteIndex = makeMenu(s, oficina1.getSorteadosString(oficina1.getPromoIndex(promoIndex)), "", 0);
+						 if (clienteIndex == -1)
+							 continue;
 
-				   clrscr();
+						 //cliente tem que fazer uma escolha
+						 int choice = makeMenu("Que deseja fazer com o servico?", vector<string> {"Aceitar", "Rejeitar"}, "", 0);
+						 if (choice == 0) //realizar servico
+						 {
+							 //descobrir index do Cliente no vector de tds os clientes
+							 Cliente * cl = oficina1.getSorteados(oficina1.getPromoIndex(promoIndex))[clienteIndex];
+							 int posCliente;
+							 for (int i = 0; i < oficina1.getClientes.size(); i++)
+							 {
+								 if (cl == oficina1.getClientes.size()[i])
+									 posCliente = i;
+							 }
 
-					  /**
-					  *
-					   *
-					   **
-					   *
-					   **
-					   *
-					   **
-					   *DUQUE, AQUI FAZES A APRESENTACAO DOS CLIENTES QUE TEM DIREITO A PROMOCAO QUE ESCOLHES TE(LIGA ME QUANDO CHEGARES AQUI)
-					   **
-					   *
-					   **
-					   *
-					   **
-					   *
-					   *
+							 //descobrir index do servico
+							 Servico serv = oficina1.getPromoIndex(promoIndex).getServico();
+							 int posServico;
+							 for (int i = 0; i < oficina1.getServicos.size(); i++)
+							 {
+								 if (serv == oficina1.getServicos.size()[i])
+									 posServico = i;
+							 }
 
-					   */
+							 //mostrar veiculos para escolha
+							 vector <Veiculo*> veics = cl->getVeiculos();
+							 clrscr();
+							 cout << "Escolha um veiculo: \n\n";
+							 for (int i = 0; i < veics.size(); i++)
+								 cout << i + 1 << ". " << veics[i] << endl;
+							 cout << "\n Veiculo: ";
+							 int posVeiculo;
+							 cin >> posVeiculo;
 
-				   clrscr();
+							 //aplicar
+							 oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
+							 oficina1.actualizaInatividadeCliente(posCliente);
+							 oficina1.getPromoIndex(promoIndex).validarPromo(cl);
 
-				   /**
-				   *
-				   *
-				   **
-				   *
-				   **
-				   *
-				   **
-				   *DUQUE, AQUI FAZES A APRESENTACAO DOS CLIENTES QUE TEM DIREITO A PROMOCAO QUE ESCOLHES TE(LIGA ME QUANDO CHEGARES AQUI)
-				   **
-				   *
-				   **
-				   *
-				   **
-				   *
-				   *
-
-				   */
-
-				   break;
+						 }
+						 if (choice == 1) //rejeitar
+						 {
+							 oficina1.getPromoIndex(promoIndex).addRejeitado(oficina1.getSorteados(oficina1.getPromoIndex(promoIndex))[clienteIndex]);
+						 }
+						 break;
+					 }
+					 clrscr();
+					 cout << "Saindo da zona das promoces...\n";
+					 waitForEnter();
+					 options.pop_back();
+					 break;*/
 		}
-		default:
-			break;
 		}
 	}
 }

@@ -850,7 +850,7 @@ void Oficina::listaMarcacoes()
 
 	while (!i.isAtEnd())
 	{
-		cout << j << ". " << i.retrieve() << endl;
+		cout << j << ". " << *(i.retrieve()) << endl;
 		j++;
 
 		i.advance();
@@ -900,7 +900,7 @@ void Oficina::listaMarcacoesDeCliente(string nome)
 	{
 	    if(i.retrieve()->getNomeCliente() == nome)
 		{
-		    cout << j << ". " << i.retrieve() << endl;
+		    cout << j << ". " << *(i.retrieve()) << endl;
             j++;
 		}
 
@@ -1032,4 +1032,15 @@ vector<string> Oficina::getListaPromocoes()
 		promos.push_back(promocoes[i].getServico().getNome());
 	}
 	return promos;
+}
+
+vector<string> Oficina::getSorteadosString(Promocao promo)
+{
+	vector<Cliente*> temp = this->getSorteados(promo);
+	vector<string> sorteados;
+	for (unsigned int i = 0; i < temp.size(); i++)
+	{
+		sorteados.push_back(temp[i]->getNome());
+	}
+	return sorteados;
 }

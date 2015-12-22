@@ -104,13 +104,61 @@ string MarcacaoServico::getNomeCliente() const
 
 void MarcacaoServico::adiaDias(int d)
 {
+	if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12)
+	{
+		if (d > 31)
+		{
+			if (mes == 12)
+			{
+				mes = 1;
+			}
+			else
+			{
+				mes++;
+			}
+
+			adiaDias(d - 31);
+			return;
+		}
+	}
+	else if (mes == 2)
+	{
+		if (ano % 4 == 0)
+		{
+			if (d > 29)
+			{
+				mes++;
+				adiaDias(d - 29);
+				return;
+			}
+		}
+		else
+		{
+			if (d > 28)
+			{
+				mes++;
+				adiaDias(d - 28);
+				return;
+			}
+		}
+	}
+	else
+	{
+		if (d > 30)
+		{
+			mes++;
+			adiaDias(d - 30);
+			return;
+		}
+	}
+
     dia += d;
 
     if(mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12)
     {
         if(dia > 31)
         {
-            d -= 31;
+            dia -= 31;
 
             if(mes == 12)
             {
@@ -158,7 +206,14 @@ void MarcacaoServico::adiaDias(int d)
 
 ostream& operator<<(ostream& os, const MarcacaoServico& m)
 {
-    os << m.getNomeCliente() << "   " << m.getIDVeiculo() << "    " << m.getServico()->getNome() << "  " << m.getServico()->getPreco() << " " << m.getDia() << "/" << m.getMes() << "/" << m.getAno() << "  " << m.getHora() << "   " << m.getServico()->getDias();
+	os << m.getNomeCliente() << "   " << m.getIDVeiculo() << "    ";
+	os << m.getServico()->getNome();
+	os << "  " << m.getServico()->getPreco();
+	os << " " << m.getDia();
+	os << "/" << m.getMes();
+	os << "/" << m.getAno();
+	os << "  " << m.getHora();
+	os << "   " << m.getServico()->getDias();
 
     return os;
 }
