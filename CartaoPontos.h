@@ -22,6 +22,7 @@ public:
 	void setAtivacao(bool ativacao);
 	bool operator<(CartaoPontos* card);
 	void passaDias(int n);
+	int getValidade() const;
 private:
 	Cliente* cliente;
 	int pontos;

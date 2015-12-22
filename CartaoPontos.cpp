@@ -47,6 +47,7 @@ void CartaoPontos::addPontos(int pts)
 {
 	if (!ativado)
 		ativado = true;
+	validade = VALIDADE;
 	pontos += pts;
 	nServicos++;
 }
@@ -100,6 +101,15 @@ void CartaoPontos::passaDias(int n)
 	validade -= n;
 	if (validade < 0)
 	{
+		validade = 0;
 		setAtivacao(false);
 	}
+}
+
+/**
+*Retorna a validade dos pontos do cartao.
+*/
+int CartaoPontos::getValidade() const
+{
+	return validade;
 }

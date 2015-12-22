@@ -55,7 +55,7 @@ void Cliente::addVeiculo(Veiculo *v1)
 */
 ostream & operator<<(ostream &out, const Cliente &v1)
 {
-	out << v1.getNome() << ", ID = " << v1.getNumRegisto() << endl;
+	out << v1.getNome() << ", ID = " << v1.getNumRegisto() << ", Pontos: " << v1.getCartaoCliente()->getPontos() << ", Validade dos pontos: " << v1.getCartaoCliente()->getValidade() << endl;
 	out << "      Numero de veiculos associados: " << v1.getVeiculos().size();
 
 	return out;

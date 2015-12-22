@@ -985,7 +985,7 @@ vector<Cliente*> Oficina::getSorteados(Promocao promo)
 		if (promo.getPontos() > card->getPontos()) //verifica se tem pontos suficientes
 		{
 			cartoes.push(card);
-			break;
+			//break;
 		}
 
 		//retirar da queue e por no rejeitados ou sorteados
