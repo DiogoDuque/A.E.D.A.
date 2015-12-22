@@ -56,7 +56,7 @@ public:
 	bool removeServico(int pos);
 	void removeVeiculosTratados();
 	int funcionarioComMenosVeiculos() const;
-	void passaDias(int n);
+	void passaDias(int n);	
 	void associaVeiculoCliente(Veiculo *v1, Cliente c1);
 	void showInfo() const;
 	void showInfoFuncionarios() const;

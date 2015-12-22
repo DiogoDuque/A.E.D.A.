@@ -351,11 +351,25 @@ void associarServicosVeiculos(Oficina *oficina1, Veiculo *a1, int posCliente)
 
 	//int temp = makeMenu("ESCOLHER SERVICO", servicosString, "", 0);
 	int posicao = mostraInfo(*oficina1, "ESCOLHER SERVICO", 3, -1);
-	a1->adicionaServico(oficina1->getServicos()[posicao]);
 
-	cout << oficina1->getDiaAtual() + 1 << " / " << oficina1->getMesAtual() << " / " << oficina1->getAnoAtual() << oficina1->getServicos()[posicao] << endl << oficina1->getClientes()[posCliente].getNome() << endl << a1->getID();
+	unsigned int i = 0;
+	for ( ; i < oficina1->getVeiculos().size(); i++)
+	{
+		if (oficina1->getVeiculos()[i]->getID() == a1->getID())
+			break;
+	}
 
-    oficina1->adicionaMarcacao(new MarcacaoServico(oficina1->getDiaAtual() + 1, oficina1->getMesAtual(), oficina1->getAnoAtual(), 8, &(oficina1->getServicos()[posicao]), oficina1->getClientes()[posCliente].getNome(), a1->getID()));
+	oficina1->adicionaServicoVeiculo(posCliente, i, posicao);
+
+	//a1->adicionaServico(oficina1->getServicos()[posicao]);
+
+
+	/*cout << oficina1->getDiaAtual() + 1 << " / " << oficina1->getMesAtual() << " / " << oficina1->getAnoAtual() << oficina1->getServicos()[posicao] << endl << oficina1->getClientes()[posCliente].getNome() << endl << a1->getID();
+
+	Servico *s = &oficina1->getServicos()[posicao];
+	cout << s->getNome();
+    oficina1->adicionaMarcacao(new MarcacaoServico(oficina1->getDiaAtual() + 1, oficina1->getMesAtual(), oficina1->getAnoAtual(), 8, s, oficina1->getClientes()[posCliente].getNome(), a1->getID()));
+	*/
 }
 
 void menuManager(Oficina oficina1)
