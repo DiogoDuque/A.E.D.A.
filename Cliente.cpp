@@ -79,9 +79,9 @@ void Cliente::removeVeiculo(Veiculo *v1)
 /**
 *Adiciona o servico 's1' ao veiculo que se encontra na posicao 'posVeiculo' do vetor veiculos do cliente.
 */
-void Cliente::adicionaServicoVeiculo(int posVeiculo, Servico s1)
+void Cliente::adicionaServicoVeiculo(Veiculo* veic, Servico s1)
 {
-	veiculos[posVeiculo]->adicionaServico(s1);
+	veic->adicionaServico(s1);
 	cartao->addPontos(s1.getPreco() / CONVERSION_RATE); //atualizar cartao de pontos
 }
 

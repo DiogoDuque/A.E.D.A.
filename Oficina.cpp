@@ -520,7 +520,7 @@ void Oficina::listaServicos()
 */
 void Oficina::adicionaServicoVeiculo(int posCliente, int posVeiculo, int posServico)
 {
-	clientes[posCliente].adicionaServicoVeiculo(posVeiculo, servicos[posServico]);
+	clientes[posCliente].adicionaServicoVeiculo(veiculos[posVeiculo], servicos[posServico]);
 
 	int indice = funcionarioComMenosVeiculos();
 	veiculos[posVeiculo]->setFuncionario(funcionarios[indice]);

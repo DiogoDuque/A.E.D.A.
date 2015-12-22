@@ -21,7 +21,7 @@ public:
 	void removeVeiculo(Veiculo *v1);
 	bool operator<(const Cliente& cl) const;
 	bool operator==(const Cliente & c1) const;
-	void adicionaServicoVeiculo(int posVeiculo, Servico s1);
+	void adicionaServicoVeiculo(Veiculo* veic, Servico s1);
 	
 	void setNome(string nome);
 	void setMorada(string morada);
