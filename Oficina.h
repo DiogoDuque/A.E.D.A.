@@ -94,6 +94,7 @@ public:
 	void removePromocao(Promocao promo);
 	vector<string> getListaPromocoes();
 	vector<string> Oficina::getSorteadosString(Promocao promo);
+	Promocao& getPromoByIndex(int i);
 
 private:
 	string nomeOficina;

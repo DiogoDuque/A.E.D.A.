@@ -1056,3 +1056,8 @@ vector<string> Oficina::getSorteadosString(Promocao promo)
 	}
 	return sorteados;
 }
+
+Promocao& Oficina::getPromoByIndex(int i)
+{
+	return promocoes[i];
+}

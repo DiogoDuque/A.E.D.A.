@@ -42,7 +42,7 @@ void clientesNaoRegistados(int n)
 	gotoxy(3, 2);
 
 	if (n == 0)
-		 cout << "Para registar veiculos tem primeiro de se registar na base de dados.";
+		cout << "Para registar veiculos tem primeiro de se registar na base de dados.";
 	if (n == 1)
 		cout << "Para registar veiculos tem primeiro de haver clientes...";
 
@@ -247,8 +247,8 @@ int mostraInfo(Oficina oficina1, string frase, int n, int pos)
 	if (n == 3)
 	for (unsigned int i = 0; i < oficina1.getServicos().size(); i++)
 	{
-			gotoxy(3, 3 + i * 2);
-			cout << oficina1.getServicos()[i];
+		gotoxy(3, 3 + i * 2);
+		cout << oficina1.getServicos()[i];
 	}
 
 	if (n == 4)
@@ -353,7 +353,7 @@ void associarServicosVeiculos(Oficina *oficina1, Veiculo *a1, int posCliente)
 	int posicao = mostraInfo(*oficina1, "ESCOLHER SERVICO", 3, -1);
 
 	unsigned int i = 0;
-	for ( ; i < oficina1->getVeiculos().size(); i++)
+	for (; i < oficina1->getVeiculos().size(); i++)
 	{
 		if (oficina1->getVeiculos()[i]->getID() == a1->getID())
 			break;
@@ -368,7 +368,7 @@ void associarServicosVeiculos(Oficina *oficina1, Veiculo *a1, int posCliente)
 
 	Servico *s = &oficina1->getServicos()[posicao];
 	cout << s->getNome();
-    oficina1->adicionaMarcacao(new MarcacaoServico(oficina1->getDiaAtual() + 1, oficina1->getMesAtual(), oficina1->getAnoAtual(), 8, s, oficina1->getClientes()[posCliente].getNome(), a1->getID()));
+	oficina1->adicionaMarcacao(new MarcacaoServico(oficina1->getDiaAtual() + 1, oficina1->getMesAtual(), oficina1->getAnoAtual(), 8, s, oficina1->getClientes()[posCliente].getNome(), a1->getID()));
 	*/
 }
 
@@ -1246,162 +1246,162 @@ void menuManager(Oficina oficina1)
 		}
 		case 28: /*********************************************DUQUE*********************/
 		{
-					 /*while (true)
-					  {
-					  //apresentacao das promocoes disponiveis
-					  if (oficina1.getListaPromocoes().size() == 0)
-					  {
-					  cout << "Nao existem promocoes de momento. Volte noutra altura...\n";
-					  waitForEnter();
-					  break;
-					  }
-					  int promoIndex = makeMenu("Promocoes disponiveis", oficina1.getListaPromocoes(), "", 0);
-					  if (promoIndex == -1)
-					  break;
+					 while (true)
+					 {
+						 //apresentacao das promocoes disponiveis
+						 if (oficina1.getListaPromocoes().size() == 0)
+						 {
+							 cout << "Nao existem promocoes de momento. Volte noutra altura...\n";
+							 waitForEnter();
+							 break;
+						 }
+						 int promoIndex = makeMenu("Promocoes disponiveis", oficina1.getListaPromocoes(), "", 0);
+						 if (promoIndex == -1)
+							 break;
 
-					  //clientes que tem direito à promo
-					  if (oficina1.getSorteadosString(oficina1.getPromoIndex(promoIndex)).size() == 0)
-					  {
-					  cout << "Nao existem clientes com pontos suficientes! Volte noutra altura...\n";
-					  waitForEnter();
-					  break;
-					  }
-					  string s = "Clientes com acesso à promocao no servico \"" + oficina1.getListaPromocoes()[promoIndex] + "\"";
-					  int clienteIndex = makeMenu(s, oficina1.getSorteadosString(oficina1.getPromoIndex(promoIndex)), "", 0);
-					  if (clienteIndex == -1)
-					  continue;
+						 //clientes que tem direito à promo
+						 if (oficina1.getSorteadosString(oficina1.getPromoByIndex(promoIndex)).size() == 0)
+						 {
+							 cout << "Nao existem clientes com pontos suficientes! Volte noutra altura...\n";
+							 waitForEnter();
+							 break;
+						 }
+						 string s = "Clientes com acesso à promocao no servico \"" + oficina1.getListaPromocoes()[promoIndex] + "\"";
+						 int clienteIndex = makeMenu(s, oficina1.getSorteadosString(oficina1.getPromoByIndex(promoIndex)), "", 0);
+						 if (clienteIndex == -1)
+							 continue;
 
-					  //cliente tem que fazer uma escolha
-					  int choice = makeMenu("Que deseja fazer com o servico?", vector<string> {"Aceitar", "Rejeitar"}, "", 0);
-					  if (choice == 0) //realizar servico
-					  {
-					  //descobrir index do Cliente no vector de tds os clientes
-					  Cliente * cl = oficina1.getSorteados(oficina1.getPromoIndex(promoIndex))[clienteIndex];
-					  int posCliente;
-					  for (int i = 0; i < oficina1.getClientes.size(); i++)
-					  {
-					  if (cl == oficina1.getClientes.size()[i])
-					  posCliente = i;
-					  }
+						 //cliente tem que fazer uma escolha
+						 int choice = makeMenu("Que deseja fazer com o servico?", vector<string> {"Aceitar", "Rejeitar"}, "", 0);
+						 if (choice == 0) //realizar servico
+						 {
+							 //descobrir index do Cliente no vector de tds os clientes
+							 Cliente * cl = oficina1.getSorteados(oficina1.getPromoByIndex(promoIndex))[clienteIndex];
+							 int posCliente;
+							 for (int i = 0; i < oficina1.getClientes().size(); i++)
+							 {
+								 if (cl->getCartaoCliente() == oficina1.getClientes()[i].getCartaoCliente())
+									 posCliente = i;
+							 }
 
-					  //descobrir index do servico
-					  Servico serv = oficina1.getPromoIndex(promoIndex).getServico();
-					  int posServico;
-					  for (int i = 0; i < oficina1.getServicos.size(); i++)
-					  {
-					  if (serv == oficina1.getServicos.size()[i])
-					  posServico = i;
-					  }
+							 //descobrir index do servico
+							 Servico serv = oficina1.getPromoByIndex(promoIndex).getServico();
+							 int posServico;
+							 for (int i = 0; i < oficina1.getServicos().size(); i++)
+							 {
+								 if (serv == oficina1.getServicos()[i])
+									 posServico = i;
+							 }
 
-					  //mostrar veiculos para escolha
-					  vector <Veiculo*> veics = cl->getVeiculos();
-					  clrscr();
-					  cout << "Escolha um veiculo: \n\n";
-					  for (int i = 0; i < veics.size(); i++)
-					  cout << i + 1 << ". " << veics[i] << endl;
-					  cout << "\n Veiculo: ";
-					  int posVeiculo;
-					  cin >> posVeiculo;
+							 //mostrar veiculos para escolha
+							 vector <Veiculo*> veics = cl->getVeiculos();
+							 clrscr();
+							 cout << "Escolha um veiculo: \n\n";
+							 for (int i = 0; i < veics.size(); i++)
+								 cout << i + 1 << ". " << veics[i] << endl;
+							 cout << "\n Veiculo: ";
+							 int posVeiculo;
+							 cin >> posVeiculo;
 
-					  //aplicar
-					  oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
-					  oficina1.actualizaInatividadeCliente(posCliente);
-					  oficina1.getPromoIndex(promoIndex).validarPromo(cl);
+							 //aplicar
+							 oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
+							 oficina1.actualizaInatividadeCliente(posCliente);
+							 oficina1.getPromoByIndex(promoIndex).validarPromo(cl);
 
-					  }
-					  if (choice == 1) //rejeitar
-					  {
-					  oficina1.getPromoIndex(promoIndex).addRejeitado(oficina1.getSorteados(oficina1.getPromoIndex(promoIndex))[clienteIndex]);
-					  }
-					  break;
-					  }
-					  clrscr();
-					  cout << "Saindo da zona das promoces...\n";
-					  waitForEnter();
-					  options.pop_back();
-					  break;
-					  }
-					  }*/
+						 }
+						 if (choice == 1) //rejeitar
+						 {
+							 oficina1.getPromoByIndex(promoIndex).addRejeitado(oficina1.getSorteados(oficina1.getPromoByIndex(promoIndex))[clienteIndex]);
+						 }
+						 break;
+					 }
+					 clrscr();
+					 cout << "Saindo da zona das promoces...\n";
+					 waitForEnter();
+					 options.pop_back();
+					 break;
 		}
+		default:
+			break;
 		}
 	}
 }
 
-int main()
-{
-	//intro();
-	clrscr();
-
-	string nomeOficina;
-	cout << "Nome da Oficina: ";
-	getline(cin, nomeOficina);
-
-	while (nomeOficina.size() < 3)
+	int main()
 	{
+		//intro();
 		clrscr();
-		cout << "Nome demasiado curto! Introduza um nome correto.\nNome da Oficina: ";
+
+		string nomeOficina;
+		cout << "Nome da Oficina: ";
 		getline(cin, nomeOficina);
-	}
 
-	Oficina oficina1(nomeOficina);
+		while (nomeOficina.size() < 3)
+		{
+			clrscr();
+			cout << "Nome demasiado curto! Introduza um nome correto.\nNome da Oficina: ";
+			getline(cin, nomeOficina);
+		}
 
-	ifstream file("servicos.txt");
-	if (file.good())
-		file.close();
-	else {
-		file.close();
-		cout << "Foi impossivel importar o ficheiro de servicos.\nPor favor certifique-se que este esta no diretorio correto!\n\n";
-	}
+		Oficina oficina1(nomeOficina);
 
-	ifstream myFile;
-	myFile.open("clientes.txt");
+		ifstream file("servicos.txt");
+		if (file.good())
+			file.close();
+		else {
+			file.close();
+			cout << "Foi impossivel importar o ficheiro de servicos.\nPor favor certifique-se que este esta no diretorio correto!\n\n";
+		}
 
-
-
-
-
-	string nome, morada, mail, telefone, inatividade;
-
-	nome = "Joao";
-	morada = "Rua da Lapa";
-	mail = "joao@hotmail.com";
-	telefone = "917683726";
-
-	Cliente c1(nome);
-	c1.setMorada(morada);
-	c1.setMail(mail);
-	c1.setTelefone(telefone, 0);
-
-	c1.setInatividade(true);
-	oficina1.adicionaClienteInativo(c1);
-
-	oficina1.adicionaCliente(c1);
-
-
-
-	string nome2, morada2, mail2, telefone2, inatividade2;
-
-	nome2 = "Maria";
-	morada2 = "Rua da circuncalacao";
-	mail2 = "maria@hotmail.com";
-	telefone2 = "93567526";
-
-	Cliente c2(nome2);
-	c2.setMorada(morada2);
-	c2.setMail(mail2);
-	c2.setTelefone(telefone2, 0);
-
-	c2.setInatividade(true);
-	oficina1.adicionaClienteInativo(c2);
-
-	oficina1.adicionaCliente(c2);
+		ifstream myFile;
+		myFile.open("clientes.txt");
 
 
 
 
 
-	/*while (!myFile.eof())
-	{
+		string nome, morada, mail, telefone, inatividade;
+
+		nome = "Joao";
+		morada = "Rua da Lapa";
+		mail = "joao@hotmail.com";
+		telefone = "917683726";
+
+		Cliente c1(nome);
+		c1.setMorada(morada);
+		c1.setMail(mail);
+		c1.setTelefone(telefone, 0);
+
+		c1.setInatividade(true);
+		oficina1.adicionaClienteInativo(c1);
+
+		oficina1.adicionaCliente(c1);
+
+
+
+		string nome2, morada2, mail2, telefone2, inatividade2;
+
+		nome2 = "Maria";
+		morada2 = "Rua da circuncalacao";
+		mail2 = "maria@hotmail.com";
+		telefone2 = "93567526";
+
+		Cliente c2(nome2);
+		c2.setMorada(morada2);
+		c2.setMail(mail2);
+		c2.setTelefone(telefone2, 0);
+
+		c2.setInatividade(true);
+		oficina1.adicionaClienteInativo(c2);
+
+		oficina1.adicionaCliente(c2);
+
+
+
+
+
+		/*while (!myFile.eof())
+		{
 		string nome, morada, mail, telefone, inatividade;
 
 		getline(myFile, nome);
@@ -1420,18 +1420,18 @@ int main()
 
 		if (inatividade == "true")
 		{
-			c1.setInatividade(true);
-			oficina1.adicionaClienteInativo(c1);
+		c1.setInatividade(true);
+		oficina1.adicionaClienteInativo(c1);
 		}
 		else
 		{
-			c1.setInatividade(false);
-			oficina1.adicionaCliente(c1);
+		c1.setInatividade(false);
+		oficina1.adicionaCliente(c1);
 		}
-	}*/
+		}*/
 
-	menuManager(oficina1);
+		menuManager(oficina1);
 
-	clrscr();
-	return 0;
-}
+		clrscr();
+		return 0;
+	}
