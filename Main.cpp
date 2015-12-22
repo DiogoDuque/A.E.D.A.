@@ -620,6 +620,7 @@ void menuManager(Oficina oficina1)
 									options.pop_back();
 								else
 								{
+									oficina1.getClientes()[posCliente].getCartaoCliente()->addPontos(oficina1.getServicos()[posServico].getPreco() / CONVERSION_RATE);
 									oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
 									oficina1.actualizaInatividadeCliente(posCliente);
 								}
