@@ -77,7 +77,7 @@ void Cliente::removeVeiculo(Veiculo *v1)
 }
 
 /**
-*Adiciona o servico 's1' ao veiculo que se encontra na posicao 'posVeiculo' do vetor veiculos do cliente.
+*Adiciona o servico 's1' ao veiculo apontado por 'veic' do vetor veiculos do cliente.
 */
 void Cliente::adicionaServicoVeiculo(Veiculo* veic, Servico s1)
 {

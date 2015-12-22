@@ -769,7 +769,6 @@ BST<MarcacaoServico*> Oficina::getMarcacoes() const
 /**
 *Retorna uma marcacao dado o seu servico, a data, hora e o nome do cliente associado
 */
-
 MarcacaoServico* Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int hora, string nome)
 {
 	BSTItrIn<MarcacaoServico*> i(marcacoes);
@@ -790,7 +789,6 @@ MarcacaoServico* Oficina::getMarcacao(Servico* s, int ano, int mes, int dia, int
 /**
 *Cancela uma marcacao
 */
-
 void Oficina::cancelaMarcacao(MarcacaoServico* m)
 {
     if(m == NULL)
@@ -836,7 +834,6 @@ void Oficina::cancelaMarcacao(MarcacaoServico* m)
 /**
 *Remarca uma dada marcacao para outra data
 */
-
 void Oficina::remarcaMarcacao(MarcacaoServico* m, int dias)
 {
     if(m == NULL)
@@ -853,7 +850,6 @@ void Oficina::remarcaMarcacao(MarcacaoServico* m, int dias)
 /**
 *Lista todas as marcacoes por ordem crescente de data e, em caso de igualdade, por ordem alfabetica dos nomes dos clientes associados
 */
-
 void Oficina::listaMarcacoes()
 {
 	BSTItrIn<MarcacaoServico*> i(marcacoes);
@@ -877,7 +873,6 @@ void Oficina::listaMarcacoes()
 /**
 *Retorna uma marcacao a partir de um nome e um numero
 */
-
 MarcacaoServico* Oficina::getMarcacao(string nome, int id)
 {
     BSTItrIn<MarcacaoServico*> i(marcacoes);
@@ -901,7 +896,6 @@ MarcacaoServico* Oficina::getMarcacao(string nome, int id)
 /**
 *Lista marcacoes de um dado cliente
 */
-
 void Oficina::listaMarcacoesDeCliente(string nome)
 {
     BSTItrIn<MarcacaoServico*> i(marcacoes);
@@ -928,7 +922,6 @@ void Oficina::listaMarcacoesDeCliente(string nome)
 /**
 *Adiciona uma marcacao a arvore
 */
-
 void Oficina::adicionaMarcacao(MarcacaoServico* m)
 {
     marcacoes.insert(m);
@@ -937,7 +930,6 @@ void Oficina::adicionaMarcacao(MarcacaoServico* m)
 /**
 *Retorna o ano atual
 */
-
 int Oficina::getAnoAtual() const
 {
     return anoAtual;
@@ -946,7 +938,6 @@ int Oficina::getAnoAtual() const
 /**
 *Retorna o dia atual
 */
-
 int Oficina::getDiaAtual() const
 {
     return diaAtual;
@@ -955,7 +946,6 @@ int Oficina::getDiaAtual() const
 /**
 *Retorna o mes atual
 */
-
 int Oficina::getMesAtual() const
 {
     return mesAtual;
@@ -964,7 +954,6 @@ int Oficina::getMesAtual() const
 /**
 *Retorna a hora atual
 */
-
 int Oficina::getHoraAtual() const
 {
     return horaAtual;
@@ -1036,6 +1025,9 @@ void Oficina::removePromocao(Promocao promo)
 
 }
 
+/**
+*Retorna um vetor com os nomes dos servicos a que as promocoes se referem.
+*/
 vector<string> Oficina::getListaPromocoes()
 {
 	vector<string> promos;
@@ -1046,6 +1038,9 @@ vector<string> Oficina::getListaPromocoes()
 	return promos;
 }
 
+/**
+*Retorna o vetor dos nomes dos clientes que, no momento, podem aceder a uma dada promocao.
+*/
 vector<string> Oficina::getSorteadosString(Promocao promo)
 {
 	vector<Cliente*> temp = this->getSorteados(promo);
@@ -1057,6 +1052,9 @@ vector<string> Oficina::getSorteadosString(Promocao promo)
 	return sorteados;
 }
 
+/**
+*Retorna por referencia a promocao com indice 'i' no vector de promocoes.
+*/
 Promocao& Oficina::getPromoByIndex(int i)
 {
 	return promocoes[i];
