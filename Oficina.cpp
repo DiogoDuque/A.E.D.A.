@@ -212,7 +212,7 @@ void Oficina::passaDias(int n)
 {
 	//gerar promocoes (possivelmente) ---- TO DO
 	srand((unsigned int)time(NULL));
-	if (rand() % 5 == 0) //gerar promo 1/5 das vezes que passam dias
+	if (rand() % 3 == 0) //gerar promo 1/3 das vezes que passam dias
 	{
 		int index = rand() % servicos.size();
 		promocoes.push_back(Promocao(servicos[index]));
@@ -841,8 +841,9 @@ void Oficina::remarcaMarcacao(MarcacaoServico* m, int dias)
         cout << "Introduza um numero valido" << endl;
         return;
     }
-
+	marcacoes.remove(m);
 	m->adiaDias(dias);
+	marcacoes.insert(m);
 
     cout << "A sua remarcacao foi efetuada com sucesso" << endl;
 }

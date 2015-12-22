@@ -446,6 +446,7 @@ void menuManager(Oficina oficina1)
 		}
 		case 6:		//Avancar dias
 		{
+						
 						int diasAvancar;
 
 						clrscr();
@@ -463,10 +464,8 @@ void menuManager(Oficina oficina1)
 						}
 
 						cin.ignore(1000, '\n');
-
-						for (unsigned int i = 0; i < oficina1.getVeiculos().size(); i++)
-							oficina1.getVeiculos()[i]->passaDias(diasAvancar);
-
+						oficina1.passaDias(diasAvancar);
+						
 						cout << "   ."; Sleep(500); cout << " ."; Sleep(500); cout << " ."; Sleep(500);
 						cout << endl << endl << "   Passaram-se " << diasAvancar << " dias na oficina '" << oficina1.getNome() << "'";
 
