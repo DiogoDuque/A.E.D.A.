@@ -881,12 +881,16 @@ MarcacaoServico* Oficina::getMarcacao(string nome, int id)
 
 	while (!i.isAtEnd())
 	{
-        if(i.retrieve()->getNomeCliente() == nome && j == id)
-        {
-            return i.retrieve();
-        }
+		if (i.retrieve()->getNomeCliente() == nome)
+		{
+			if (j == id)
+			{
+				return i.retrieve();
+			}
 
-		j++;
+			j++;
+		}
+
 		i.advance();
 	}
 
