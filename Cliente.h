@@ -4,7 +4,7 @@
 #include "Veiculo.h"
 #include "CartaoPontos.h"
 
-#define CONVERSION_RATE (int)5 //por cada 5 euros, ganha 1 ponto
+#define CONVERSION_RATE (float)5 //por cada 5 euros, ganha 1 ponto
 class CartaoPontos;
 
 using namespace std;
