@@ -20,6 +20,11 @@ bool MarcacaoServico::operator<(const MarcacaoServico& m) const
             {
                 if(hora == m.getHora())
                 {
+                    if(nomeCliente == m.getNomeCliente())
+                    {
+                        return idVeiculo < m.getIDVeiculo();
+                    }
+
                     return nomeCliente < m.getNomeCliente();
                 }
 
