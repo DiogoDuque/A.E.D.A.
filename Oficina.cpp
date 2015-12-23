@@ -1011,11 +1011,14 @@ vector<Cliente*> Oficina::getSorteados(Promocao promo)
 
 		CartaoPontos* card = cartoes.top();
 		cartoes.pop();
-		
+		if (promo.getPontos() > card->getPontos()) //verifica se cartoes restantes tem pontos suficientes
+		{
+			cartoes.push(card);
+			break;
+		}
+
 		//retirar da queue e por no rejeitados ou sorteados
 		bool rejeitado = false;
-		if (card->getPontos() < max)
-			rejeitado = true;
 		for (unsigned int i = 0; i < promo.getRejeitados().size(); i++)
 		{
 			if (card->getCliente() == promo.getRejeitados()[i])

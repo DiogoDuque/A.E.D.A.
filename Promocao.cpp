@@ -32,7 +32,8 @@ int Promocao::passaDias(int n)
 */
 int Promocao::validarPromo(Cliente* cliente)
 {
-	if (cliente->getCartaoCliente()->getPontos() < pontos)
+	CartaoPontos* card(cliente->getCartaoCliente());
+	if (card->getPontos() < pontos)
 		return -1;
 	cliente->getCartaoCliente()->subPontos(pontos);
 	nClientes--;

@@ -360,7 +360,7 @@ void associarServicosVeiculos(Oficina *oficina1, Veiculo *a1, int posCliente)
 
 	//int temp = makeMenu("ESCOLHER SERVICO", servicosString, "", 0);
 	int posicao = mostraInfo(*oficina1, "ESCOLHER SERVICO", 3, -1);
-	oficina1->getClientes()[posCliente].getCartaoCliente()->addPontos(oficina1->getServicos()[posicao].getPreco() / (float)CONVERSION_RATE);
+	oficina1->getClientes()[posCliente].getCartaoCliente()->addPontos(oficina1->getServicos()[posicao].getPreco() / CONVERSION_RATE);
 	unsigned int i = 0;
 	for (; i < oficina1->getVeiculos().size(); i++)
 	{
@@ -621,7 +621,7 @@ void menuManager(Oficina oficina1)
 									options.pop_back();
 								else
 								{
-									oficina1.getClientes()[posCliente].getCartaoCliente()->addPontos(oficina1.getServicos()[posCliente].getPreco() / (float)CONVERSION_RATE);
+									oficina1.getClientes()[posCliente].getCartaoCliente()->addPontos(oficina1.getServicos()[posCliente].getPreco() / CONVERSION_RATE);
 									oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
 									oficina1.actualizaInatividadeCliente(posCliente);
 								}
@@ -1292,10 +1292,11 @@ void menuManager(Oficina oficina1)
 						 if (choice == 0) //realizar servico
 						 {
 							 //descobrir index do Cliente no vector de tds os clientes
+							 Cliente * cl = oficina1.getSorteados(oficina1.getPromoByIndex(promoIndex))[clienteIndex];
 							 int posCliente;
 							 for (int i = 0; i < oficina1.getClientes().size(); i++)
 							 {
-								 if (oficina1.getSorteados(oficina1.getPromoByIndex(promoIndex))[clienteIndex]->getCartaoCliente() == oficina1.getClientes()[i].getCartaoCliente())
+								 if (cl->getCartaoCliente() == oficina1.getClientes()[i].getCartaoCliente())
 									 posCliente = i;
 							 }
 
@@ -1304,30 +1305,25 @@ void menuManager(Oficina oficina1)
 							 int posServico;
 							 for (int i = 0; i < oficina1.getServicos().size(); i++)
 							 {
-								 if (serv.getNome() == oficina1.getServicos()[i].getNome())
+								 if (serv == oficina1.getServicos()[i])
 									 posServico = i;
 							 }
 
 							 //mostrar veiculos para escolha
-							 vector <Veiculo*> veics = oficina1.getClientes()[posCliente].getVeiculos();
+							 vector <Veiculo*> veics = cl->getVeiculos();
 							 clrscr();
 							 cout << "Escolha um veiculo: \n\n";
 							 for (int i = 0; i < veics.size(); i++)
-							 {
-								 cout << i + 1 << ". ";
-								 veics[i]->getInfo();
-								 cout<< endl;
-							 }
+								 cout << i + 1 << ". " << veics[i] << endl;
 							 cout << "\n Veiculo: ";
 							 int posVeiculo;
 							 cin >> posVeiculo;
-							 posVeiculo--;
+
 							 //aplicar
 							 oficina1.adicionaServicoVeiculo(posCliente, posVeiculo, posServico);
 							 oficina1.actualizaInatividadeCliente(posCliente);
-							 oficina1.getPromoByIndex(promoIndex).validarPromo(oficina1.getSorteados(oficina1.getPromoByIndex(promoIndex))[clienteIndex]);
-							 if (oficina1.getPromoByIndex(promoIndex).getNClientes() == 0)
-								 oficina1.removePromocao(oficina1.getPromoByIndex(promoIndex));
+							 oficina1.getPromoByIndex(promoIndex).validarPromo(cl);
+
 						 }
 						 if (choice == 1) //rejeitar
 						 {
