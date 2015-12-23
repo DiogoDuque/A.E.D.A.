@@ -81,14 +81,14 @@ void CartaoPontos::setAtivacao(bool ativacao)
 /**
 *Operador '<' para a correta ordenação da priority_queue.
 */
-bool CartaoPontos::operator<(CartaoPontos* card)
+bool CartaoPontos::operator<(CartaoPontos card)
 {
-	if (pontos < card->getPontos())
+	if (pontos < card.getPontos())
 		return true;
-	if (pontos > card->getPontos())
+	if (pontos > card.getPontos())
 		return false;
 
-	if (nServicos < card->getNServicos())
+	if (nServicos < card.getNServicos())
 		return true;
 	else return false;
 }

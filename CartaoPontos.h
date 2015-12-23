@@ -20,7 +20,7 @@ public:
 	void addPontos(int pts);
 	void subPontos(int pts);
 	void setAtivacao(bool ativacao);
-	bool operator<(CartaoPontos* card);
+	bool operator<(CartaoPontos card);
 	void passaDias(int n);
 	int getValidade() const;
 private:
