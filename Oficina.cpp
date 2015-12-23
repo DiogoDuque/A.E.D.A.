@@ -1064,9 +1064,9 @@ vector<string> Oficina::getListaPromocoes()
 	vector<string> promos;
 	for (unsigned int i = 0; i < promocoes.size(); i++)
 	{
-		string promoInfo = promocoes[i].getServico().getNome() + " com desconto de " + to_string(promocoes[i].getDesconto()) +
-			". Disponivel para " + to_string(promocoes[i].getNClientes()) + " clientes durante mais " + 
-			to_string(promocoes[i].getValidade()) + " dias.";
+		string promoInfo = promocoes[i].getServico().getNome() + ". Desconto de " + to_string(promocoes[i].getDesconto()) +
+			". Disponivel para " + to_string(promocoes[i].getNClientes()) + " clientes durante " + 
+			to_string(promocoes[i].getValidade()) + " dias. Custo: " + to_string(promocoes[i].getPontos()) + " pontos.";
 		promos.push_back(promoInfo);
 	}
 	return promos;

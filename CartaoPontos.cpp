@@ -83,12 +83,12 @@ void CartaoPontos::setAtivacao(bool ativacao)
 */
 bool CartaoPontos::operator<(CartaoPontos card)
 {
-	if (pontos < card.getPontos())
+	if (this->getPontos() < card.getPontos())
 		return true;
-	if (pontos > card.getPontos())
+	if (this->getPontos() > card.getPontos())
 		return false;
 
-	if (nServicos < card.getNServicos())
+	if (this->getNServicos() < card.getNServicos())
 		return true;
 	else return false;
 }
