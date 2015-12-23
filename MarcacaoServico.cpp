@@ -22,6 +22,11 @@ bool MarcacaoServico::operator<(const MarcacaoServico& m) const
                 {
                     if(nomeCliente == m.getNomeCliente())
                     {
+                        if(idVeiculo == m.getIDVeiculo())
+                        {
+                            return servico->getNome() < m.getServico()->getNome();
+                        }
+
                         return idVeiculo < m.getIDVeiculo();
                     }
 
