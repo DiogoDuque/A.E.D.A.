@@ -215,6 +215,45 @@ void anim_autocarro()
 	gotoxy(0, 14);
 }
 
+void importaClientesInativos(Oficina *oficina1)
+{
+	string nome, morada, mail, telefone, inatividade;
+
+	nome = "Joao";
+	morada = "Rua da Lapa";
+	mail = "joao@hotmail.com";
+	telefone = "917683726";
+
+	Cliente c1(nome);
+	c1.setMorada(morada);
+	c1.setMail(mail);
+	c1.setTelefone(telefone, 0);
+
+	c1.setInatividade(true);
+	oficina1->adicionaClienteInativo(c1);
+
+	oficina1->adicionaCliente(c1);
+
+
+
+	string nome2, morada2, mail2, telefone2, inatividade2;
+
+	nome2 = "Maria";
+	morada2 = "Rua da circuncalacao";
+	mail2 = "maria@hotmail.com";
+	telefone2 = "93567526";
+
+	Cliente c2(nome2);
+	c2.setMorada(morada2);
+	c2.setMail(mail2);
+	c2.setTelefone(telefone2, 0);
+
+	c2.setInatividade(true);
+	oficina1->adicionaClienteInativo(c2);
+
+	oficina1->adicionaCliente(c2);
+}
+
 //'n' --> 0 para clientes, 1 para funcionarios, 2 para veiculos, 3 para servicos, 4 para os veiculos de um determinado cliente
 //'pos' --> -1 se nao for necessario, diferente de -1 para indicar a posicao do cliente desejado
 int mostraInfo(Oficina oficina1, string frase, int n, int pos)
@@ -998,68 +1037,75 @@ void menuManager(Oficina oficina1)
 							clrscr();
 							cout << "   LISTAGEM DE CLIENTES INATIVOS" << endl << endl;
 
-							oficina1.listaClientesInativos();
-
-							cout << "1. Actualizar informacoes\t2. Adicionar informacoes\t0. Retroceder" << endl;
-							cout << "O que pretende fazer: ";
-
-							int tecla;
-							cin >> tecla;
-
-							switch (tecla)
+							if (!oficina1.listaClientesInativos())
 							{
-							case 1:
+								waitForEnter();
+								options.pop_back();
+							}
+							else
 							{
-									  int numCliente, numMudar;
+								cout << "1. Actualizar informacoes\t2. Adicionar informacoes\t0. Retroceder" << endl;
+								cout << "O que pretende fazer: ";
 
-									  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
-									  cin >> numCliente;
+								int tecla;
+								cin >> tecla;
 
-									  cout << endl << "1. Mudar nome, 2. Mudar morada, 3. Mudar mail, 4. Mudar Telefones, 0. Retroceder" << endl;
-									  cout << "O que pretende fazer: ";
-									  cin >> numMudar;
+								switch (tecla)
+								{
+								case 1:
+								{
+										  int numCliente, numMudar;
 
-									  if (numMudar == 0)
-									  {
-										  options.pop_back();
+										  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
+										  cin >> numCliente;
+
+										  cout << endl << "1. Mudar nome, 2. Mudar morada, 3. Mudar mail, 4. Mudar Telefones, 0. Retroceder" << endl;
+										  cout << "O que pretende fazer: ";
+										  cin >> numMudar;
+
+										  if (numMudar == 0)
+										  {
+											  options.pop_back();
+											  break;
+										  }
+
+										  cout << endl;
+
+										  oficina1.actualizaClienteInativo(numCliente - 1, numMudar);
+
 										  break;
-									  }
+								}
+								case 2:
+								{
+										  int numCliente, numMudar;
 
-									  cout << endl;
+										  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
+										  cin >> numCliente;
 
-									  oficina1.actualizaClienteInativo(numCliente - 1, numMudar);
+										  cout << endl << "1. Adicionar telefone\t0. Retroceder" << endl;
+										  cout << "o que pretende fazer: ";
+										  cin >> numMudar;
 
-									  break;
-							}
-							case 2:
-							{
-									  int numCliente, numMudar;
+										  if (numMudar == 0)
+										  {
+											  options.pop_back();
+											  break;
+										  }
 
-									  cout << endl << "Introduza o numero (desta listagem) do cliente: ";
-									  cin >> numCliente;
+										  cout << endl;
 
-									  cout << endl << "1. Adicionar telefone\t0. Retroceder" << endl;
-									  cout << "o que pretende fazer: ";
-									  cin >> numMudar;
+										  oficina1.adicionaInformacao(numCliente - 1, numMudar);
 
-									  if (numMudar == 0)
-									  {
-										  options.pop_back();
 										  break;
-									  }
+								}
+								case 0:
+									break;
+								}
 
-									  cout << endl;
-
-									  oficina1.adicionaInformacao(numCliente - 1, numMudar);
-
-									  break;
-							}
-							case 0:
-								break;
+								options.pop_back();
+								//waitForEnter();
 							}
 
-							options.pop_back();
-							//waitForEnter();
 							break;
 		}
 		case 20:		//Clientes --> pesquisa dos inativos
@@ -1349,7 +1395,7 @@ void menuManager(Oficina oficina1)
 
 	int main()
 	{
-		//intro();
+		intro();
 		clrscr();
 
 		string nomeOficina;
@@ -1372,83 +1418,8 @@ void menuManager(Oficina oficina1)
 			file.close();
 			cout << "Foi impossivel importar o ficheiro de servicos.\nPor favor certifique-se que este esta no diretorio correto!\n\n";
 		}
-
-		ifstream myFile;
-		myFile.open("clientes.txt");
-
-
-
-
-
-		string nome, morada, mail, telefone, inatividade;
-
-		nome = "Joao";
-		morada = "Rua da Lapa";
-		mail = "joao@hotmail.com";
-		telefone = "917683726";
-
-		Cliente c1(nome);
-		c1.setMorada(morada);
-		c1.setMail(mail);
-		c1.setTelefone(telefone, 0);
-
-		c1.setInatividade(true);
-		oficina1.adicionaClienteInativo(c1);
-
-		oficina1.adicionaCliente(c1);
-
-
-
-		string nome2, morada2, mail2, telefone2, inatividade2;
-
-		nome2 = "Maria";
-		morada2 = "Rua da circuncalacao";
-		mail2 = "maria@hotmail.com";
-		telefone2 = "93567526";
-
-		Cliente c2(nome2);
-		c2.setMorada(morada2);
-		c2.setMail(mail2);
-		c2.setTelefone(telefone2, 0);
-
-		c2.setInatividade(true);
-		oficina1.adicionaClienteInativo(c2);
-
-		oficina1.adicionaCliente(c2);
-
-
-
-
-
-		/*while (!myFile.eof())
-		{
-		string nome, morada, mail, telefone, inatividade;
-
-		getline(myFile, nome);
-		getline(myFile, morada);
-		getline(myFile, mail);
-		getline(myFile, telefone);
-		getline(myFile, inatividade);
-
-		Cliente c1(nome);
-		c1.addMorada(morada);
-		c1.addMail(mail);
-		c1.addTelefone(telefone);
-
-		cout << nome << endl << morada << endl << mail << endl << telefone << endl << inatividade;
-		waitForEnter();
-
-		if (inatividade == "true")
-		{
-		c1.setInatividade(true);
-		oficina1.adicionaClienteInativo(c1);
-		}
-		else
-		{
-		c1.setInatividade(false);
-		oficina1.adicionaCliente(c1);
-		}
-		}*/
+	
+		importaClientesInativos(&oficina1);
 
 		menuManager(oficina1);
 

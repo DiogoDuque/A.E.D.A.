@@ -574,12 +574,12 @@ hashClientes Oficina::getClientesInativos() const
 /**
 *Faz uma listagem dos clientes inativos.
 */
-void Oficina::listaClientesInativos()
+bool Oficina::listaClientesInativos()
 {
 	if (clientesInativos.empty())
 	{
 		cout << "   Actualmente nao existem clientes inativos...";
-		return;
+		return false;
 	}
 
 	hashClientes::iterator itr = clientesInativos.begin();
@@ -589,6 +589,8 @@ void Oficina::listaClientesInativos()
 		cout << "   " << i << ". ";
 		(*itr).displayInformacaoClienteInativo();
 	}
+
+	return true;
 }
 
 /**
@@ -626,6 +628,15 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 
 		c1.setNome(novoNome);
 
+		for (unsigned int i = 0; i < clientes.size(); i++)
+		{
+			if (clientes[i].getNumRegisto() == c1.getNumRegisto())
+			{
+				clientes[i].setNome(novoNome);
+				break;
+			}
+		}
+
 		cout << endl << "O nome foi alterado com sucesso!" << endl << endl;
 		Sleep(1000);
 
@@ -640,6 +651,15 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 
 		c1.setMorada(novaMorada);
 
+		for (unsigned int i = 0; i < clientes.size(); i++)
+		{
+			if (clientes[i].getNumRegisto() == c1.getNumRegisto())
+			{
+				clientes[i].setMorada(novaMorada);
+				break;
+			}
+		}
+
 		cout << endl << "A morada foi alterado com sucesso!" << endl << endl;
 		Sleep(1000);
 
@@ -653,6 +673,15 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 		getline(cin, novoMail);
 
 		c1.setMail(novoMail);
+
+		for (unsigned int i = 0; i < clientes.size(); i++)
+		{
+			if (clientes[i].getNumRegisto() == c1.getNumRegisto())
+			{
+				clientes[i].setMail(novoMail);
+				break;
+			}
+		}
 
 		cout << endl << "O mail foi alterado com sucesso!" << endl << endl;
 		Sleep(1000);
@@ -674,6 +703,15 @@ void Oficina::actualizaClienteInativo(int numCliente, int numMudar)
 		getline(cin, novoTelefone);
 
 		c1.setTelefone(novoTelefone, indiceTelefone);
+
+		for (unsigned int i = 0; i < clientes.size(); i++)
+		{
+			if (clientes[i].getNumRegisto() == c1.getNumRegisto())
+			{
+				clientes[i].setTelefone(novoTelefone, indiceTelefone);
+				break;
+			}
+		}
 
 		cout << endl << "O telefone foi alterado com sucesso!" << endl << endl;
 		Sleep(1000);
@@ -711,6 +749,15 @@ void Oficina::adicionaInformacao(int numCliente, int numMudar)
 		getline(cin, novoTelefone);
 
 		c1.addTelefone(novoTelefone);
+
+		for (unsigned int i = 0; i < clientes.size(); i++)
+		{
+			if (clientes[i].getNumRegisto() == c1.getNumRegisto())
+			{
+				clientes[i].addTelefone(novoTelefone);
+				break;
+			}
+		}
 
 		cout << endl << "O telefone foi adicionado com sucesso!" << endl << endl;
 		Sleep(1000);

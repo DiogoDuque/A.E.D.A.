@@ -69,7 +69,7 @@ public:
 	void listaServicos();
 
 	hashClientes getClientesInativos() const;
-	void listaClientesInativos();
+	bool listaClientesInativos();
 	void adicionaClienteInativo(Cliente c);
 	void actualizaClienteInativo(int numCliente, int numMudar);
 	void actualizaInatividadeCliente(int posCliente);
